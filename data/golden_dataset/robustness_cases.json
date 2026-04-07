@@ -1,0 +1,1162 @@
+[
+  {
+    "case_id": "ROB_001",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R01_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Interface GigabitEthernet0/0/2 on RTR-OSL-001 is down. Physical link loss detected. No carrier signal received.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R01_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Port GigE0/0/2 on RTR-OSL-001 has gone offline. Loss of physical connectivity confirmed. Carrier signal is absent.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "LINK_DOWN",
+      "notes": "Paraphrase replaces technical interface naming convention and rewrites status description using different but equivalent networking terminology. Classifier must recognise link failure regardless of interface label format."
+    }
+  },
+  {
+    "case_id": "ROB_002",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R02_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "CPU utilization on RTR-OSL-010 has reached 94% over the last 5 minutes. Process scheduling delays observed. System performance degraded.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R02_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Processor load on RTR-OSL-010 is running at 94% capacity across the past five-minute interval. Delays in task scheduling have been noted. Overall device throughput is impaired.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "HIGH_CPU",
+      "notes": "Paraphrase substitutes CPU-specific vocabulary with processor/load terminology and rephrases the time window and impact description. Classifier must correlate high processor load language with HIGH_CPU alarm type."
+    }
+  },
+  {
+    "case_id": "ROB_003",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R03_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "BGP session with peer 192.168.45.1 on RTR-OSL-015 has dropped. Hold timer expired. Prefixes from AS65002 are no longer being received.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R03_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "The peering session established with neighbour 192.168.45.1 on RTR-OSL-015 has been torn down. The keepalive hold interval timed out. Route advertisements originating from autonomous system 65002 are no longer incoming.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "BGP_SESSION_DOWN",
+      "notes": "Paraphrase avoids the term BGP entirely and uses alternative routing protocol vocabulary such as peering session, neighbour, and autonomous system. Classifier must infer BGP_SESSION_DOWN from contextual routing terminology without explicit BGP keyword."
+    }
+  },
+  {
+    "case_id": "ROB_004",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R04_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Packet loss of 18% detected on interface Ethernet1/3 of RTR-OSL-020. Consecutive dropped frames observed in outbound traffic stream. QoS thresholds exceeded.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R04_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "An 18% drop rate has been measured on port Eth1/3 of RTR-OSL-020. Repeated frame discards are occurring within the egress traffic flow. Configured quality-of-service limits have been breached.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "PACKET_LOSS",
+      "notes": "Paraphrase replaces packet loss with drop rate and frame discards, and substitutes outbound with egress and QoS with quality-of-service. Classifier must map alternative data-plane loss descriptors back to the PACKET_LOSS alarm type."
+    }
+  },
+  {
+    "case_id": "ROB_005",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R05_C",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "BGP session to peer 10.0.0.1 has gone down on RTR-OSL-002. Neighbor relationship lost after hold timer expiry.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R05_P",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Peering connection with 10.0.0.1 terminated on RTR-OSL-002. The neighbor adjacency was dropped following hold timer expiration.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "BGP_SESSION_DOWN",
+      "notes": "The paraphrase replaces 'session gone down' with 'peering connection terminated' and 'neighbor relationship lost' with 'neighbor adjacency dropped', which could confuse classifiers that rely on specific BGP terminology."
+    }
+  },
+  {
+    "case_id": "ROB_006",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R06_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Memory utilization on RTR-OSL-010 has exceeded the configured threshold of 85%. Current usage is at 91%, risking process instability.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R06_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RAM consumption on RTR-OSL-010 has surpassed the 85% limit set by policy. Presently at 91% capacity, increasing the risk of system process failures.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "MEMORY_THRESHOLD",
+      "notes": "The paraphrase substitutes 'memory utilization exceeded threshold' with 'RAM consumption surpassed limit', and 'process instability' with 'system process failures', which may mislead classifiers toward a more generic hardware fault category."
+    }
+  },
+  {
+    "case_id": "ROB_007",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R07_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Packet loss of 18% detected on interface Ethernet1/2 of RTR-OSL-015. Continuous drops observed over the last 5 minutes affecting user traffic.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R07_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "An 18% drop rate has been identified on port Ethernet1/2 of RTR-OSL-015. Persistent frame discards measured across the past 5 minutes are impacting end-user data flows.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "PACKET_LOSS",
+      "notes": "The paraphrase replaces 'packet loss detected' with 'drop rate identified' and 'continuous drops' with 'persistent frame discards', which are semantically equivalent but use different networking vocabulary that may challenge keyword-based classifiers."
+    }
+  },
+  {
+    "case_id": "ROB_008",
+    "perturbation_type": "PARAPHRASE",
+    "canonical_input": {
+      "alarm_id": "ALM_R08_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Power supply unit PSU-2 on RTR-OSL-021 has failed. Device is now operating on a single redundant PSU. Immediate replacement recommended.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R08_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "The secondary power module PSU-2 on RTR-OSL-021 is no longer functional. The router is sustaining operations via its sole remaining power unit. Urgent hardware intervention is advised.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "POWER_SUPPLY_FAIL",
+      "notes": "The paraphrase replaces 'power supply unit has failed' with 'power module is no longer functional' and 'operating on a single redundant PSU' with 'sustaining operations via its sole remaining power unit', testing whether classifiers recognize power failure semantics without explicit failure keywords."
+    }
+  },
+  {
+    "case_id": "ROB_009",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R09_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "BGP session to neighbor 10.0.0.1 has gone down on RTR-OSL-001. AS65001 peer unreachable, hold timer expired.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R09_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "BGP sesison to nieghbor 10.0.0.1 has goen down on RTR-OSL-001. AS65001 peer unreachble, hold timer expried.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "BGP_SESSION_DOWN",
+      "notes": "Typos in key terms 'session', 'neighbor', 'gone', 'unreachable', and 'expired' may challenge keyword-based classification but semantic context remains clear."
+    }
+  },
+  {
+    "case_id": "ROB_010",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R10_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Packet loss detected on interface GigabitEthernet0/0/2 at RTR-OSL-015. Loss rate is 18% over the last 5 minutes, threshold exceeded.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R10_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Pacekt loss deteced on interface GigabitEthernet0/0/2 at RTR-OSL-015. Loss rate is 18% voer the last 5 mintues, threshold exceeeded.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "PACKET_LOSS",
+      "notes": "Swapped letters in 'Packet', 'detected', 'over', 'minutes', and double-letter error in 'exceeded' may reduce confidence but loss context is preserved."
+    }
+  },
+  {
+    "case_id": "ROB_011",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R11_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Memory utilization on RTR-OSL-020 has reached 87%. Warning threshold of 85% exceeded. Process heap allocation approaching limit.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R11_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Memoyr utilizaton on RTR-OSL-020 has recahed 87%. Warnning threshold of 85% exceeeded. Process heap allocaiton approaching limit.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "MEMORY_THRESHOLD",
+      "notes": "Transposed letters in 'Memory', 'utilization', 'reached', and dropped/added letters in 'Warning' and 'allocation' test resilience to common keyboard slip typos."
+    }
+  },
+  {
+    "case_id": "ROB_012",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R12_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Power supply unit PSU-2 failure detected on RTR-OSL-021. Redundant power lost, device operating on single PSU. Immediate replacement required.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R12_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Pwoer supply unit PSU-2 fialure deteced on RTR-OSL-021. Redundnat power lost, device operatng on single PSU. Immediate replacement requried.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "POWER_SUPPLY_FAIL",
+      "notes": "Transposition in 'Power', dropped letters in 'failure', 'detected', 'Redundant', 'operating', and 'required' simulate realistic fast-typing errors by an operator entering manual alarms."
+    }
+  },
+  {
+    "case_id": "ROB_013",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R13_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Interface GigabitEthernet0/0/3 experienced excessive CRC errors, error rate exceeded threshold of 10^-6, link stability compromised",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R13_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Interfce GigabitEthernet0/0/3 experineced excesive CRC erorrs, error rate exceded threshold of 10^-6, lnik stability compromised",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "INTERFACE_ERROR",
+      "notes": "Multiple dropped and swapped letters across key terms like 'Interface', 'experienced', 'excessive', 'errors', 'exceeded', and 'link' may confuse token-level matching but semantic context remains clear"
+    }
+  },
+  {
+    "case_id": "ROB_014",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R14_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Memory utilization on control plane reached 91 percent, free memory dropped below 512MB, process scheduler under pressure",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R14_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Memoyr utilization on controll plane reachd 91 percent, free memory droped below 512MB, proccess scheudler under pressure",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "MEMORY_THRESHOLD",
+      "notes": "Typos in 'Memory', 'control', 'reached', 'dropped', 'process', and 'scheduler' introduce realistic operator keystroke errors that could degrade keyword-based classifiers while the numeric and structural context persists"
+    }
+  },
+  {
+    "case_id": "ROB_015",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R15_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Power supply unit PSU-2 failed, redundancy lost, input voltage absent on secondary rail, immediate replacement required",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R15_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Powre supply unit PSU-2 faield, redudancy lost, input voltge absent on sceondary rail, imediate replacement required",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "POWER_SUPPLY_FAIL",
+      "notes": "Typos in 'Power', 'failed', 'redundancy', 'voltage', 'secondary', and 'immediate' mirror common fast-typing errors; the PSU unit identifier and structural alarm pattern still anchor the classification"
+    }
+  },
+  {
+    "case_id": "ROB_016",
+    "perturbation_type": "TYPO",
+    "canonical_input": {
+      "alarm_id": "ALM_R16_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Optical receive power on port Optical0/1/2 degraded to -24.5 dBm, approaching receiver sensitivity limit, signal quality marginal",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R16_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Opitcal recieve power on port Optical0/1/2 degreded to -24.5 dBm, aproaching reciever sensitivty limit, singal quality marginal",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "OPTICAL_DEGRADATION",
+      "notes": "Typos in 'Optical', 'receive', 'degraded', 'approaching', 'receiver', 'sensitivity', and 'signal' reflect common transposition and omission errors; the dBm value and port identifier preserve enough signal for correct classification"
+    }
+  },
+  {
+    "case_id": "ROB_017",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R17_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Router RTR-OSL-001 reports high error rate on interface GigabitEthernet0/0/1 at Stockholm-DC-North. CRC errors exceeding threshold: 1500 errors/min. Link state remains UP but packet loss at 12%.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R17_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Device RTR-OSL-001 reports high error rate on ge-0/0/1 at Stockholm-DC-North. CRC errors exceeding threshold: 1500 errors/min. Adjacency state remains UP but packet loss at 12%.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "INTERFACE_ERROR",
+      "notes": "Juniper-style interface notation 'ge-0/0/1' replaces 'GigabitEthernet0/0/1', 'device' replaces 'router', and 'adjacency' replaces 'link state'. Classifier must recognize these as equivalent interface error indicators."
+    }
+  },
+  {
+    "case_id": "ROB_018",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R18_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Router RTR-OSL-010 at Paris-DC-South has exceeded memory utilization threshold. Current memory usage is 94% of total available RAM. Process heap allocation failures detected. Immediate action required to prevent session drops.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R18_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Node RTR-OSL-010 at Paris-DC-South has exceeded memory utilization threshold. Current memory usage is 94% of total available RAM. Process heap allocation failures detected. Immediate action required to prevent adjacency drops.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "MEMORY_THRESHOLD",
+      "notes": "Term 'node' replaces 'router' (common in Nokia/Ericsson NMS contexts), and 'adjacency drops' replaces 'session drops'. The underlying memory exhaustion condition is identical and classifier should not be misled by these synonyms."
+    }
+  },
+  {
+    "case_id": "ROB_019",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R19_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Router RTR-OSL-020 at Frankfurt-DC-Central detects optical signal degradation on interface TenGigabitEthernet0/1/2. Receive power level dropped to -28.5 dBm, below minimum threshold of -22 dBm. Link remains operational but BER increasing.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R19_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Device RTR-OSL-020 at Frankfurt-DC-Central detects optical signal degradation on port Te0/1/2. Rx power level dropped to -28.5 dBm, below minimum threshold of -22 dBm. Interface remains operational but BER increasing.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "OPTICAL_DEGRADATION",
+      "notes": "Cisco shorthand 'Te0/1/2' replaces 'TenGigabitEthernet0/1/2', 'Rx' replaces 'Receive', 'port' replaces 'interface', and 'device' replaces 'router'. Optical power degradation signal is preserved and classifier must identify it across naming conventions."
+    }
+  },
+  {
+    "case_id": "ROB_020",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R20_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Router RTR-OSL-021 at Amsterdam-DC-West reports fan failure in chassis slot 2. Fan tray unit FAN-TRAY-2 has stopped rotating. Redundant cooling lost. Internal chassis temperature rising to 68°C. Hardware shutdown imminent if not resolved.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R20_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Network element RTR-OSL-021 at Amsterdam-DC-West reports cooling module failure in shelf position 2. Fan assembly FRU-FAN-2 has stopped rotating. Redundant airflow lost. Internal chassis temperature rising to 68°C. Hardware shutdown imminent if not resolved.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "FAN_FAILURE",
+      "notes": "Telco-style term 'network element' replaces 'router', 'cooling module' replaces 'fan failure', 'FRU-FAN-2' (Field Replaceable Unit notation) replaces 'FAN-TRAY-2', 'shelf position' replaces 'chassis slot', and 'airflow' replaces 'cooling'. Classifier must associate cooling/airflow FRU failure with FAN_FAILURE category."
+    }
+  },
+  {
+    "case_id": "ROB_021",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R21_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Interface GigabitEthernet0/0/1 on router RTR-OSL-001 has gone down. BGP session to peer 10.0.0.2 is no longer established. Link failure detected on uplink port.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R21_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "ge-0/0/1 on device RTR-OSL-001 is operationally down. BGP adjacency to neighbor 10.0.0.2 has been torn down. Physical interface failure detected on uplink.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "LINK_DOWN",
+      "notes": "Uses Juniper-style interface notation 'ge-0/0/1' instead of 'GigabitEthernet0/0/1', 'adjacency' instead of 'session', and 'device' instead of 'router'. System must recognize these as equivalent link failure indicators."
+    }
+  },
+  {
+    "case_id": "ROB_022",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R22_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Power supply unit PSU-2 on router RTR-OSL-010 has failed. Redundant power module is no longer providing output voltage. Immediate replacement required to maintain device operation.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R22_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "PWR-2 fault detected on chassis RTR-OSL-010. Backup power inlet has lost DC feed. Immediate field replacement needed to sustain node operation.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "POWER_SUPPLY_FAIL",
+      "notes": "Uses 'PWR-2' instead of 'PSU-2', 'chassis' instead of 'router', 'power inlet' instead of 'power module', and 'node' instead of 'device'. Vendor-specific power supply naming conventions may confuse classifiers."
+    }
+  },
+  {
+    "case_id": "ROB_023",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R23_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Spanning Tree Protocol topology change detected on router RTR-OSL-015. Interface FastEthernet1/0/3 transitioned to forwarding state. Root bridge re-election in progress on VLAN 100.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R23_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "STP topology recalculation triggered on device RTR-OSL-015. Port fa1/0/3 moved to designated forwarding role. Root bridge reconvergence occurring on VLAN 100.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "SPANNING_TREE_CHANGE",
+      "notes": "Uses Cisco shorthand 'fa1/0/3' instead of 'FastEthernet1/0/3', 'STP' acronym instead of full 'Spanning Tree Protocol', 'recalculation' instead of 'change', and 'reconvergence' instead of 're-election'. Abbreviated port naming may reduce confidence."
+    }
+  },
+  {
+    "case_id": "ROB_024",
+    "perturbation_type": "TERMINOLOGY",
+    "canonical_input": {
+      "alarm_id": "ALM_R24_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Optical signal degradation detected on interface TenGigabitEthernet0/1/2 of router RTR-OSL-020. Received optical power has dropped below threshold at -28.5 dBm. Link performance is impaired.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R24_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Optic rx-power alarm raised on Te0/1/2 of node RTR-OSL-020. Ingress light level fallen below acceptable threshold at -28.5 dBm. Interface performance degraded.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "OPTICAL_DEGRADATION",
+      "notes": "Uses Cisco shorthand 'Te0/1/2' instead of 'TenGigabitEthernet0/1/2', 'rx-power' instead of 'optical power', 'ingress light level' instead of 'received optical power', and 'node' instead of 'router'. Telecom-specific optics terminology may challenge classification."
+    }
+  },
+  {
+    "case_id": "ROB_025",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R25_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-001: Dual power supply failure detected. Both PSU-A and PSU-B have lost input feed. Device is operating on emergency UPS backup with estimated 8 minutes of runtime remaining. Immediate intervention required.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R25_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-001: Dual power supply failure detected. Both PSU-A and PSU-B have lost input feed. Device is operating on emergency UPS backup with estimated 8 minutes of runtime remaining. Immediate intervention required.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "CRITICAL",
+      "notes": "Severity field is mislabeled as WARNING, but the raw message explicitly describes complete dual PSU failure with imminent device shutdown in under 10 minutes, clearly warranting CRITICAL classification."
+    }
+  },
+  {
+    "case_id": "ROB_026",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R26_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "LINK_DOWN",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-010: Core uplink interface GigabitEthernet0/0/1 is down. This interface carries all primary transit traffic between Frankfurt-DC-Central and Amsterdam-DC-West. Traffic is currently unrouted with no active failover path confirmed.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R26_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "LINK_DOWN",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-010: Core uplink interface GigabitEthernet0/0/1 is down. This interface carries all primary transit traffic between Frankfurt-DC-Central and Amsterdam-DC-West. Traffic is currently unrouted with no active failover path confirmed.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "MAJOR",
+      "notes": "Severity is mislabeled as MINOR, but the message describes a core uplink failure carrying all primary transit traffic between two data centers with no failover in place, which clearly constitutes a MAJOR incident."
+    }
+  },
+  {
+    "case_id": "ROB_027",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R27_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-015: Optical receive power on all four WDM channels has dropped below -28 dBm threshold simultaneously. BER has exceeded 1E-3 on all channels resulting in complete loss of coherent signal. All traffic on this fiber span is dropped.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R27_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-015: Optical receive power on all four WDM channels has dropped below -28 dBm threshold simultaneously. BER has exceeded 1E-3 on all channels resulting in complete loss of coherent signal. All traffic on this fiber span is dropped.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "CRITICAL",
+      "notes": "Severity is mislabeled as MINOR, but the message describes total optical signal loss across all WDM channels causing complete traffic drop on the fiber span, which is unambiguously CRITICAL."
+    }
+  },
+  {
+    "case_id": "ROB_028",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R28_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-021: All three fan tray modules have reported failure simultaneously. Chassis internal temperature has risen to 87 degrees Celsius and is climbing. Thermal shutdown threshold is 95 degrees Celsius. Device self-protection shutdown is imminent if cooling is not restored.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R28_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "RTR-OSL-021: All three fan tray modules have reported failure simultaneously. Chassis internal temperature has risen to 87 degrees Celsius and is climbing. Thermal shutdown threshold is 95 degrees Celsius. Device self-protection shutdown is imminent if cooling is not restored.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "MAJOR",
+      "notes": "Severity is mislabeled as WARNING, but the message describes total fan failure across all three trays with rapidly rising chassis temperature approaching thermal shutdown, clearly warranting at minimum MAJOR classification."
+    }
+  },
+  {
+    "case_id": "ROB_029",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R29_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "LINK_DOWN: All uplink interfaces on RTR-OSL-001 are down. Device is completely isolated from core network. No redundant path available. Full service outage in progress at Stockholm-DC-North.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R29_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "LINK_DOWN: All uplink interfaces on RTR-OSL-001 are down. Device is completely isolated from core network. No redundant path available. Full service outage in progress at Stockholm-DC-North.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "CRITICAL",
+      "notes": "Severity is labeled WARNING but message explicitly states complete device isolation, no redundant path, and full service outage — all hallmarks of a CRITICAL incident requiring immediate override."
+    }
+  },
+  {
+    "case_id": "ROB_030",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R30_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "HIGH_CPU: RTR-OSL-010 CPU utilization sustained at 98% for 25 minutes. Control plane unresponsive. BGP session to upstream provider has dropped. Active traffic forwarding severely degraded at Frankfurt-DC-Central.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R30_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "HIGH_CPU: RTR-OSL-010 CPU utilization sustained at 98% for 25 minutes. Control plane unresponsive. BGP session to upstream provider has dropped. Active traffic forwarding severely degraded at Frankfurt-DC-Central.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "MAJOR",
+      "notes": "Severity labeled MINOR but message describes a 98% CPU condition with control plane failure, dropped BGP sessions, and severe traffic degradation — clearly a MAJOR event requiring severity override."
+    }
+  },
+  {
+    "case_id": "ROB_031",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R31_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "OPTICAL_DEGRADATION: Total optical signal loss detected on RTR-OSL-020 trunk port Gi0/1. Rx power has dropped below minimum threshold (-40 dBm). All traffic on this fiber path has been lost. No protection switching activated. Amsterdam-DC-West is unreachable via this link.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R31_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "OPTICAL_DEGRADATION: Total optical signal loss detected on RTR-OSL-020 trunk port Gi0/1. Rx power has dropped below minimum threshold (-40 dBm). All traffic on this fiber path has been lost. No protection switching activated. Amsterdam-DC-West is unreachable via this link.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "CRITICAL",
+      "notes": "Severity mislabeled as WARNING despite message indicating total optical signal loss, failed protection switching, and complete site unreachability — unambiguous CRITICAL condition that the agent must identify through content analysis."
+    }
+  },
+  {
+    "case_id": "ROB_032",
+    "perturbation_type": "SEVERITY_MISLABEL",
+    "canonical_input": {
+      "alarm_id": "ALM_R32_C",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "PACKET_LOSS: RTR-OSL-021 reporting 65% packet loss on core-facing interface Te0/0/2 for the past 18 minutes. Customer-affecting service degradation confirmed. SLA breach threshold exceeded on multiple enterprise circuits at Paris-DC-South.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R32_P",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "PACKET_LOSS: RTR-OSL-021 reporting 65% packet loss on core-facing interface Te0/0/2 for the past 18 minutes. Customer-affecting service degradation confirmed. SLA breach threshold exceeded on multiple enterprise circuits at Paris-DC-South.",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": true,
+      "correct_classification": "MAJOR",
+      "notes": "Severity filed as MINOR but 65% sustained packet loss with confirmed customer impact and SLA breach across multiple enterprise circuits is textbook MAJOR. Agent must override based on operational content of the message."
+    }
+  },
+  {
+    "case_id": "ROB_033",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R33_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Optical power level dropped below threshold on interface Gi0/0/1. Received power: -28.4 dBm, threshold: -25.0 dBm. Possible fiber degradation or connector issue on RTR-OSL-001.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R33_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=1731551520] [node=NMS-01] ALERT_TEXT: Optical power level dropped below threshold on interface Gi0/0/1. Received power: -28.4 dBm, threshold: -25.0 dBm. Possible fiber degradation or connector issue on RTR-OSL-001. END_OF_ALERT [correlation_id=cx-88312] [suppressed=false]",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "OPTICAL_DEGRADATION",
+      "notes": "The real alarm content is embedded between NMS boilerplate header and footer. The agent must isolate the ALERT_TEXT segment and not be confused by metadata fields like correlation_id and suppressed."
+    }
+  },
+  {
+    "case_id": "ROB_034",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R34_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "CPU utilization on RTR-OSL-010 has exceeded critical threshold. Current usage: 97% sustained over 5 minutes. Routing processes and BGP keepalives may be impacted. Immediate intervention required.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R34_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=1731551520] [node=NMS-04] ALERT_TEXT: CPU utilization on RTR-OSL-010 has exceeded critical threshold. Current usage: 97% sustained over 5 minutes. Routing processes and BGP keepalives may be impacted. Immediate intervention required. END_OF_ALERT [correlation_id=cx-44901] [suppressed=false]",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "HIGH_CPU",
+      "notes": "The NMS wrapper includes node and timestamp metadata that could distract classification. The agent must recognize that the node=NMS-04 field refers to the NMS infrastructure, not the alarming device RTR-OSL-010, and extract the actual CPU alarm text correctly."
+    }
+  },
+  {
+    "case_id": "ROB_035",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R35_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Spanning tree topology change detected on RTR-OSL-020, VLAN 110. Port Gi1/0/4 transitioned to forwarding state. Root bridge re-election may cause brief traffic disruption.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R35_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=1731551520] [node=NMS-02] ALERT_TEXT: Spanning tree topology change detected on RTR-OSL-020, VLAN 110. Port Gi1/0/4 transitioned to forwarding state. Root bridge re-election may cause brief traffic disruption. END_OF_ALERT [correlation_id=cx-77045] [suppressed=false]",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "SPANNING_TREE_CHANGE",
+      "notes": "The boilerplate wrapping is syntactically similar in structure to the alarm content, with key=value pairs that could blend with alarm metadata. The agent must parse out ALERT_TEXT content and correctly classify the STP event without being misled by suppressed=false or correlation fields."
+    }
+  },
+  {
+    "case_id": "ROB_036",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R36_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "Elevated packet loss detected on RTR-OSL-015 uplink interface Te0/0/2. Loss rate: 4.2% over last 10-minute polling interval. Downstream services may experience intermittent latency.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R36_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MINOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=1731551520] [node=NMS-03] ALERT_TEXT: Elevated packet loss detected on RTR-OSL-015 uplink interface Te0/0/2. Loss rate: 4.2% over last 10-minute polling interval. Downstream services may experience intermittent latency. END_OF_ALERT [correlation_id=cx-55678] [suppressed=false]",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "PACKET_LOSS",
+      "notes": "The NMS boilerplate introduces a timestamp field in epoch format alongside the ISO timestamp in the structured data, which could confuse temporal parsing. The agent must strip the wrapper and focus on the ALERT_TEXT describing the packet loss condition rather than treating NMS metadata as part of the alarm content."
+    }
+  },
+  {
+    "case_id": "ROB_037",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R37_C",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "LINK_DOWN detected on RTR-OSL-001 interface GigabitEthernet0/1. Physical layer connectivity lost. Upstream provider link to Stockholm-DC-North backbone is down. Immediate intervention required.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R37_P",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=2024-11-14T03:22:00Z] [node=NMS-01] ALERT_TEXT: LINK_DOWN detected on RTR-OSL-001 interface GigabitEthernet0/1. Physical layer connectivity lost. Upstream provider link to Stockholm-DC-North backbone is down. Immediate intervention required. END_OF_ALERT [correlation_id=crl-88241a] [suppressed=false]",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "LINK_DOWN on RTR-OSL-001 at Stockholm-DC-North — CRITICAL",
+      "notes": "The real alarm content is embedded between NMS boilerplate headers and footers. The agent must strip correlation metadata, system headers, and the END_OF_ALERT footer to isolate the true alarm message."
+    }
+  },
+  {
+    "case_id": "ROB_038",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R38_C",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "HIGH_CPU utilization on RTR-OSL-010 at Frankfurt-DC-Central. CPU load has sustained above 92% for the last 10 minutes. Likely cause: routing table recalculation following topology change. Performance degradation expected.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R38_P",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=2024-11-14T03:22:00Z] [node=NMS-04] ALERT_TEXT: HIGH_CPU utilization on RTR-OSL-010 at Frankfurt-DC-Central. CPU load has sustained above 92% for the last 10 minutes. Likely cause: routing table recalculation following topology change. Performance degradation expected. END_OF_ALERT [correlation_id=crl-19034f] [suppressed=false]",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "HIGH_CPU on RTR-OSL-010 at Frankfurt-DC-Central — MAJOR",
+      "notes": "NMS wrapper introduces node identifiers and correlation IDs that could be mistaken for device or incident metadata. The agent must identify RTR-OSL-010 as the affected device rather than NMS-04 listed in the system header."
+    }
+  },
+  {
+    "case_id": "ROB_039",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R39_C",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "BGP_SESSION_DOWN on RTR-OSL-020. Peer 192.168.45.2 (AS65200) session has dropped. Hold timer expired. Amsterdam-DC-West inter-AS routing is affected. Failover to secondary peer not confirmed.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R39_P",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=2024-11-14T03:22:00Z] [node=NMS-07] ALERT_TEXT: BGP_SESSION_DOWN on RTR-OSL-020. Peer 192.168.45.2 (AS65200) session has dropped. Hold timer expired. Amsterdam-DC-West inter-AS routing is affected. Failover to secondary peer not confirmed. END_OF_ALERT [correlation_id=crl-55729c] [suppressed=false]",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "BGP_SESSION_DOWN on RTR-OSL-020 at Amsterdam-DC-West — CRITICAL",
+      "notes": "The boilerplate contains a timestamp and node field (NMS-07) that could distract from the actual device (RTR-OSL-020) and BGP peer details. The agent must correctly extract peer IP and AS number from within the ALERT_TEXT block."
+    }
+  },
+  {
+    "case_id": "ROB_040",
+    "perturbation_type": "NOISE",
+    "canonical_input": {
+      "alarm_id": "ALM_R40_C",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "PACKET_LOSS detected on RTR-OSL-015 at Paris-DC-South. Interface FastEthernet2/0 reporting 8% packet loss over 5-minute polling interval. Threshold exceeded. Possible congestion or partial physical fault.",
+      "affected_site": "Paris-DC-South"
+    },
+    "perturbed_input": {
+      "alarm_id": "ALM_R40_P",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "WARNING",
+      "timestamp": "2024-11-14T03:22:00Z",
+      "raw_message": "SYSTEM: Auto-generated alert from NMS v4.2.1 [timestamp=2024-11-14T03:22:00Z] [node=NMS-03] ALERT_TEXT: PACKET_LOSS detected on RTR-OSL-015 at Paris-DC-South. Interface FastEthernet2/0 reporting 8% packet loss over 5-minute polling interval. Threshold exceeded. Possible congestion or partial physical fault. END_OF_ALERT [correlation_id=crl-30812e] [suppressed=false]",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "classification_should_match_canonical": true,
+      "acceptable_score_delta": 0.15,
+      "severity_override_required": false,
+      "correct_classification": "PACKET_LOSS on RTR-OSL-015 at Paris-DC-South — WARNING",
+      "notes": "The suppressed=false flag and polling-interval language in the NMS wrapper may cause confusion about whether this is an active or suppressed event. The agent must correctly parse the ALERT_TEXT and not treat the suppressed field as indicative of alarm state."
+    }
+  }
+]

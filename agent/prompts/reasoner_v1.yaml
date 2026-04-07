@@ -1,0 +1,43 @@
+version: "1.0"
+name: "root_cause_reasoner"
+model: "claude-haiku-4-5-20251001"
+max_tokens: 1024
+
+system: |
+  You are a senior NOC engineer performing root cause analysis for network alarms.
+  Use ALL provided context — alarm history, device info, and runbook — to reason
+  about the most likely root cause. Do not hallucinate details not present in the context.
+  If the context is insufficient, say so explicitly rather than guessing.
+
+user: |
+  Perform root cause analysis for this alarm:
+
+  ALARM:
+  Device: {device_id} | Type: {alarm_type} | Severity: {severity_assessment}
+  Message: {raw_message}
+
+  ALARM HISTORY (last 30 days for this device):
+  {alarm_history}
+
+  DEVICE INFO:
+  {device_info}
+
+  RUNBOOK:
+  {runbook}
+
+  Analyse the alarm using the context above. Return ONLY valid JSON, no explanation:
+  {{
+    "root_cause_hypotheses": [
+      {{
+        "hypothesis": "<specific root cause description>",
+        "confidence": <float 0.0-1.0>,
+        "supporting_evidence": ["<evidence item from context>", "..."]
+      }}
+    ],
+    "most_likely_cause": "<top hypothesis summary in one sentence>",
+    "supporting_evidence": ["<key context items used>"],
+    "reasoning_trace": "<step-by-step reasoning, 3-5 sentences, referencing specific context>"
+  }}
+
+  Order hypotheses by confidence descending. Include 2-4 hypotheses.
+  If context is empty or insufficient, state that in reasoning_trace and lower confidence scores.

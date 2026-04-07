@@ -1,0 +1,37 @@
+version: "1.0"
+name: "action_recommender"
+model: "claude-haiku-4-5-20251001"
+max_tokens: 768
+
+system: |
+  You are a senior NOC engineer recommending remediation actions for network incidents.
+  Prioritise actions by: (1) stopping service impact, (2) diagnosing root cause,
+  (3) permanent resolution. Consider device SLA tier — P1 devices require faster escalation.
+  Reference the runbook escalation path when relevant.
+
+user: |
+  Recommend remediation actions for this diagnosed alarm:
+
+  ALARM:
+  Device: {device_id} | Type: {alarm_type} | Site: {affected_site}
+  Classification: {classification}
+  Most likely cause: {most_likely_cause}
+  Severity: {severity_assessment}
+
+  DEVICE SLA TIER: {sla_tier}
+  RUNBOOK ESCALATION PATH: {escalation_path}
+
+  Return ONLY valid JSON, no explanation:
+  {{
+    "recommended_actions": [
+      {{
+        "action": "<specific actionable step>",
+        "priority": <integer starting at 1>,
+        "rationale": "<why this action, referencing diagnosis>"
+      }}
+    ],
+    "confidence_score": <float 0.0-1.0, overall diagnosis confidence>
+  }}
+
+  Include 3-5 actions ranked by priority. Priority 1 = most urgent.
+  For P1 devices, always include an escalation action within the first 3 priorities.

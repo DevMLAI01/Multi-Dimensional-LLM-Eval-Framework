@@ -1,0 +1,1372 @@
+[
+  {
+    "device_id": "RTR-OSL-001",
+    "vendor": "Cisco",
+    "model": "ASR-9010",
+    "site": "Oslo-DC-North",
+    "role": "Core router",
+    "firmware": "7.3.2",
+    "last_maintenance": "2024-11-15",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-OSL-002",
+      "RTR-BER-001",
+      "RTR-AMS-001"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "vendor": "Juniper",
+    "model": "MX-480",
+    "site": "Oslo-DC-North",
+    "role": "PE router",
+    "firmware": "21.4.1",
+    "last_maintenance": "2024-10-22",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-OSL-001",
+      "RTR-OSL-010",
+      "RTR-OSL-015"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-010",
+    "vendor": "Nokia",
+    "model": "7750 SR",
+    "site": "Oslo-DC-North",
+    "role": "Aggregation switch",
+    "firmware": "23.10.R1",
+    "last_maintenance": "2024-09-18",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-OSL-002",
+      "RTR-OSL-020",
+      "RTR-OSL-021"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-015",
+    "vendor": "Arista",
+    "model": "DCS-7280SE-68",
+    "site": "Oslo-DC-North",
+    "role": "Edge router",
+    "firmware": "4.28.2F",
+    "last_maintenance": "2024-08-30",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-OSL-002",
+      "RTR-OSL-025",
+      "RTR-OSL-026"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-020",
+    "vendor": "Huawei",
+    "model": "NE5000E",
+    "site": "Oslo-DC-North",
+    "role": "Access switch",
+    "firmware": "8.21.50",
+    "last_maintenance": "2024-07-12",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-OSL-010",
+      "RTR-OSL-027"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-021",
+    "vendor": "Cisco",
+    "model": "Catalyst 9500-48Y6C",
+    "site": "Oslo-DC-North",
+    "role": "Access switch",
+    "firmware": "17.9.3",
+    "last_maintenance": "2024-06-28",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-OSL-010",
+      "RTR-OSL-028"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-025",
+    "vendor": "Juniper",
+    "model": "EX4650",
+    "site": "Oslo-DC-North",
+    "role": "Access switch",
+    "firmware": "21.3.1",
+    "last_maintenance": "2024-05-14",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-OSL-015",
+      "RTR-OSL-029"
+    ]
+  },
+  {
+    "device_id": "RTR-OSL-026",
+    "vendor": "Nokia",
+    "model": "7250 IXR-10",
+    "site": "Oslo-DC-North",
+    "role": "Aggregation switch",
+    "firmware": "23.9.R1",
+    "last_maintenance": "2024-04-20",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-OSL-015",
+      "RTR-OSL-030"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-001",
+    "vendor": "Juniper",
+    "model": "MX-960",
+    "site": "Berlin-DC-East",
+    "role": "Core router",
+    "firmware": "21.4.2",
+    "last_maintenance": "2024-11-08",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-OSL-001",
+      "RTR-BER-002",
+      "RTR-AMS-001"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-002",
+    "vendor": "Cisco",
+    "model": "ASR-9006",
+    "site": "Berlin-DC-East",
+    "role": "PE router",
+    "firmware": "7.2.1",
+    "last_maintenance": "2024-10-11",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-BER-001",
+      "RTR-BER-010",
+      "RTR-BER-015"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-010",
+    "vendor": "Huawei",
+    "model": "NetEngine 5000E",
+    "site": "Berlin-DC-East",
+    "role": "Aggregation switch",
+    "firmware": "8.20.11",
+    "last_maintenance": "2024-09-25",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-BER-002",
+      "RTR-BER-020",
+      "RTR-BER-021"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-015",
+    "vendor": "Arista",
+    "model": "DCS-7280SR3K-48YC8",
+    "site": "Berlin-DC-East",
+    "role": "Edge router",
+    "firmware": "4.27.5F",
+    "last_maintenance": "2024-08-16",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-BER-002",
+      "RTR-BER-025"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-020",
+    "vendor": "Nokia",
+    "model": "7750 SR-12e",
+    "site": "Berlin-DC-East",
+    "role": "Access switch",
+    "firmware": "23.8.R2",
+    "last_maintenance": "2024-07-03",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-BER-010",
+      "RTR-BER-031"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-021",
+    "vendor": "Cisco",
+    "model": "Catalyst 9500X-40Y4C",
+    "site": "Berlin-DC-East",
+    "role": "Access switch",
+    "firmware": "17.9.2",
+    "last_maintenance": "2024-06-11",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-BER-010",
+      "RTR-BER-032"
+    ]
+  },
+  {
+    "device_id": "RTR-BER-025",
+    "vendor": "Juniper",
+    "model": "QFX5220-32CD",
+    "site": "Berlin-DC-East",
+    "role": "Access switch",
+    "firmware": "21.2.1",
+    "last_maintenance": "2024-05-27",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-BER-015",
+      "RTR-BER-033"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-001",
+    "vendor": "Cisco",
+    "model": "ASR-9012",
+    "site": "Amsterdam-DC-West",
+    "role": "Core router",
+    "firmware": "7.3.1",
+    "last_maintenance": "2024-11-01",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-OSL-001",
+      "RTR-BER-001",
+      "RTR-AMS-002"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-002",
+    "vendor": "Juniper",
+    "model": "MX-10003",
+    "site": "Amsterdam-DC-West",
+    "role": "PE router",
+    "firmware": "21.4.1",
+    "last_maintenance": "2024-10-05",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-AMS-001",
+      "RTR-AMS-010",
+      "RTR-AMS-015"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-010",
+    "vendor": "Arista",
+    "model": "DCS-7358CX2-64AXP",
+    "site": "Amsterdam-DC-West",
+    "role": "Aggregation switch",
+    "firmware": "4.28.1F",
+    "last_maintenance": "2024-09-13",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-AMS-002",
+      "RTR-AMS-020",
+      "RTR-AMS-021"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "vendor": "Nokia",
+    "model": "7250 IXR-6e",
+    "site": "Amsterdam-DC-West",
+    "role": "Edge router",
+    "firmware": "23.10.R2",
+    "last_maintenance": "2024-08-09",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-AMS-002",
+      "RTR-AMS-025"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-020",
+    "vendor": "Huawei",
+    "model": "CloudEngine 5220",
+    "site": "Amsterdam-DC-West",
+    "role": "Access switch",
+    "firmware": "8.21.60",
+    "last_maintenance": "2024-06-20",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-AMS-010",
+      "RTR-AMS-027"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-021",
+    "vendor": "Cisco",
+    "model": "Catalyst 9300-48P",
+    "site": "Amsterdam-DC-West",
+    "role": "Access switch",
+    "firmware": "17.8.4",
+    "last_maintenance": "2024-05-08",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-AMS-010",
+      "RTR-AMS-028"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-025",
+    "vendor": "Juniper",
+    "model": "ACX7100",
+    "site": "Amsterdam-DC-West",
+    "role": "Access switch",
+    "firmware": "21.3.2",
+    "last_maintenance": "2024-04-15",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-AMS-015",
+      "RTR-AMS-034"
+    ]
+  },
+  {
+    "device_id": "RTR-AMS-027",
+    "vendor": "Arista",
+    "model": "DCS-7050SX3-48C8",
+    "site": "Amsterdam-DC-West",
+    "role": "P router",
+    "firmware": "4.26.3F",
+    "last_maintenance": "2024-03-22",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-AMS-020",
+      "RTR-AMS-035"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-001",
+    "vendor": "Cisco",
+    "model": "ASR-9010",
+    "site": "London-DC-Central",
+    "role": "Core router",
+    "firmware": "7.3.2",
+    "last_maintenance": "2024-08-15",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-LON-012",
+      "RTR-LON-023",
+      "RTR-PAR-002"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-002",
+    "vendor": "Juniper",
+    "model": "MX-480",
+    "site": "Paris-DC-South",
+    "role": "Core router",
+    "firmware": "20.4.3",
+    "last_maintenance": "2024-07-22",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-LON-001",
+      "RTR-STK-003",
+      "RTR-PAR-015"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-003",
+    "vendor": "Nokia",
+    "model": "7750 SR",
+    "site": "Stockholm-DC-North",
+    "role": "PE router",
+    "firmware": "22.10.1",
+    "last_maintenance": "2024-09-10",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-PAR-002",
+      "RTR-STK-018",
+      "RTR-LON-023"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-012",
+    "vendor": "Huawei",
+    "model": "NE40E-X16B",
+    "site": "London-DC-Central",
+    "role": "P router",
+    "firmware": "8.201.10.2.20",
+    "last_maintenance": "2024-06-05",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-LON-001",
+      "RTR-LON-024",
+      "RTR-PAR-015"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-015",
+    "vendor": "Arista",
+    "model": "DCS-7368X4",
+    "site": "Paris-DC-South",
+    "role": "Aggregation switch",
+    "firmware": "4.29.1.1F",
+    "last_maintenance": "2024-05-18",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-PAR-002",
+      "RTR-LON-012",
+      "RTR-PAR-026"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-018",
+    "vendor": "Cisco",
+    "model": "ASR-9006",
+    "site": "Stockholm-DC-North",
+    "role": "Edge router",
+    "firmware": "7.2.1",
+    "last_maintenance": "2024-10-02",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-STK-003",
+      "RTR-STK-031",
+      "RTR-STK-042"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-024",
+    "vendor": "Juniper",
+    "model": "MX-240",
+    "site": "London-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "20.3.2",
+    "last_maintenance": "2024-08-27",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-LON-012",
+      "RTR-LON-045",
+      "RTR-LON-056"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-026",
+    "vendor": "Nokia",
+    "model": "7950 XRS",
+    "site": "Paris-DC-South",
+    "role": "Edge router",
+    "firmware": "22.9.2",
+    "last_maintenance": "2024-11-14",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-PAR-015",
+      "RTR-PAR-037",
+      "RTR-PAR-048"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-023",
+    "vendor": "Huawei",
+    "model": "NE5000E",
+    "site": "London-DC-Central",
+    "role": "P router",
+    "firmware": "8.202.10.1.15",
+    "last_maintenance": "2024-09-03",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-LON-001",
+      "RTR-STK-003",
+      "RTR-LON-024"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-031",
+    "vendor": "Arista",
+    "model": "DCS-7280E2",
+    "site": "Stockholm-DC-North",
+    "role": "Access switch",
+    "firmware": "4.28.3.2F",
+    "last_maintenance": "2024-07-11",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-STK-018",
+      "RTR-STK-042"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-045",
+    "vendor": "Cisco",
+    "model": "ASR-9001",
+    "site": "London-DC-Central",
+    "role": "Access switch",
+    "firmware": "7.1.3",
+    "last_maintenance": "2024-04-20",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-LON-024",
+      "RTR-LON-056"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-037",
+    "vendor": "Juniper",
+    "model": "EX9200",
+    "site": "Paris-DC-South",
+    "role": "Aggregation switch",
+    "firmware": "20.2.1",
+    "last_maintenance": "2024-06-30",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-PAR-026",
+      "RTR-PAR-048",
+      "RTR-PAR-059"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-042",
+    "vendor": "Nokia",
+    "model": "7450 ESS",
+    "site": "Stockholm-DC-North",
+    "role": "Access switch",
+    "firmware": "22.8.1",
+    "last_maintenance": "2024-10-19",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-STK-018",
+      "RTR-STK-031"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-056",
+    "vendor": "Huawei",
+    "model": "CE12800",
+    "site": "London-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "8.201.10.3.01",
+    "last_maintenance": "2024-03-12",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-LON-024",
+      "RTR-LON-045",
+      "RTR-LON-067"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-048",
+    "vendor": "Arista",
+    "model": "DCS-7358PX3",
+    "site": "Paris-DC-South",
+    "role": "Access switch",
+    "firmware": "4.27.5.1F",
+    "last_maintenance": "2024-12-01",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-PAR-026",
+      "RTR-PAR-037"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-067",
+    "vendor": "Cisco",
+    "model": "Catalyst 9500X",
+    "site": "London-DC-Central",
+    "role": "Access switch",
+    "firmware": "17.9.4.2",
+    "last_maintenance": "2024-02-14",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-LON-056"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-059",
+    "vendor": "Juniper",
+    "model": "QFX10002",
+    "site": "Paris-DC-South",
+    "role": "Edge router",
+    "firmware": "20.1.2",
+    "last_maintenance": "2024-11-25",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-PAR-037",
+      "RTR-PAR-070"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-070",
+    "vendor": "Nokia",
+    "model": "7250 IXR-6",
+    "site": "Stockholm-DC-North",
+    "role": "PE router",
+    "firmware": "23.3.1",
+    "last_maintenance": "2024-09-28",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-STK-081",
+      "RTR-STK-092"
+    ]
+  },
+  {
+    "device_id": "RTR-PAR-070",
+    "vendor": "Huawei",
+    "model": "NetEngine 8000",
+    "site": "Paris-DC-South",
+    "role": "Aggregation switch",
+    "firmware": "8.202.11.2.10",
+    "last_maintenance": "2024-01-08",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-PAR-059"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-081",
+    "vendor": "Arista",
+    "model": "DCS-7050CX3-32S1",
+    "site": "Stockholm-DC-North",
+    "role": "Aggregation switch",
+    "firmware": "4.26.2.1F",
+    "last_maintenance": "2024-08-09",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-STK-070",
+      "RTR-STK-092"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-078",
+    "vendor": "Cisco",
+    "model": "ASR-9904",
+    "site": "London-DC-Central",
+    "role": "PE router",
+    "firmware": "7.2.2",
+    "last_maintenance": "2024-05-01",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-LON-089"
+    ]
+  },
+  {
+    "device_id": "RTR-STK-092",
+    "vendor": "Juniper",
+    "model": "PTX-10003",
+    "site": "Stockholm-DC-North",
+    "role": "Access switch",
+    "firmware": "21.3.1",
+    "last_maintenance": "2024-10-06",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-STK-070",
+      "RTR-STK-081"
+    ]
+  },
+  {
+    "device_id": "RTR-LON-089",
+    "vendor": "Nokia",
+    "model": "7750 SR12e",
+    "site": "London-DC-Central",
+    "role": "Access switch",
+    "firmware": "22.7.2",
+    "last_maintenance": "2024-07-16",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-LON-078"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-001",
+    "vendor": "Cisco",
+    "model": "ASR-9010",
+    "site": "Frankfurt-DC-Central",
+    "role": "Core router",
+    "firmware": "7.5.1",
+    "last_maintenance": "2024-08-15",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-FRA-002",
+      "RTR-FRA-003",
+      "RTR-DUS-001"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-002",
+    "vendor": "Juniper",
+    "model": "MX-960",
+    "site": "Frankfurt-DC-Central",
+    "role": "Core router",
+    "firmware": "21.2R1.10",
+    "last_maintenance": "2024-07-22",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-FRA-001",
+      "RTR-FRA-004",
+      "RTR-MUC-001"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-003",
+    "vendor": "Nokia",
+    "model": "XRS-9010",
+    "site": "Frankfurt-DC-Central",
+    "role": "PE router",
+    "firmware": "23.5.R2",
+    "last_maintenance": "2024-09-10",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-FRA-001",
+      "RTR-FRA-005",
+      "RTR-STU-001"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-004",
+    "vendor": "Arista",
+    "model": "7368X4",
+    "site": "Frankfurt-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "4.27.2F",
+    "last_maintenance": "2024-06-18",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-002",
+      "RTR-FRA-006",
+      "RTR-FRA-007"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-005",
+    "vendor": "Huawei",
+    "model": "NE5000E",
+    "site": "Frankfurt-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "8.20.10.01",
+    "last_maintenance": "2024-05-30",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-003",
+      "RTR-FRA-008",
+      "RTR-FRA-009"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-006",
+    "vendor": "Cisco",
+    "model": "Catalyst-9500",
+    "site": "Frankfurt-DC-Central",
+    "role": "Edge router",
+    "firmware": "17.9.4",
+    "last_maintenance": "2024-10-05",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-004",
+      "RTR-FRA-010"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-007",
+    "vendor": "Juniper",
+    "model": "ACX5448",
+    "site": "Frankfurt-DC-Central",
+    "role": "Edge router",
+    "firmware": "20.4R3.11",
+    "last_maintenance": "2024-08-27",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-004",
+      "RTR-FRA-011"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-008",
+    "vendor": "Nokia",
+    "model": "7750-SR",
+    "site": "Frankfurt-DC-Central",
+    "role": "Access switch",
+    "firmware": "22.10.R1",
+    "last_maintenance": "2024-04-12",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-FRA-005",
+      "RTR-FRA-012"
+    ]
+  },
+  {
+    "device_id": "RTR-FRA-009",
+    "vendor": "Arista",
+    "model": "7050CX3-32S",
+    "site": "Frankfurt-DC-Central",
+    "role": "Access switch",
+    "firmware": "4.26.8M",
+    "last_maintenance": "2024-11-02",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-FRA-005",
+      "RTR-FRA-013"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-001",
+    "vendor": "Cisco",
+    "model": "ASR-9001",
+    "site": "Copenhagen-DC-East",
+    "role": "Core router",
+    "firmware": "7.4.2",
+    "last_maintenance": "2024-09-08",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-COP-002",
+      "RTR-FRA-001",
+      "RTR-COP-003"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-002",
+    "vendor": "Juniper",
+    "model": "MX-480",
+    "site": "Copenhagen-DC-East",
+    "role": "PE router",
+    "firmware": "21.1R2.9",
+    "last_maintenance": "2024-07-14",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-COP-001",
+      "RTR-COP-004",
+      "RTR-OSL-001"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-003",
+    "vendor": "Huawei",
+    "model": "NE9000",
+    "site": "Copenhagen-DC-East",
+    "role": "Aggregation switch",
+    "firmware": "8.21.5.02",
+    "last_maintenance": "2024-10-20",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-COP-001",
+      "RTR-COP-005",
+      "RTR-COP-006"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-004",
+    "vendor": "Nokia",
+    "model": "7950-XRS",
+    "site": "Copenhagen-DC-East",
+    "role": "Edge router",
+    "firmware": "23.6.R1",
+    "last_maintenance": "2024-06-25",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-COP-002",
+      "RTR-COP-007"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-005",
+    "vendor": "Arista",
+    "model": "7358X4",
+    "site": "Copenhagen-DC-East",
+    "role": "Access switch",
+    "firmware": "4.27.1F",
+    "last_maintenance": "2024-03-19",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-COP-003",
+      "RTR-COP-008"
+    ]
+  },
+  {
+    "device_id": "RTR-COP-006",
+    "vendor": "Cisco",
+    "model": "Catalyst-9400",
+    "site": "Copenhagen-DC-East",
+    "role": "Access switch",
+    "firmware": "17.8.3",
+    "last_maintenance": "2024-11-11",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-COP-003",
+      "RTR-COP-009"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-001",
+    "vendor": "Juniper",
+    "model": "MX-10003",
+    "site": "Helsinki-DC-North",
+    "role": "Core router",
+    "firmware": "21.3R1.7",
+    "last_maintenance": "2024-08-03",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-HEL-002",
+      "RTR-COP-001",
+      "RTR-HEL-003"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-002",
+    "vendor": "Nokia",
+    "model": "XRS-9006",
+    "site": "Helsinki-DC-North",
+    "role": "PE router",
+    "firmware": "23.4.R3",
+    "last_maintenance": "2024-09-16",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-HEL-001",
+      "RTR-HEL-004",
+      "RTR-TAL-001"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-003",
+    "vendor": "Cisco",
+    "model": "ASR-9006",
+    "site": "Helsinki-DC-North",
+    "role": "Aggregation switch",
+    "firmware": "7.3.1",
+    "last_maintenance": "2024-05-09",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-HEL-001",
+      "RTR-HEL-005",
+      "RTR-HEL-006"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-004",
+    "vendor": "Huawei",
+    "model": "CloudEngine-12800",
+    "site": "Helsinki-DC-North",
+    "role": "Edge router",
+    "firmware": "8.19.20.03",
+    "last_maintenance": "2024-10-12",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-HEL-002",
+      "RTR-HEL-007"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-005",
+    "vendor": "Arista",
+    "model": "7060CX-32S",
+    "site": "Helsinki-DC-North",
+    "role": "Access switch",
+    "firmware": "4.25.6M",
+    "last_maintenance": "2024-02-28",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-HEL-003",
+      "RTR-HEL-008"
+    ]
+  },
+  {
+    "device_id": "RTR-HEL-006",
+    "vendor": "Juniper",
+    "model": "QFX5120-48Y",
+    "site": "Helsinki-DC-North",
+    "role": "Access switch",
+    "firmware": "20.2R2.10",
+    "last_maintenance": "2024-12-01",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-HEL-003",
+      "RTR-HEL-009"
+    ]
+  },
+  {
+    "device_id": "RTR-DUS-001",
+    "vendor": "Nokia",
+    "model": "7750-SR-e",
+    "site": "Frankfurt-DC-Central",
+    "role": "P router",
+    "firmware": "22.8.R2",
+    "last_maintenance": "2024-07-05",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-001",
+      "RTR-MUC-001"
+    ]
+  },
+  {
+    "device_id": "RTR-MUC-001",
+    "vendor": "Huawei",
+    "model": "NetEngine-9000",
+    "site": "Frankfurt-DC-Central",
+    "role": "P router",
+    "firmware": "8.22.1.01",
+    "last_maintenance": "2024-04-17",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-002",
+      "RTR-DUS-001",
+      "RTR-STU-001"
+    ]
+  },
+  {
+    "device_id": "RTR-STU-001",
+    "vendor": "Arista",
+    "model": "7368X",
+    "site": "Frankfurt-DC-Central",
+    "role": "P router",
+    "firmware": "4.28.1F",
+    "last_maintenance": "2024-11-23",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-FRA-003",
+      "RTR-MUC-001",
+      "RTR-FRA-010"
+    ]
+  },
+  {
+    "device_id": "RTR-WAR-001",
+    "vendor": "Cisco",
+    "model": "ASR-9010",
+    "site": "Warsaw-DC-Central",
+    "role": "Core router",
+    "firmware": "7.2.1",
+    "last_maintenance": "2024-11-15",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-002",
+      "RTR-KRK-001",
+      "RTR-WRO-001"
+    ]
+  },
+  {
+    "device_id": "RTR-WAR-002",
+    "vendor": "Juniper",
+    "model": "MX-480",
+    "site": "Warsaw-DC-Central",
+    "role": "Core router",
+    "firmware": "21.2.3",
+    "last_maintenance": "2024-10-22",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-001",
+      "RTR-WAR-003",
+      "RTR-GDA-001"
+    ]
+  },
+  {
+    "device_id": "RTR-WAR-003",
+    "vendor": "Nokia",
+    "model": "7750 SR",
+    "site": "Warsaw-DC-Central",
+    "role": "PE router",
+    "firmware": "19.11.2",
+    "last_maintenance": "2024-09-18",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-002",
+      "RTR-WAR-004",
+      "RTR-POZ-001"
+    ]
+  },
+  {
+    "device_id": "RTR-WAR-004",
+    "vendor": "Huawei",
+    "model": "NE5000E",
+    "site": "Warsaw-DC-Central",
+    "role": "P router",
+    "firmware": "8.20.10",
+    "last_maintenance": "2024-08-05",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-003",
+      "RTR-KRK-002",
+      "RTR-LBL-001"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-001",
+    "vendor": "Arista",
+    "model": "DCS-7368S4",
+    "site": "Warsaw-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "4.27.5F",
+    "last_maintenance": "2024-07-12",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-WAR-001",
+      "RTR-KRK-002",
+      "RTR-KRK-003"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-002",
+    "vendor": "Cisco",
+    "model": "ASR-9006",
+    "site": "Warsaw-DC-Central",
+    "role": "Edge router",
+    "firmware": "7.1.4",
+    "last_maintenance": "2024-11-08",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-WAR-004",
+      "RTR-KRK-001",
+      "RTR-KRK-004"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-003",
+    "vendor": "Juniper",
+    "model": "MX-240",
+    "site": "Warsaw-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "20.4.1",
+    "last_maintenance": "2024-06-20",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-KRK-001",
+      "RTR-KRK-005",
+      "RTR-KRK-006"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-004",
+    "vendor": "Nokia",
+    "model": "7750 SR-12",
+    "site": "Warsaw-DC-Central",
+    "role": "Edge router",
+    "firmware": "20.3.4",
+    "last_maintenance": "2024-05-14",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-KRK-002",
+      "RTR-KRK-007",
+      "RTR-KRK-008"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-005",
+    "vendor": "Huawei",
+    "model": "NE40E",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "8.19.5",
+    "last_maintenance": "2024-04-09",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-KRK-003",
+      "RTR-KRK-009",
+      "RTR-KRK-010"
+    ]
+  },
+  {
+    "device_id": "RTR-KRK-006",
+    "vendor": "Arista",
+    "model": "DCS-7050SX3",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "4.26.3F",
+    "last_maintenance": "2024-03-25",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-KRK-003",
+      "RTR-KRK-011",
+      "RTR-KRK-012"
+    ]
+  },
+  {
+    "device_id": "RTR-WRO-001",
+    "vendor": "Cisco",
+    "model": "ASR-9001",
+    "site": "Warsaw-DC-Central",
+    "role": "Edge router",
+    "firmware": "7.3.2",
+    "last_maintenance": "2024-11-01",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-WAR-001",
+      "RTR-WRO-002",
+      "RTR-WRO-003"
+    ]
+  },
+  {
+    "device_id": "RTR-WRO-002",
+    "vendor": "Juniper",
+    "model": "MX-104",
+    "site": "Warsaw-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "21.1.2",
+    "last_maintenance": "2024-10-10",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-WRO-001",
+      "RTR-WRO-004",
+      "RTR-WRO-005"
+    ]
+  },
+  {
+    "device_id": "RTR-WRO-003",
+    "vendor": "Nokia",
+    "model": "7250 IXR",
+    "site": "Warsaw-DC-Central",
+    "role": "PE router",
+    "firmware": "23.3.1",
+    "last_maintenance": "2024-09-05",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WRO-001",
+      "RTR-WRO-006",
+      "RTR-POZ-002"
+    ]
+  },
+  {
+    "device_id": "RTR-WRO-004",
+    "vendor": "Huawei",
+    "model": "NetEngine 8000",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "8.21.2",
+    "last_maintenance": "2024-08-12",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-WRO-002",
+      "RTR-WRO-007",
+      "RTR-WRO-008"
+    ]
+  },
+  {
+    "device_id": "RTR-WRO-005",
+    "vendor": "Arista",
+    "model": "DCS-7358X4",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "4.28.1F",
+    "last_maintenance": "2024-07-30",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-WRO-002",
+      "RTR-WRO-009",
+      "RTR-WRO-010"
+    ]
+  },
+  {
+    "device_id": "RTR-GDA-001",
+    "vendor": "Cisco",
+    "model": "ASR-9010",
+    "site": "Warsaw-DC-Central",
+    "role": "PE router",
+    "firmware": "7.2.2",
+    "last_maintenance": "2024-06-18",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-002",
+      "RTR-GDA-002",
+      "RTR-GDA-003"
+    ]
+  },
+  {
+    "device_id": "RTR-GDA-002",
+    "vendor": "Juniper",
+    "model": "MX-960",
+    "site": "Warsaw-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "20.2.3",
+    "last_maintenance": "2024-05-22",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-GDA-001",
+      "RTR-GDA-004",
+      "RTR-GDA-005"
+    ]
+  },
+  {
+    "device_id": "RTR-GDA-003",
+    "vendor": "Nokia",
+    "model": "7750 SR-e",
+    "site": "Warsaw-DC-Central",
+    "role": "Edge router",
+    "firmware": "19.10.3",
+    "last_maintenance": "2024-04-16",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-GDA-001",
+      "RTR-GDA-006",
+      "RTR-GDA-007"
+    ]
+  },
+  {
+    "device_id": "RTR-POZ-001",
+    "vendor": "Huawei",
+    "model": "NE9000",
+    "site": "Warsaw-DC-Central",
+    "role": "P router",
+    "firmware": "8.20.5",
+    "last_maintenance": "2024-03-11",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-003",
+      "RTR-POZ-002",
+      "RTR-LBL-001"
+    ]
+  },
+  {
+    "device_id": "RTR-POZ-002",
+    "vendor": "Arista",
+    "model": "DCS-7280SE",
+    "site": "Warsaw-DC-Central",
+    "role": "Aggregation switch",
+    "firmware": "4.25.4F",
+    "last_maintenance": "2024-02-28",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-WRO-003",
+      "RTR-POZ-001",
+      "RTR-POZ-003"
+    ]
+  },
+  {
+    "device_id": "RTR-LBL-001",
+    "vendor": "Cisco",
+    "model": "ASR-9002",
+    "site": "Warsaw-DC-Central",
+    "role": "P router",
+    "firmware": "7.0.1",
+    "last_maintenance": "2024-01-15",
+    "sla_tier": "P1",
+    "connected_devices": [
+      "RTR-WAR-004",
+      "RTR-POZ-001",
+      "RTR-LBL-002"
+    ]
+  },
+  {
+    "device_id": "RTR-LBL-002",
+    "vendor": "Juniper",
+    "model": "MX-304",
+    "site": "Warsaw-DC-Central",
+    "role": "Edge router",
+    "firmware": "21.4.2",
+    "last_maintenance": "2023-12-20",
+    "sla_tier": "P2",
+    "connected_devices": [
+      "RTR-LBL-001",
+      "RTR-LBL-003",
+      "RTR-LBL-004"
+    ]
+  },
+  {
+    "device_id": "RTR-LBL-003",
+    "vendor": "Nokia",
+    "model": "7750 SR-a",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "22.5.1",
+    "last_maintenance": "2023-11-08",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-LBL-002",
+      "RTR-LBL-005",
+      "RTR-LBL-006"
+    ]
+  },
+  {
+    "device_id": "RTR-POZ-003",
+    "vendor": "Huawei",
+    "model": "CloudEngine 12800",
+    "site": "Warsaw-DC-Central",
+    "role": "Access switch",
+    "firmware": "8.18.3",
+    "last_maintenance": "2023-10-12",
+    "sla_tier": "P3",
+    "connected_devices": [
+      "RTR-POZ-002",
+      "RTR-POZ-004",
+      "RTR-POZ-005"
+    ]
+  }
+]

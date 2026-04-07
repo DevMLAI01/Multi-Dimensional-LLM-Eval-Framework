@@ -1,0 +1,1203 @@
+[
+  {
+    "case_id": "CORR_001",
+    "input": {
+      "alarm_id": "ALM_C001",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "Interface GigabitEthernet0/0/1 on RTR-OSL-001 transitioned to DOWN state; optical Rx power dropped to -38.5 dBm, threshold -28 dBm; no LOS signal detected from peer RTR-OSL-002",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Fiber optic signal loss",
+      "correct_root_cause_category": "FIBER_CUT | HARDWARE_FAILURE",
+      "required_actions_include": [
+        "check_physical",
+        "dispatch_field_technician",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "The Rx optical power of -38.5 dBm is well below the -28 dBm minimum threshold, indicating a complete loss of optical signal on the fiber span. No LOS from the peer router corroborates a physical medium break rather than a software issue. A NOC engineer would immediately order a fiber OTDR trace and dispatch a field technician while escalating to P1 given the inter-router backbone link impact."
+    },
+    "failure_mode_tested": "Straightforward physical fiber cut identified by optical power metrics falling below threshold on a backbone inter-router link."
+  },
+  {
+    "case_id": "CORR_002",
+    "input": {
+      "alarm_id": "ALM_C002",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-22T11:45:10Z",
+      "raw_message": "BGP session to peer 10.255.1.2 (AS 65002) on RTR-OSL-010 went DOWN; hold timer expired after 90s; last received KEEPALIVE 91 seconds ago; no route-policy changes detected; CPU at 12%",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "BGP session failure / Hold timer expiry due to network reachability issue",
+      "correct_root_cause_category": "NETWORK_REACHABILITY | BGP_TIMER_FAILURE",
+      "required_actions_include": [
+        "ping_bgp_peer",
+        "check_underlay_reachability",
+        "review_bgp_logs"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The hold timer expired at exactly 90 seconds with no KEEPALIVE received, and CPU is low at 12%, ruling out process overload as the cause. No route-policy changes were detected, pointing toward an underlay reachability problem rather than misconfiguration. A NOC engineer would verify ICMP reachability to 10.255.1.2, check interface state on the path, and review BGP event logs for notification messages before the session drop."
+    },
+    "failure_mode_tested": "BGP session drop caused by underlay reachability loss rather than configuration error, requiring differentiation via hold timer and CPU evidence."
+  },
+  {
+    "case_id": "CORR_003",
+    "input": {
+      "alarm_id": "ALM_C003",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "HIGH_CPU",
+      "severity": "WARNING",
+      "timestamp": "2024-09-05T08:30:55Z",
+      "raw_message": "RTR-OSL-020 CPU utilization at 72% sustained for 15 minutes; top process: BGP scanner 41%, ISIS SPF 18%; interface count 1240; no traffic spike detected on uplinks",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software/process overload / BGP scanner and ISIS SPF consuming excessive CPU",
+      "correct_root_cause_category": "PROCESS_OVERLOAD | ROUTING_PROTOCOL_ISSUE",
+      "required_actions_include": [
+        "analyze_bgp_table",
+        "check_route_churn",
+        "monitor_cpu_trend"
+      ],
+      "severity_should_be": "WARNING",
+      "expert_reasoning": "CPU at 72% with BGP scanner and ISIS SPF as top consumers on a router with 1240 interfaces suggests a routing table churn or excessive prefix instability rather than a traffic-driven overload. The absence of uplink traffic spikes confirms this is a control-plane issue. A NOC engineer would examine BGP prefix churn counts, ISIS LSP retransmission rates, and set a threshold alert to escalate if CPU exceeds 85%."
+    },
+    "failure_mode_tested": "High CPU caused by control-plane routing protocol churn rather than data-plane traffic overload, requiring process-level analysis."
+  },
+  {
+    "case_id": "CORR_004",
+    "input": {
+      "alarm_id": "ALM_C004",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-19T16:52:07Z",
+      "raw_message": "Interface TenGigabitEthernet2/0/3 on RTR-OSL-015 went DOWN at 16:51:59; optical Rx power normal at -14.2 dBm; BGP route-policy commit 'PEER-OUT-FILTER-v2' applied at 16:50:44 by operator noc-admin; peer keepalives ceased immediately post-commit",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Software configuration error / BGP route-policy misconfiguration causing interface protocol shutdown",
+      "correct_root_cause_category": "CONFIG_ERROR | BGP_MISCONFIGURATION",
+      "required_actions_include": [
+        "rollback_config",
+        "review_route_policy",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "The optical Rx power is healthy at -14.2 dBm, definitively ruling out a physical or fiber layer failure despite the LINK_DOWN alarm type. The BGP route-policy commit 'PEER-OUT-FILTER-v2' applied 75 seconds before the link drop, with peer keepalives ceasing immediately after, establishes a clear causal sequence pointing to misconfiguration. A NOC engineer must prioritize a configuration rollback over any physical investigation, as the timeline and healthy optical metrics are the decisive evidence."
+    },
+    "failure_mode_tested": "TRICKY counterintuitive case: LINK_DOWN alarm caused by BGP route-policy misconfiguration, not physical failure; healthy optical power and config-change timestamp in raw_message are the critical discriminating clues that agents must not overlook."
+  },
+  {
+    "case_id": "CORR_005",
+    "input": {
+      "alarm_id": "ALM_C005",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MINOR",
+      "timestamp": "2024-07-30T20:11:33Z",
+      "raw_message": "Interface GigabitEthernet1/0/7 on RTR-OSL-021 reporting CRC errors: 1842 in last 5 minutes, input errors 1901, output errors 0; duplex mismatch detected: local Full-Duplex, peer Half-Duplex; traffic throughput degraded 34%",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Data link layer error / Duplex mismatch causing CRC and input error accumulation",
+      "correct_root_cause_category": "CONFIG_ERROR | DUPLEX_MISMATCH | LAYER2_ERROR",
+      "required_actions_include": [
+        "correct_duplex_config",
+        "clear_interface_counters",
+        "verify_cable_integrity"
+      ],
+      "severity_should_be": "MINOR",
+      "expert_reasoning": "The pattern of 1842 CRC errors with 1901 input errors and zero output errors is a textbook signature of a duplex mismatch, which is confirmed explicitly by the local Full-Duplex versus peer Half-Duplex detection in the alarm message. Throughput degradation of 34% is consistent with the collision-induced retransmissions expected under half-duplex operation at the peer end. A NOC engineer would correct the duplex setting on the peer device to Full-Duplex, clear counters, and verify the physical cable is not contributing additional signal degradation."
+    },
+    "failure_mode_tested": "Interface CRC error storm caused by duplex mismatch configuration error rather than physical cable fault or hardware failure, requiring L2 config diagnosis."
+  },
+  {
+    "case_id": "CORR_006",
+    "input": {
+      "alarm_id": "ALM_C006",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-03-14T08:22:15Z",
+      "raw_message": "RTR-OSL-001 process memory utilization reached 78% on RP0; BGP process consuming 412MB of 512MB allocated heap at 08:22 UTC",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software resource exhaustion / BGP process memory leak",
+      "correct_root_cause_category": "MEMORY_LEAK | PROCESS_ANOMALY | SOFTWARE_FAULT",
+      "required_actions_include": [
+        "check_bgp_process",
+        "monitor_memory_trend",
+        "prepare_process_restart"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A single BGP process consuming 412MB of a 512MB heap at 78% utilization indicates abnormal memory growth consistent with a BGP route table leak or session churn, not normal operation. NOC engineers look for disproportionate per-process allocation against total RP memory and correlate with BGP neighbor instability logs. The input severity of WARNING underestimates the risk; at this consumption rate the RP will hit critical threshold within minutes, warranting MAJOR escalation and proactive process restart preparation."
+    },
+    "failure_mode_tested": "Severity underclassification where WARNING is assigned to a rapidly escalating BGP memory leak that functionally warrants MAJOR intervention."
+  },
+  {
+    "case_id": "CORR_007",
+    "input": {
+      "alarm_id": "ALM_C007",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-02T14:05:33Z",
+      "raw_message": "RTR-OSL-020 PSU-1 failure detected; input voltage dropped to 0V on feed A; PSU-2 load-sharing active, current draw 18.4A on single feed at Frankfurt-DC-Central",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Redundant power supply loss",
+      "correct_root_cause_category": "HARDWARE_FAILURE | POWER_INFRASTRUCTURE | SINGLE_POINT_OF_FAILURE",
+      "required_actions_include": [
+        "escalate_p1",
+        "check_physical",
+        "contact_vendor"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "An input voltage of 0V on feed A with PSU-1 completely offline confirms a hard power failure rather than a brownout or transient; the device is now running on a single PSU with no redundancy. NOC engineers identify single-point-of-failure risk by noting PSU-2 is absorbing full 18.4A load, which may exceed safe operating thresholds under traffic spikes. Immediate physical inspection of the DC power feed and vendor engagement for PSU-1 replacement is mandatory to restore redundancy before further failure."
+    },
+    "failure_mode_tested": "Correct CRITICAL severity validation for a redundancy-eliminating hardware failure that leaves the device one PSU failure away from a full outage."
+  },
+  {
+    "case_id": "CORR_008",
+    "input": {
+      "alarm_id": "ALM_C008",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "MINOR",
+      "timestamp": "2024-09-19T03:47:58Z",
+      "raw_message": "RTR-OSL-010 STP topology change notification received on GigabitEthernet0/2; VLAN 110 root bridge re-election in progress; TCN count 847 in last 300 seconds",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Network topology instability / STP TCN storm indicating loop or flapping port",
+      "correct_root_cause_category": "SPANNING_TREE_INSTABILITY | LAYER2_LOOP_RISK | PORT_FLAPPING",
+      "required_actions_include": [
+        "check_stp_topology",
+        "identify_flapping_port",
+        "enable_bpduguard"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A TCN count of 847 in 300 seconds is approximately 2.8 topology changes per second, which is pathologically high and characteristic of a flapping access port or a unidirectional link causing repeated STP reconvergence in VLAN 110. NOC engineers cross-reference the TCN source port GigabitEthernet0/2 with MAC address table flush logs, as each TCN causes widespread MAC table clearing and can severely degrade forwarding performance. The MINOR severity is incorrect; this rate of STP reconvergence poses an active broadcast storm and forwarding disruption risk warranting MAJOR classification."
+    },
+    "failure_mode_tested": "Severity underclassification of a high-rate STP TCN storm that is misread as a routine topology change rather than a loop or flapping port emergency."
+  },
+  {
+    "case_id": "CORR_009",
+    "input": {
+      "alarm_id": "ALM_C009",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-07T21:13:44Z",
+      "raw_message": "RTR-OSL-015 interface TenGigE0/0/0/1 receive optical power degraded to -24.3dBm; threshold -22.0dBm; tx power stable at +1.2dBm; link operational but BER 1e-6",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Physical layer degradation / Optical receive power below minimum threshold indicating fiber or connector loss",
+      "correct_root_cause_category": "OPTICAL_PATH_LOSS | FIBER_DEGRADATION | CONNECTOR_CONTAMINATION",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_fiber_connector",
+        "schedule_maintenance_window"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A receive power of -24.3dBm is 2.3dB below the -22.0dBm minimum threshold, and with tx power stable at +1.2dBm the fault is definitively on the receive path — either fiber attenuation increase, dirty or damaged connectors, or a failing SFP receiver. NOC engineers confirm this by noting the asymmetry: tx is healthy while rx has degraded, eliminating a transmitter-side fault. The BER of 1e-6 confirms active error impact on the link; while it remains operational, continued degradation will cause link failure, making MAJOR the correct severity and physical inspection the priority action."
+    },
+    "failure_mode_tested": "Correct identification of a unidirectional optical receive fault distinguished from a transmitter failure based on asymmetric tx/rx power readings."
+  },
+  {
+    "case_id": "CORR_010",
+    "input": {
+      "alarm_id": "ALM_C010",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-07-25T17:30:09Z",
+      "raw_message": "RTR-OSL-002 fan tray FT-2 failed; chassis temperature rising, CPU intake 52C, exhaust 71C; FT-1 operating at 100% RPM; ambient room temperature 24C reported by DCiM",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Cooling redundancy loss with active thermal escalation risk",
+      "correct_root_cause_category": "HARDWARE_FAILURE | THERMAL_RISK | COOLING_REDUNDANCY_LOSS",
+      "required_actions_include": [
+        "check_physical",
+        "monitor_temperature",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "FT-2 failure with exhaust temperature already at 71°C and FT-1 running at 100% RPM indicates the remaining fan tray is at maximum capacity and unable to compensate adequately, creating an active thermal runaway risk. NOC engineers evaluate the delta between intake (52°C) and exhaust (71°C) — a 19°C rise across the chassis at ambient 24°C signals heat is accumulating faster than it is being expelled. Without immediate physical intervention and fan tray replacement, thermal protection mechanisms will trigger a chassis shutdown to prevent hardware damage, making CRITICAL severity and immediate physical escalation correct."
+    },
+    "failure_mode_tested": "Correct CRITICAL severity confirmation for a fan failure with observable thermal escalation evidence requiring immediate physical intervention before protective shutdown occurs."
+  },
+  {
+    "case_id": "CORR_011",
+    "input": {
+      "alarm_id": "ALM_C011",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "Interface GigabitEthernet0/0/1 on RTR-OSL-001 link down; carrier loss detected, remote peer 10.44.1.2 unreachable, last flap 02:17:41Z",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Carrier loss on transit interface",
+      "correct_root_cause_category": "FIBER_CUT | HARDWARE_FAILURE | PHYSICAL_LAYER_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "escalate_p1",
+        "dispatch_field_engineer"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Carrier loss on GigabitEthernet0/0/1 indicates a Layer 1 signal failure rather than a software or config issue. The remote peer 10.44.1.2 becoming unreachable simultaneously confirms complete path loss, not a negotiation mismatch. NOC engineers prioritize physical inspection and fiber trace at this severity given the abrupt loss with no preceding flap pattern."
+    },
+    "failure_mode_tested": "Agent must distinguish carrier-loss physical failure from software-induced link down based on specific interface telemetry."
+  },
+  {
+    "case_id": "CORR_012",
+    "input": {
+      "alarm_id": "ALM_C012",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-22T11:34:10Z",
+      "raw_message": "RTR-OSL-015 CPU utilization sustained at 94% for 15 minutes; process 'bgpd' consuming 71% CPU, routing table churn detected on VRF CUSTOMER-A",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Control plane overload / BGP process runaway due to routing table instability",
+      "correct_root_cause_category": "ROUTING_INSTABILITY | PROCESS_RUNAWAY | CONFIG_ERROR",
+      "required_actions_include": [
+        "isolate_bgp_process",
+        "review_routing_table",
+        "check_bgp_peer_advertisements"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "A single process 'bgpd' consuming 71% CPU with concurrent VRF routing table churn strongly indicates a BGP peer is advertising excessive prefixes or a route reflector loop is forming. Sustained 94% CPU for 15 minutes risks control plane collapse, warranting escalation to CRITICAL. NOC engineers should immediately inspect received prefix counts from VRF CUSTOMER-A peers and consider applying inbound prefix limits."
+    },
+    "failure_mode_tested": "Agent must correctly escalate severity from MAJOR to CRITICAL when sustained CPU overload is driven by a specific runaway control-plane process with measurable churn evidence."
+  },
+  {
+    "case_id": "CORR_013",
+    "input": {
+      "alarm_id": "ALM_C013",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-09-05T16:55:29Z",
+      "raw_message": "BGP session to peer 192.0.2.45 (AS 65021) on RTR-OSL-002 down; notification code 6 subcode 2 received, hold timer expired after 90 seconds",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "BGP session failure / Hold timer expiry due to missed keepalives",
+      "correct_root_cause_category": "NETWORK_CONGESTION | ROUTING_PROTOCOL_FAILURE | UNDERLAY_LATENCY",
+      "required_actions_include": [
+        "verify_underlay_connectivity",
+        "check_keepalive_interval",
+        "contact_peer_as"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "BGP notification code 6 subcode 2 specifically means 'Hold Timer Expired', indicating keepalive packets were not received within the negotiated 90-second window. This is distinct from a configuration error and typically points to underlay packet loss or severe latency between the two peers. NOC engineers must verify ICMP reachability to 192.0.2.45, check interface error counters on the path, and coordinate with AS 65021 NOC to rule out their-side packet drops."
+    },
+    "failure_mode_tested": "Agent must correctly interpret BGP notification code 6/2 as hold timer expiry and differentiate it from a configuration-driven BGP session failure."
+  },
+  {
+    "case_id": "CORR_014",
+    "input": {
+      "alarm_id": "ALM_C014",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "WARNING",
+      "timestamp": "2024-11-18T08:12:55Z",
+      "raw_message": "RTR-OSL-020 TenGigabitEthernet2/0/3 incrementing input errors: 142 CRC errors, 37 runts in last 5 minutes; remote peer 172.16.5.9 still reachable",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Data link layer degradation / Physical media integrity issue causing frame errors",
+      "correct_root_cause_category": "HARDWARE_DEGRADATION | PHYSICAL_LAYER_FAULT | CABLE_OR_TRANSCEIVER_FAULT",
+      "required_actions_include": [
+        "inspect_transceiver",
+        "check_optical_levels",
+        "schedule_maintenance_window"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "CRC errors combined with runt frames on TenGigabitEthernet2/0/3 are classic indicators of a degraded physical medium, most commonly a failing SFP+ transceiver or a damaged fiber patch cord causing signal integrity loss. Although the remote peer 172.16.5.9 remains reachable, incrementing CRC errors indicate active data corruption that will worsen and cause packet loss. NOC engineers should immediately check optical Tx/Rx power levels via DOM and schedule transceiver replacement, warranting an upgrade to MAJOR before service impact occurs."
+    },
+    "failure_mode_tested": "Agent must escalate severity from WARNING to MAJOR when interface error counters indicate progressive physical degradation that precedes outright failure."
+  },
+  {
+    "case_id": "CORR_015",
+    "input": {
+      "alarm_id": "ALM_C015",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MINOR",
+      "timestamp": "2024-07-30T19:48:02Z",
+      "raw_message": "RTR-OSL-021 interface Ethernet1/4 egress queue 3 drop rate 8.3%; traffic shaping policy SHAPE-GOLD applied, destination prefix 203.0.113.0/24 affected",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "QoS policy-induced packet drop / Egress queue congestion on shaped interface",
+      "correct_root_cause_category": "QOS_MISCONFIGURATION | BANDWIDTH_CONGESTION | TRAFFIC_POLICY_ERROR",
+      "required_actions_include": [
+        "review_qos_policy",
+        "check_traffic_rates",
+        "adjust_shaping_parameters"
+      ],
+      "severity_should_be": "MINOR",
+      "expert_reasoning": "An 8.3% drop rate isolated to egress queue 3 under an active shaping policy SHAPE-GOLD indicates the applied bandwidth ceiling is insufficient for current traffic demand to 203.0.113.0/24, rather than a hardware or physical fault. The queue-specific nature of the drops and the presence of a named policy confirm this is a QoS configuration or capacity planning issue. NOC engineers should review the current committed information rate in SHAPE-GOLD against measured peak traffic throughput and either raise the shaper rate or escalate to capacity planning for circuit augmentation."
+    },
+    "failure_mode_tested": "Agent must correctly identify QoS shaping policy as the root cause of packet loss rather than misattributing it to a physical or routing layer fault."
+  },
+  {
+    "case_id": "CORR_016",
+    "input": {
+      "alarm_id": "ALM_C016",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-03-11T08:22:14Z",
+      "raw_message": "RTR-OSL-001 process memory utilization reached 78% on RP0; BGP process consuming 512MB of 768MB allocated; threshold 75% exceeded",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software resource exhaustion / BGP process memory leak",
+      "correct_root_cause_category": "SOFTWARE_FAULT | RESOURCE_EXHAUSTION | PROCESS_ANOMALY",
+      "required_actions_include": [
+        "check_bgp_process",
+        "review_routing_table",
+        "monitor_memory_trend"
+      ],
+      "severity_should_be": "WARNING",
+      "expert_reasoning": "BGP process consuming 512MB of 768MB allocated indicates a possible route table bloat or memory leak rather than a simple threshold breach. NOC engineers should correlate with BGP neighbor count and received prefix counts, as a runaway BGP process at 78% with upward trend can escalate to MAJOR if not addressed. WARNING classification is appropriate at this stage but requires active monitoring and possible BGP process restart planning."
+    },
+    "failure_mode_tested": "Agent must distinguish BGP-specific process memory anomaly from generic memory threshold breach and avoid over-escalating to CRITICAL prematurely."
+  },
+  {
+    "case_id": "CORR_017",
+    "input": {
+      "alarm_id": "ALM_C017",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "MINOR",
+      "timestamp": "2024-06-05T14:45:33Z",
+      "raw_message": "RTR-OSL-020 PSU-1 input voltage dropped to 198VAC; operational range 200-240VAC; PSU-2 healthy and carrying full load; redundancy intact",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Power supply input voltage degradation / Redundant PSU partially impaired",
+      "correct_root_cause_category": "POWER_DEGRADATION | HARDWARE_FAULT | FACILITY_ISSUE",
+      "required_actions_include": [
+        "check_physical",
+        "notify_facilities",
+        "schedule_psu_inspection"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "Although PSU-2 is healthy and redundancy is currently intact, PSU-1 operating below minimum voltage spec (198VAC vs 200VAC minimum) represents a real hardware fault that eliminates full power redundancy. The input severity of MINOR underestimates risk: if PSU-2 also fails or load spikes, the device loses power entirely. NOC engineers recognize that loss of effective N+1 redundancy on a core router warrants MAJOR escalation and immediate facilities engagement to investigate upstream power feed quality."
+    },
+    "failure_mode_tested": "Agent must correctly re-escalate severity upward when redundancy is compromised even though the raw alarm input is labeled MINOR."
+  },
+  {
+    "case_id": "CORR_018",
+    "input": {
+      "alarm_id": "ALM_C018",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-09-18T03:12:07Z",
+      "raw_message": "RTR-OSL-002 STP topology change notification received on GigabitEthernet0/2; VLAN 100 root bridge re-election detected; 47 topology changes in last 60 seconds",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Spanning Tree Protocol instability / Layer 2 topology flapping",
+      "correct_root_cause_category": "L2_INSTABILITY | CONFIG_ERROR | HARDWARE_FAULT",
+      "required_actions_include": [
+        "isolate_flapping_port",
+        "check_physical",
+        "review_stp_config"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "47 STP topology changes in 60 seconds on VLAN 100 indicates severe L2 instability consistent with a flapping link or a rogue device attempting root bridge election on GigabitEthernet0/2. This rate of topology change will cause repeated MAC table flushes, inducing broadcast storms and significant traffic disruption across all devices in VLAN 100. CRITICAL is correctly assigned; the NOC engineer must immediately identify the offending port using STP debug output and apply PortFast or BPDU Guard as appropriate while verifying physical layer integrity on Gi0/2."
+    },
+    "failure_mode_tested": "Agent must identify STP flapping rate as the critical observable indicator and recommend both physical and configuration investigation paths simultaneously."
+  },
+  {
+    "case_id": "CORR_019",
+    "input": {
+      "alarm_id": "ALM_C019",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-22T19:55:41Z",
+      "raw_message": "RTR-OSL-015 fan tray FT-2 all 4 fans reporting RPM=0; chassis intake temperature rising 52C to 61C over 8 minutes; thermal shutdown threshold at 75C",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Fan tray complete failure / Active thermal risk to hardware",
+      "correct_root_cause_category": "HARDWARE_FAILURE | THERMAL_RISK | MECHANICAL_FAULT",
+      "required_actions_include": [
+        "escalate_p1",
+        "contact_vendor",
+        "prepare_controlled_shutdown"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "All 4 fans in FT-2 reporting 0 RPM indicates a complete fan tray failure rather than a single fan fault, and the measured temperature rise of 9°C over 8 minutes gives a calculated trajectory toward thermal shutdown within approximately 10-15 minutes without intervention. The input severity of MAJOR must be escalated to CRITICAL given the active thermal progression and proximity to the 75°C shutdown threshold. NOC engineers must immediately contact the vendor for emergency hardware dispatch and prepare for controlled graceful shutdown to prevent uncontrolled thermal shutdown that could damage ASICs."
+    },
+    "failure_mode_tested": "Agent must calculate thermal trajectory from rate-of-change data and escalate severity appropriately rather than accepting the input MAJOR classification at face value."
+  },
+  {
+    "case_id": "CORR_020",
+    "input": {
+      "alarm_id": "ALM_C020",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MINOR",
+      "timestamp": "2024-07-30T11:33:59Z",
+      "raw_message": "RTR-OSL-021 interface TenGigabitEthernet0/1/0 receive optical power measured -19.8dBm; nominal receive range -14.0dBm to -1.0dBm; transmit power stable at -3.2dBm; link still operational",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Optical receive power degradation / Physical layer signal loss approaching threshold",
+      "correct_root_cause_category": "OPTICAL_DEGRADATION | FIBER_FAULT | HARDWARE_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_fiber_patch",
+        "schedule_maintenance_window"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A receive power of -19.8dBm against a minimum receiver sensitivity of -14.0dBm means the signal is already 5.8dB below the specified operational floor, indicating the link is operating on receiver overload margin and is at imminent risk of loss-of-signal. Crucially, transmit power is stable at -3.2dBm, which isolates the fault to the receive path — most likely a degraded fiber connector, dirty patch panel, or fiber bend on the far-end transmit-to-local-receive span. MINOR understates the risk; MAJOR is warranted because link failure could occur abruptly without further warning, and a maintenance window should be scheduled urgently to clean connectors and perform OTDR testing."
+    },
+    "failure_mode_tested": "Agent must correctly interpret optical dBm values against specified receiver sensitivity ranges and identify asymmetric fault direction from transmit/receive power differential."
+  },
+  {
+    "case_id": "CORR_021",
+    "input": {
+      "alarm_id": "ALM_C021",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "Interface GigabitEthernet0/0/1 on RTR-OSL-001 link state changed to DOWN, carrier loss detected, peer 10.45.12.1 unreachable, last flap 00:00:05 ago",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Carrier loss on access interface",
+      "correct_root_cause_category": "FIBER_CUT | HARDWARE_FAILURE | PHYSICAL_LAYER_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "escalate_p1",
+        "dispatch_field_engineer"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Carrier loss on GigabitEthernet0/0/1 with peer 10.45.12.1 becoming unreachable indicates a physical layer break, not a software issue. The extremely recent flap time of 5 seconds suggests an abrupt disconnection consistent with fiber cut or transceiver failure. NOC engineers should first verify optical power levels and check patch panel continuity before escalating to field dispatch."
+    },
+    "failure_mode_tested": "Agent must distinguish carrier-loss-driven LINK_DOWN from protocol-driven link failures and not misclassify as configuration error."
+  },
+  {
+    "case_id": "CORR_022",
+    "input": {
+      "alarm_id": "ALM_C022",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-22T11:45:09Z",
+      "raw_message": "RTR-OSL-015 CPU utilization reached 94% for sustained 15-minute interval, process 'BGP Scanner' consuming 61% CPU, routing table size 892,000 prefixes, memory utilization 87%",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Control plane overload / BGP process CPU exhaustion",
+      "correct_root_cause_category": "ROUTE_TABLE_OVERFLOW | BGP_PROCESS_OVERLOAD | CONTROL_PLANE_STRESS",
+      "required_actions_include": [
+        "check_bgp_peers",
+        "analyze_route_table",
+        "throttle_bgp_scanner"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "BGP Scanner consuming 61% of total CPU with 892,000 prefixes and 87% memory utilization indicates the router is struggling with full internet routing table processing, a condition that precedes BGP session collapse. The input severity of MAJOR underestimates the risk; sustained 94% CPU over 15 minutes with high memory pressure warrants CRITICAL escalation. NOC engineers should investigate if a peer is advertising unexpected prefix counts or if route refresh was triggered."
+    },
+    "failure_mode_tested": "Agent must correctly upgrade severity from MAJOR to CRITICAL when sustained CPU and memory thresholds both breach critical levels simultaneously."
+  },
+  {
+    "case_id": "CORR_023",
+    "input": {
+      "alarm_id": "ALM_C023",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-09-05T16:32:55Z",
+      "raw_message": "BGP session to peer 185.60.112.1 AS65201 on RTR-OSL-002 went DOWN, hold timer expired after 90 seconds, last received keepalive 00:01:32 ago, local address 185.60.111.2",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "BGP control plane failure / Hold timer expiry due to keepalive loss",
+      "correct_root_cause_category": "BGP_KEEPALIVE_FAILURE | NETWORK_CONGESTION | UNDERLAY_CONNECTIVITY_LOSS",
+      "required_actions_include": [
+        "verify_underlay_connectivity",
+        "check_packet_loss",
+        "contact_peer_noc"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Hold timer expiry after 90 seconds with the last keepalive received 92 seconds ago precisely matches a scenario where keepalives are being silently dropped, pointing to underlay packet loss or QoS misconfiguration rather than a BGP configuration fault. The peer AS65201 at 185.60.112.1 should be contacted to correlate whether the session drop is unidirectional. NOC engineers must check for ICMP reachability and traceroute between 185.60.111.2 and 185.60.112.1 to isolate the underlay path."
+    },
+    "failure_mode_tested": "Agent must differentiate BGP session loss caused by keepalive packet loss in the underlay versus a BGP misconfiguration or policy change."
+  },
+  {
+    "case_id": "CORR_024",
+    "input": {
+      "alarm_id": "ALM_C024",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "WARNING",
+      "timestamp": "2024-11-18T08:04:21Z",
+      "raw_message": "RTR-OSL-020 TenGigabitEthernet2/0/3 input error counter incrementing: CRC errors 1,240 in last 5 minutes, input drops 0, giants 0, runts 12, interface utilization 23%",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Data link layer degradation / CRC and runt errors indicating physical medium fault",
+      "correct_root_cause_category": "FAULTY_TRANSCEIVER | CABLE_DEGRADATION | DUPLEX_MISMATCH",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_transceiver",
+        "schedule_maintenance"
+      ],
+      "severity_should_be": "MINOR",
+      "expert_reasoning": "The presence of 1,240 CRC errors alongside 12 runt frames within 5 minutes on TenGigabitEthernet2/0/3 at only 23% utilization rules out congestion as a cause and strongly implicates a degraded physical medium, bad transceiver, or duplex mismatch. Input drops being zero confirms the errors are not traffic-volume related. NOC engineers should check DOM optical power readings on the transceiver and inspect the SFP+ module seating before escalating to cable replacement."
+    },
+    "failure_mode_tested": "Agent must correctly upgrade severity from WARNING to MINOR and identify physical medium degradation rather than software or configuration root cause when CRC errors and runts co-occur at low utilization."
+  },
+  {
+    "case_id": "CORR_025",
+    "input": {
+      "alarm_id": "ALM_C025",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-07-30T19:55:37Z",
+      "raw_message": "RTR-OSL-021 reports 18% packet loss on uplink Bundle-Ether4 toward 172.16.44.2, ICMP probe failures 54/300 in last 10 minutes, member link Te3/0/1 showing output queue drops 8,902",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Transport layer congestion / LAG member link output queue saturation causing packet loss",
+      "correct_root_cause_category": "QUEUE_CONGESTION | LAG_MEMBER_OVERLOAD | TRAFFIC_BURST",
+      "required_actions_include": [
+        "check_interface_utilization",
+        "rebalance_lag_traffic",
+        "analyze_qos_policy"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The 8,902 output queue drops specifically on Bundle-Ether4 member Te3/0/1 directly correlates with the 18% packet loss observed on the aggregate link, indicating a load imbalance within the LAG where one member is saturated while others may be underutilized. This is a software or traffic engineering issue rather than a physical failure. NOC engineers should examine the LAG hashing algorithm and traffic distribution across all member links, then adjust ECMP or hash parameters to redistribute load."
+    },
+    "failure_mode_tested": "Agent must correctly attribute packet loss on a LAG interface to member-level queue saturation rather than physical failure, requiring traffic rebalancing rather than hardware replacement."
+  },
+  {
+    "case_id": "CORR_026",
+    "input": {
+      "alarm_id": "ALM_C026",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-03-14T02:17:45Z",
+      "raw_message": "RTR-OSL-001 memory utilization exceeded 91% on RP0; free heap 312MB of 3584MB; process 'bgpd' consuming 1.8GB; threshold 85% breached at 02:15:30Z",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software resource exhaustion / BGP process memory leak",
+      "correct_root_cause_category": "SOFTWARE_FAULT | RESOURCE_EXHAUSTION | BGP_INSTABILITY",
+      "required_actions_include": [
+        "restart_bgpd_process",
+        "check_bgp_table_size",
+        "monitor_memory_trend"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The alarm specifically identifies bgpd as the dominant memory consumer at 1.8GB, which is disproportionate for a healthy BGP process and suggests either a route table explosion or a memory leak in the BGP daemon. A NOC engineer would correlate this with BGP peer advertisements and recent route count changes on the device. Sustained memory above 90% risks process crashes and route withdrawals, justifying MAJOR severity and immediate bgpd inspection."
+    },
+    "failure_mode_tested": "Agent must correctly attribute memory exhaustion to a specific process (bgpd) rather than generic hardware memory failure."
+  },
+  {
+    "case_id": "CORR_027",
+    "input": {
+      "alarm_id": "ALM_C027",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-22T11:04:12Z",
+      "raw_message": "RTR-OSL-015 PSU-1 input power loss detected; output voltage dropped from 54V to 0V; redundant PSU-2 active; site feed A circuit breaker trip suspected at Oslo-DC-North PDU-7",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Primary power supply unit failure with redundancy active",
+      "correct_root_cause_category": "HARDWARE_FAILURE | POWER_INFRASTRUCTURE | FACILITY_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "escalate_p1",
+        "contact_facilities"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "PSU-1 output voltage collapsing to 0V while input power is lost points to an upstream electrical fault, specifically a suspected circuit breaker trip on PDU-7 feed A, not a router hardware defect in isolation. A NOC engineer would immediately verify PDU-7 breaker status and facility power readings, as redundancy is currently masking single-point-of-failure risk. If PSU-2 also fails before feed A is restored, the device will go down entirely, warranting CRITICAL severity and P1 escalation."
+    },
+    "failure_mode_tested": "Agent must recognize that active redundancy does not reduce severity when the root cause is an unresolved upstream power infrastructure fault."
+  },
+  {
+    "case_id": "CORR_028",
+    "input": {
+      "alarm_id": "ALM_C028",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "HIGH_CPU",
+      "severity": "WARNING",
+      "timestamp": "2024-09-05T08:33:21Z",
+      "raw_message": "RTR-OSL-020 CPU utilization 94% on RP0 sustained 8 minutes; BGP route table grew from 12,000 to 847,000 prefixes in 4 minutes; peer 198.51.100.44 AS65200 sending full internet table; RIB install queue depth 124,000 entries",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Control plane overload / BGP full-table route injection causing RIB processing storm",
+      "correct_root_cause_category": "BGP_INSTABILITY | CONFIG_ERROR | CONTROL_PLANE_OVERLOAD",
+      "required_actions_include": [
+        "apply_bgp_prefix_limit",
+        "shut_bgp_peer_65200",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Although the alarm was raised as WARNING, the 94% sustained CPU is directly caused by a BGP peer (AS65200 at 198.51.100.44) erroneously advertising the full internet routing table (~847K prefixes), which is a configuration or policy violation rather than a hardware CPU fault. A NOC engineer identifies this by correlating the CPU spike timestamp with the RIB prefix count explosion and the deep RIB install queue, which indicates the control plane is overwhelmed. This scenario warrants immediate BGP session shutdown with the offending peer and reclassification to CRITICAL due to risk of total routing failure."
+    },
+    "failure_mode_tested": "Tricky/counterintuitive case: alarm typed as HIGH_CPU with WARNING severity, but the true root cause is a BGP peer sending a full internet routing table causing a RIB processing storm; agent must look past the surface CPU symptom to the BGP configuration/policy failure and escalate severity to CRITICAL."
+  },
+  {
+    "case_id": "CORR_029",
+    "input": {
+      "alarm_id": "ALM_C029",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MINOR",
+      "timestamp": "2024-11-18T19:50:03Z",
+      "raw_message": "RTR-OSL-002 interface Gi0/0/0/3 optical receive power degraded; Rx power -24.7dBm vs baseline -18.2dBm; Tx power nominal -5.1dBm; FEC correctable errors 4,821 in last 60s; OSNR 14.2dB threshold 18dB",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Physical layer degradation / Optical receive path signal loss on access interface",
+      "correct_root_cause_category": "FIBER_DEGRADATION | HARDWARE_FAILURE | OPTICAL_PATH_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_fiber_connector",
+        "schedule_maintenance_window"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The Rx power of -24.7dBm represents a 6.5dBm drop from the -18.2dBm baseline, which combined with OSNR falling below the 18dB threshold to 14.2dB strongly indicates a physical optical path degradation such as a dirty or damaged fiber connector, a failing SFP receiver, or a gradual fiber bend loss event. A NOC engineer would note that Tx power is nominal, ruling out transmitter failure and pointing squarely at the receive path or physical medium. The rising FEC correctable error count signals imminent uncorrectable errors and link instability, warranting escalation from MINOR to MAJOR and prompt physical inspection."
+    },
+    "failure_mode_tested": "Agent must escalate severity from input MINOR to MAJOR based on the combination of OSNR breach, Rx power delta, and rising FEC errors indicating imminent link failure."
+  },
+  {
+    "case_id": "CORR_030",
+    "input": {
+      "alarm_id": "ALM_C030",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "WARNING",
+      "timestamp": "2024-07-30T14:22:55Z",
+      "raw_message": "RTR-OSL-021 STP topology change notification received on Vlan100 bridge domain; port Gi0/1/0/7 transitioned root port role; root bridge MAC 00:1A:2B:3C:4D:EF changed; TCN count 47 in 90 seconds; MAC flush triggered on 312 endpoints",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Layer 2 network instability / Spanning tree topology change causing repeated MAC table flushes",
+      "correct_root_cause_category": "L2_INSTABILITY | CONFIG_ERROR | HARDWARE_FAILURE",
+      "required_actions_include": [
+        "identify_stp_root_cause_port",
+        "enable_bpduguard",
+        "check_physical"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A TCN rate of 47 topology change notifications in 90 seconds is far beyond normal STP reconvergence behavior and indicates a flapping link or an unauthorized device advertising a superior STP BPDU to claim root bridge status, evidenced by the root bridge MAC address change. A NOC engineer would immediately identify port Gi0/1/0/7 as the ingress for the rogue or unstable BPDU source and correlate the 312-endpoint MAC flush with temporary L2 forwarding blackouts impacting user traffic. Severity should be elevated to MAJOR as repeated MAC flushes cause sustained microbursts and forwarding loops risk, and BPDU Guard or Root Guard must be applied immediately."
+    },
+    "failure_mode_tested": "Agent must recognize that a root bridge MAC change combined with high TCN frequency indicates a rogue or flapping STP participant, not a benign topology event, and must escalate from WARNING to MAJOR."
+  },
+  {
+    "case_id": "CORR_031",
+    "input": {
+      "alarm_id": "ALM_C031",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "WARNING",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "Interface GigabitEthernet0/0/3 on RTR-OSL-001 transitioned to down state; carrier loss detected, remote peer 10.44.12.1 unreachable, no LCP negotiation since 02:15:11Z",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Layer-1 carrier loss",
+      "correct_root_cause_category": "FIBER_CUT | HARDWARE_FAILURE | PHYSICAL_LAYER_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "escalate_p1",
+        "dispatch_field_technician"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Carrier loss on GigabitEthernet0/0/3 with no LCP negotiation since 02:15:11Z indicates a physical layer break rather than a software or configuration issue. The absence of any keep-alive or negotiation attempts rules out a remote-end software problem. NOC engineers treat carrier-loss link-down events as CRITICAL because they signal hard outages affecting traffic forwarding immediately."
+    },
+    "failure_mode_tested": "Severity under-reporting: alarm arrives as WARNING but physical carrier loss on a production interface mandates CRITICAL reclassification."
+  },
+  {
+    "case_id": "CORR_032",
+    "input": {
+      "alarm_id": "ALM_C032",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-05T11:34:22Z",
+      "raw_message": "RTR-OSL-015 CPU utilization sustained at 94% for 15 minutes; process 'ospf-1' consuming 71% CPU cycles, OSPF adjacency flap detected on Te0/1/0 to peer 192.168.55.2",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Control-plane CPU exhaustion due to routing protocol instability",
+      "correct_root_cause_category": "ROUTING_PROTOCOL_INSTABILITY | PROCESS_RUNAWAY | CONFIG_ERROR",
+      "required_actions_include": [
+        "isolate_process",
+        "check_routing_table",
+        "rate_limit_ospf"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The ospf-1 process consuming 71% CPU for 15 minutes in conjunction with an adjacency flap on Te0/1/0 strongly indicates an OSPF route churn or LSA storm causing CPU saturation. This is a control-plane issue rather than a hardware fault, confirmed by the process-level attribution in the alarm. NOC engineers must inspect OSPF neighbor state, SPF recalculation frequency, and apply dampening or rate-limiting to prevent network-wide instability."
+    },
+    "failure_mode_tested": "Root cause attribution accuracy: agent must correctly link HIGH_CPU to routing protocol instability rather than misclassifying as a generic hardware overload."
+  },
+  {
+    "case_id": "CORR_033",
+    "input": {
+      "alarm_id": "ALM_C033",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-09-22T18:05:09Z",
+      "raw_message": "BGP session to peer 203.0.113.45 (AS64502) on RTR-OSL-020 dropped; hold-timer expired after 90 seconds, last notification OPEN message error code 2 subcode 4, MD5 authentication mismatch suspected",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "BGP session failure due to authentication misconfiguration",
+      "correct_root_cause_category": "CONFIG_ERROR | AUTHENTICATION_FAILURE | BGP_PEERING_FAILURE",
+      "required_actions_include": [
+        "verify_md5_key",
+        "coordinate_with_peer_as",
+        "check_bgp_config"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "OPEN message error code 2 subcode 4 maps explicitly to an unsupported optional parameter, frequently associated with MD5 TCP authentication key mismatch when BGP MD5 is configured. The hold-timer expiry after 90 seconds confirms the session could not be established, not merely a transient drop. NOC engineers must cross-check the MD5 password with the peer AS64502 NOC and validate the BGP neighbor configuration on both ends before assuming a physical or transport issue."
+    },
+    "failure_mode_tested": "Authentication error code interpretation: agent must decode BGP NOTIFICATION error code 2/subcode 4 and correctly attribute the failure to configuration mismatch rather than transport failure."
+  },
+  {
+    "case_id": "CORR_034",
+    "input": {
+      "alarm_id": "ALM_C034",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MINOR",
+      "timestamp": "2024-11-08T07:48:55Z",
+      "raw_message": "RTR-OSL-002 interface Te0/2/1 reporting 4.2% packet loss over 300-second polling window; input queue drops 1847, output queue drops 0, no CRC or input errors detected, link utilization at 88%",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Congestion-induced packet loss / Input queue saturation",
+      "correct_root_cause_category": "CONGESTION | BANDWIDTH_SATURATION | QOS_MISCONFIGURATION",
+      "required_actions_include": [
+        "check_qos_policy",
+        "analyze_traffic_profile",
+        "capacity_planning"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The combination of 4.2% packet loss, 88% link utilization, and 1847 input queue drops with zero output queue drops and no CRC errors definitively points to congestion rather than a physical layer problem. The absence of CRC or input errors rules out hardware or fiber degradation, isolating the cause to traffic volume exceeding the interface's sustainable throughput. NOC engineers should escalate to MAJOR given the sustained loss rate and initiate QoS profiling and capacity review to prevent further degradation."
+    },
+    "failure_mode_tested": "Severity under-classification and congestion vs. hardware fault differentiation: agent must distinguish queue-drop-driven loss from physical errors and correctly upgrade severity from MINOR to MAJOR."
+  },
+  {
+    "case_id": "CORR_035",
+    "input": {
+      "alarm_id": "ALM_C035",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "WARNING",
+      "timestamp": "2024-12-01T14:22:37Z",
+      "raw_message": "RTR-OSL-021 interface GigabitEthernet0/1/2 incrementing CRC errors at 320 per minute and input errors 512 per minute; FCS error count 4890 in last 900 seconds, output errors zero, remote peer 10.55.3.8 reachable via ICMP",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer signal degradation / Layer-1 data integrity failure",
+      "correct_root_cause_category": "FIBER_DEGRADATION | HARDWARE_FAILURE | PHYSICAL_LAYER_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_sfp_optics",
+        "contact_vendor"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "Incrementing CRC and FCS errors at high rates (320/min and 4890 in 900 seconds respectively) with zero output errors and a reachable remote peer indicate unidirectional signal integrity degradation on the receive path, typically caused by a dirty or failing SFP, a bent or contaminated fiber connector, or optical power budget violation. ICMP reachability does not negate the severity, as sustained FCS errors cause silent data corruption and retransmissions impacting application performance. NOC engineers must clean and inspect optics, check optical receive power levels with a light meter, and escalate to MAJOR pending vendor replacement if levels are out of specification."
+    },
+    "failure_mode_tested": "Physical vs. software error attribution with reachability false-negative: agent must not dismiss the alarm because ping succeeds, and must correctly identify CRC/FCS patterns as physical layer evidence requiring hardware inspection."
+  },
+  {
+    "case_id": "CORR_036",
+    "input": {
+      "alarm_id": "ALM_C036",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-03-14T08:22:47Z",
+      "raw_message": "RTR-OSL-001 process memory utilization reached 78% on route-processor slot 0; BGP process consuming 1.2GB of 1.6GB allocated pool",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software resource exhaustion / BGP process memory leak",
+      "correct_root_cause_category": "SOFTWARE_FAULT | RESOURCE_EXHAUSTION | ROUTING_PROTOCOL_ANOMALY",
+      "required_actions_include": [
+        "check_bgp_table_size",
+        "monitor_memory_trend",
+        "schedule_process_restart"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "BGP process consuming 75% of its allocated memory pool on a core router is indicative of a route table explosion or memory leak, not merely a threshold warning. NOC engineers should correlate with BGP peer count and full-table feed changes; 78% utilization with BGP as the dominant consumer warrants escalation to MAJOR because continued growth risks OOM-triggered process crash and route withdrawal. Trending analysis over 15-minute intervals is critical to determine rate of consumption."
+    },
+    "failure_mode_tested": "Agent must escalate severity from WARNING to MAJOR when BGP process is the dominant memory consumer, indicating protocol-layer resource exhaustion rather than benign utilization growth."
+  },
+  {
+    "case_id": "CORR_037",
+    "input": {
+      "alarm_id": "ALM_C037",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-03T23:11:05Z",
+      "raw_message": "RTR-OSL-015 PSU-1 input feed lost; DC voltage dropped from -48V to 0V; PSU-2 redundant path active, load transfer completed successfully at 23:11:03",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Single power supply loss with active redundancy",
+      "correct_root_cause_category": "HARDWARE_FAILURE | POWER_INFRASTRUCTURE | FACILITY_FAULT",
+      "required_actions_include": [
+        "check_physical",
+        "contact_facilities",
+        "escalate_p1"
+      ],
+      "severity_should_be": "MAJOR",
+      "expected_classification": "Physical layer failure / Single power supply loss with active redundancy",
+      "expert_reasoning": "Although PSU-1 has completely lost its -48V DC input feed, PSU-2 has successfully assumed full load, meaning there is no active service impact at this moment. The correct severity is MAJOR rather than CRITICAL because redundancy is functioning as designed; however, the device is now operating without power resilience and any secondary failure would be catastrophic. NOC engineers must dispatch facilities personnel to restore the failed feed and verify the upstream PDU or breaker panel feeding PSU-1."
+    },
+    "failure_mode_tested": "Agent must downgrade severity from CRITICAL to MAJOR when power redundancy is confirmed active, distinguishing between loss of resilience versus active service-impacting failure."
+  },
+  {
+    "case_id": "CORR_038",
+    "input": {
+      "alarm_id": "ALM_C038",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-19T14:55:30Z",
+      "raw_message": "RTR-OSL-002 interface TenGigE0/0/0/3 Rx optical power degraded to -21.4dBm; threshold -20.0dBm; Tx remote end RTR-OSL-010 TenGigE0/0/0/1 Tx power stable at +2.1dBm",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer degradation / Optical receive power below threshold on active inter-router link",
+      "correct_root_cause_category": "FIBER_DEGRADATION | OPTICAL_HARDWARE_FAULT | PHYSICAL_LAYER_FAILURE",
+      "required_actions_include": [
+        "check_physical",
+        "inspect_fiber_connectors",
+        "request_optical_otdr"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The Rx power at -21.4dBm is 1.4dB below the -20.0dBm threshold while the remote Tx at RTR-OSL-010 is stable at +2.1dBm, isolating the fault to the fiber path or local receive optics on RTR-OSL-002 rather than the remote transmitter. This asymmetric degradation pattern points to connector contamination, physical fiber bend, or a failing SFP on the local receive side. NOC engineers should first clean and inspect the TenGigE0/0/0/3 Rx connector before dispatching for OTDR testing, as connector contamination is the most common cause of gradual receive degradation."
+    },
+    "failure_mode_tested": "Agent must correctly isolate optical degradation to the local receive path by correlating remote Tx stability with local Rx degradation, avoiding incorrect fiber-cut diagnosis."
+  },
+  {
+    "case_id": "CORR_039",
+    "input": {
+      "alarm_id": "ALM_C039",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MINOR",
+      "timestamp": "2024-11-07T10:03:18Z",
+      "raw_message": "RTR-OSL-020 fan tray FT-2 speed reduced to 40% RPM; chassis intake temperature rising to 38C; FT-1 and FT-3 compensating at 85% RPM; ambient room temperature 22C",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Hardware component degradation / Partial fan tray failure with thermal compensation active",
+      "correct_root_cause_category": "HARDWARE_FAILURE | THERMAL_RISK | MECHANICAL_FAULT",
+      "required_actions_include": [
+        "monitor_temperature",
+        "schedule_hardware_replacement",
+        "contact_vendor"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A fan tray operating at only 40% RPM while chassis intake temperature has already risen to 38°C represents a thermal risk that is systematically underrepresented by the MINOR input severity. The remaining fan trays compensating at 85% RPM indicates the system is under thermal stress and any further fan degradation or increased traffic load could trigger thermal protection shutdowns. NOC engineers should treat this as MAJOR because the device is operating outside its designed cooling envelope and hardware replacement must be expedited before ambient or traffic load changes push temperatures into critical shutdown thresholds."
+    },
+    "failure_mode_tested": "Agent must escalate severity from MINOR to MAJOR by recognizing that partial fan failure combined with rising chassis temperature and compensating fans at high RPM constitutes an imminent thermal risk."
+  },
+  {
+    "case_id": "CORR_040",
+    "input": {
+      "alarm_id": "ALM_C040",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-04-28T16:44:09Z",
+      "raw_message": "RTR-OSL-021 VLAN 110 STP topology change notification received on GigabitEthernet2/0/14; TCN count 847 in last 300 seconds; MAC address table flushing continuously; root bridge 00:1A:2B:3C:4D:5E unchanged",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Layer 2 instability / Excessive STP topology change notifications indicating port flap or misconfigured edge port",
+      "correct_root_cause_category": "L2_INSTABILITY | CONFIG_ERROR | HARDWARE_FAULT",
+      "required_actions_include": [
+        "isolate_flapping_port",
+        "enable_portfast_bpduguard",
+        "check_physical"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "An average of 2.8 TCNs per second (847 in 300 seconds) on VLAN 110 is a clear indicator of a port flapping or a non-edge device connected to an access port without PortFast configuration, causing continuous MAC table flooding and potential broadcast storms. The root bridge stability confirms the STP topology itself is not undergoing root election changes, focusing the investigation on GigabitEthernet2/0/14 as the source of instability. CRITICAL input severity is excessive since the root bridge is stable; MAJOR is appropriate given the MAC table thrashing impact on forwarding performance, and the immediate action is to identify and isolate the device on Gi2/0/14 and apply BPDU Guard."
+    },
+    "failure_mode_tested": "Agent must correctly identify excessive TCN rate as a port-level instability issue rather than a topology reconvergence event, and downgrade severity from CRITICAL to MAJOR based on root bridge stability evidence."
+  },
+  {
+    "case_id": "CORR_041",
+    "input": {
+      "alarm_id": "ALM_C041",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "WARNING",
+      "timestamp": "2024-03-12T02:17:45Z",
+      "raw_message": "Interface GigabitEthernet0/0/3 on RTR-OSL-001 transitioned to DOWN state; carrier loss detected, optical Rx power reading -38.5 dBm, threshold -30 dBm",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Physical layer failure / Optical signal degradation below receive threshold",
+      "correct_root_cause_category": "FIBER_CUT | HARDWARE_FAILURE | OPTICAL_DEGRADATION",
+      "required_actions_include": [
+        "check_physical",
+        "escalate_p1",
+        "inspect_fiber"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "Rx power at -38.5 dBm is 8.5 dB below the -30 dBm threshold, indicating severe optical signal loss consistent with a fiber break or connector damage. Carrier loss on GigabitEthernet0/0/3 with this power reading rules out software causes entirely. A NOC engineer would immediately escalate to P1 and dispatch field technicians to inspect the fiber path and connectors."
+    },
+    "failure_mode_tested": "Severity under-reporting where WARNING is assigned to a physical optical failure that is operationally CRITICAL due to complete link loss."
+  },
+  {
+    "case_id": "CORR_042",
+    "input": {
+      "alarm_id": "ALM_C042",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "HIGH_CPU",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-05T14:33:10Z",
+      "raw_message": "CPU utilization on RTR-OSL-010 sustained at 97% for 15 minutes; process 'bgpd' consuming 61% CPU, 430 BGP prefixes being re-advertised following peer flap on 10.44.2.1",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Control plane overload / BGP process CPU spike due to route churn from peer instability",
+      "correct_root_cause_category": "BGP_INSTABILITY | ROUTE_CHURN | CONTROL_PLANE_OVERLOAD",
+      "required_actions_include": [
+        "dampen_bgp",
+        "check_bgp_peer",
+        "monitor_cpu"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "The bgpd process consuming 61% CPU during a BGP peer flap on 10.44.2.1 is a classic route churn scenario where mass prefix re-advertisement drives control plane exhaustion. At 97% sustained utilization for 15 minutes, the router risks dropping keepalives and triggering further BGP session collapses. A NOC engineer would apply BGP route dampening and investigate the root cause of the peer flap on 10.44.2.1 before CPU exhaustion cascades."
+    },
+    "failure_mode_tested": "Misattribution of HIGH_CPU to hardware fault rather than correctly identifying BGP control plane churn as the root cause."
+  },
+  {
+    "case_id": "CORR_043",
+    "input": {
+      "alarm_id": "ALM_C043",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-19T09:55:22Z",
+      "raw_message": "Packet loss of 18% detected on interface TenGigabitEthernet2/1 RTR-OSL-015 to RTR-OSL-020; ICMP probes to 192.168.50.2 showing 18/100 drops, output queue drops counter at 42,310 in last 60 seconds",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Network congestion / Output queue saturation causing sustained packet drops on transit link",
+      "correct_root_cause_category": "CONGESTION | QUEUE_SATURATION | BANDWIDTH_EXHAUSTION",
+      "required_actions_include": [
+        "check_interface_utilization",
+        "review_qos_policy",
+        "escalate_p2"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "Output queue drop counter of 42,310 in 60 seconds alongside 18% ICMP probe loss on TenGigabitEthernet2/1 conclusively points to egress congestion rather than a physical fault. The correlation between queue drops and probe loss rules out random bit errors or fiber issues. A NOC engineer would review interface utilization trending and QoS policy configurations to determine whether traffic shaping or a capacity upgrade is required."
+    },
+    "failure_mode_tested": "Confusion between physical-layer packet loss and congestion-driven queue drop packet loss requiring different remediation paths."
+  },
+  {
+    "case_id": "CORR_044",
+    "input": {
+      "alarm_id": "ALM_C044",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "MINOR",
+      "timestamp": "2024-11-28T23:41:05Z",
+      "raw_message": "BGP session to peer 172.16.8.5 (AS 64501) on RTR-OSL-021 went DOWN; Notification code 6 subcode 6 received (Cease/Other Configuration Change), session uptime was 47 days 3 hours",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "BGP session termination / Administratively initiated cease due to remote peer configuration change",
+      "correct_root_cause_category": "CONFIG_ERROR | PLANNED_CHANGE | PEER_INITIATED_TEARDOWN",
+      "required_actions_include": [
+        "verify_change_window",
+        "contact_peer_noc",
+        "monitor_reconvergence"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "BGP Notification code 6 subcode 6 (Cease/Other Configuration Change) explicitly indicates the remote peer AS 64501 deliberately terminated the session, most likely due to a reconfiguration on their end. The 47-day uptime prior to teardown indicates no instability pattern; this is a discrete administrative event. A NOC engineer should verify against the change management window and contact AS 64501's NOC if no planned change was scheduled, as the session loss may impact route reachability beyond what MINOR severity implies."
+    },
+    "failure_mode_tested": "Severity under-classification of a BGP session down event where the agent must distinguish between notification subcodes and correctly elevate severity based on operational impact."
+  },
+  {
+    "case_id": "CORR_045",
+    "input": {
+      "alarm_id": "ALM_C045",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "CRITICAL",
+      "timestamp": "2024-07-03T16:08:33Z",
+      "raw_message": "Interface TenGigabitEthernet1/0 on RTR-OSL-002 reporting 8,452 CRC errors and 1,203 input errors in last 300 seconds; error rate 2.8%, SFP+ module temperature 87°C, nominal max 70°C",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Hardware failure / Overheating SFP+ transceiver causing CRC and input error accumulation",
+      "correct_root_cause_category": "HARDWARE_FAILURE | THERMAL_FAULT | TRANSCEIVER_DEGRADATION",
+      "required_actions_include": [
+        "replace_sfp",
+        "check_cooling",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "SFP+ operating at 87°C against a 70°C maximum threshold directly correlates with the 8,452 CRC errors as thermal stress degrades the laser and receiver circuitry, causing bit corruption. An error rate of 2.8% on a 10GbE link represents significant data integrity loss affecting all traffic traversing TenGigabitEthernet1/0. A NOC engineer would immediately schedule emergency SFP+ replacement and check rack cooling infrastructure to prevent thermal runaway spreading to adjacent hardware."
+    },
+    "failure_mode_tested": "Agent failure to correlate thermal telemetry within an INTERFACE_ERROR alarm to a hardware root cause rather than misclassifying as a software or configuration issue."
+  },
+  {
+    "case_id": "CORR_046",
+    "input": {
+      "alarm_id": "ALM_C046",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-03-14T08:22:11Z",
+      "raw_message": "RTR-OSL-001 process memory utilization reached 78% on RP0; BGP process consuming 1.2GB of 4GB allocated heap, threshold 75% exceeded",
+      "affected_site": "Oslo-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Software resource exhaustion / BGP process memory leak",
+      "correct_root_cause_category": "SOFTWARE_FAULT | RESOURCE_EXHAUSTION | BGP_INSTABILITY",
+      "required_actions_include": [
+        "check_bgp_routes",
+        "restart_bgp_process",
+        "monitor_memory_trend"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A BGP process consuming 1.2GB and driving overall RP0 memory to 78% is a precursor to route table corruption or full memory exhaustion; the WARNING severity understates risk because sustained growth will cause process crash. NOC engineers look for rapid heap growth rate, prefix table size anomalies, and whether memory has crossed the threshold within the last polling cycle. Escalation to MAJOR is warranted to trigger proactive BGP session inspection before a total RP0 failure occurs."
+    },
+    "failure_mode_tested": "Severity under-classification where a WARNING-labeled memory alarm actually indicates imminent process crash risk requiring MAJOR response."
+  },
+  {
+    "case_id": "CORR_047",
+    "input": {
+      "alarm_id": "ALM_C047",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-07-09T14:55:03Z",
+      "raw_message": "RTR-OSL-020 PSU-1 failed; input voltage dropped to 0V, output rail 48VDC absent; PSU-2 carrying full load 620W of 700W rated capacity, redundancy lost",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Hardware failure / Redundant power supply loss with single-PSU operation",
+      "correct_root_cause_category": "HARDWARE_FAILURE | POWER_INFRASTRUCTURE | REDUNDANCY_LOSS",
+      "required_actions_include": [
+        "dispatch_field_engineer",
+        "contact_vendor",
+        "escalate_p1"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "PSU-1 showing 0V input and absent 48VDC output rail confirms a hard power supply failure, not a transient brownout; PSU-2 operating at 88.6% of rated capacity (620W/700W) leaves less than 80W headroom, meaning any load spike will cause total device power loss. NOC engineers recognize that single-PSU operation above 85% rated load is a P1 condition requiring immediate hardware replacement dispatch. The CRITICAL classification is correctly assigned and vendor engagement for RMA must be initiated in parallel with site dispatch."
+    },
+    "failure_mode_tested": "Correct CRITICAL severity confirmation where remaining PSU is operating dangerously close to rated capacity limit, validating agent does not downgrade severity."
+  },
+  {
+    "case_id": "CORR_048",
+    "input": {
+      "alarm_id": "ALM_C048",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "MINOR",
+      "timestamp": "2024-05-21T03:17:44Z",
+      "raw_message": "RTR-OSL-010 STP topology change detected on Gi0/0/4 VLAN 110; port transitioned root bridge role, TCN count 47 in last 60 seconds, MAC table flush triggered",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "expected": {
+      "correct_classification": "Layer 2 instability / Spanning tree root bridge election anomaly with excessive TCN generation",
+      "correct_root_cause_category": "L2_TOPOLOGY_CHANGE | STP_INSTABILITY | CONFIG_ERROR",
+      "required_actions_include": [
+        "verify_stp_root_priority",
+        "check_physical_link_stability",
+        "review_portfast_config"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "A TCN count of 47 in 60 seconds on a single port combined with an unexpected root bridge role transition indicates STP is reconverging repeatedly, causing periodic MAC table flushes that generate broadcast storms and traffic blackholing. NOC engineers identify this pattern as a rogue root bridge or a flapping uplink with STP reacting to each link state change; MINOR severity significantly understates the L2 disruption impact. The correct severity is MAJOR because continuous MAC table flushes on VLAN 110 will degrade forwarding performance for all hosts in that broadcast domain."
+    },
+    "failure_mode_tested": "Severity under-classification for STP instability where excessive TCN rate and root bridge role change indicate active L2 disruption masked by a MINOR label."
+  },
+  {
+    "case_id": "CORR_049",
+    "input": {
+      "alarm_id": "ALM_C049",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-02T19:08:30Z",
+      "raw_message": "RTR-OSL-002 interface Te0/0/2 rx optical power degraded to -24.3dBm, nominal -10.0dBm; LOS threshold -25.0dBm; FEC correctable error rate 3.2e-4, uncorrectable errors 0",
+      "affected_site": "Paris-DC-South"
+    },
+    "expected": {
+      "correct_classification": "Physical layer degradation / Optical receive power approaching LOS threshold with elevated FEC load",
+      "correct_root_cause_category": "OPTICAL_DEGRADATION | FIBER_ATTENUATION | HARDWARE_FAILURE",
+      "required_actions_include": [
+        "check_physical_fiber",
+        "measure_optical_power",
+        "schedule_maintenance_window"
+      ],
+      "severity_should_be": "MAJOR",
+      "expert_reasoning": "The receive power of -24.3dBm is 14.3dB below nominal and only 0.7dB above the LOS threshold of -25.0dBm, indicating severe fiber attenuation or connector degradation; the elevated FEC correctable error rate of 3.2e-4 confirms the signal integrity is marginal but has not yet failed outright. NOC engineers recognize that a link operating within 1dB of LOS is highly susceptible to further degradation from temperature variation or physical disturbance, making MAJOR the correct severity. Immediate fiber inspection, OTDR testing, and optical power measurement at both ends are required before the link crosses into uncorrectable error territory."
+    },
+    "failure_mode_tested": "Correct MAJOR severity validation for optical signal approaching LOS threshold, testing whether agent correctly identifies imminent link failure from FEC error rate evidence."
+  },
+  {
+    "case_id": "CORR_050",
+    "input": {
+      "alarm_id": "ALM_C050",
+      "device_id": "RTR-OSL-021",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-08-15T11:43:19Z",
+      "raw_message": "RTR-OSL-021 fan tray FT-2 failed; chassis inlet temperature 52C, CPU die temperature 81C, thermal shutdown threshold 90C; FT-1 running at 100% RPM 14200",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "expected": {
+      "correct_classification": "Hardware failure / Fan tray failure causing thermal escalation toward shutdown threshold",
+      "correct_root_cause_category": "HARDWARE_FAILURE | THERMAL_OVERRUN | REDUNDANCY_LOSS",
+      "required_actions_include": [
+        "dispatch_field_engineer",
+        "monitor_temperature_trend",
+        "prepare_controlled_failover"
+      ],
+      "severity_should_be": "CRITICAL",
+      "expert_reasoning": "FT-2 failure combined with a CPU die temperature of 81C represents only a 9C margin before the thermal shutdown threshold of 90C triggers an uncontrolled device restart; FT-1 running at 100% RPM indicates it is already at maximum cooling capacity with no further headroom. NOC engineers treat sub-10C thermal shutdown margin as a P1 condition because ambient temperature fluctuations or increased traffic load will consume the remaining margin rapidly. An immediate field dispatch for fan tray replacement is mandatory, and a controlled failover plan must be staged to avoid unplanned traffic loss from thermal shutdown."
+    },
+    "failure_mode_tested": "Correct CRITICAL severity confirmation for fan failure with measurable thermal margin calculation, testing agent's ability to quantify shutdown risk from temperature telemetry."
+  }
+]

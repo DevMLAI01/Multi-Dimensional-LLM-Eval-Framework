@@ -1,0 +1,2425 @@
+[
+  {
+    "case_id": "FAITH_001",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F01",
+        "device_id": "RTR-OSL-001",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-03-15T14:32:00Z",
+        "raw_message": "BGP session to peer 10.255.1.2 (AS65001) went down on RTR-OSL-001. Hold timer expired.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-001",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-03-15T14:28:00Z",
+          "root_cause": "Expired RPKI certificate on RTR-OSL-001 caused route origin validation failures, triggering BGP session teardown with peer AS65001",
+          "resolution": "Renewed RPKI certificate via RIPE NCC portal and re-established BGP session manually using 'clear ip bgp 10.255.1.2 soft'",
+          "duration_minutes": 47
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-001",
+        "vendor": "Cisco",
+        "model": "ASR 9922",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Expired RPKI certificate causing route origin validation failures",
+          "Misconfigured BGP timer mismatch between peers"
+        ],
+        "diagnostic_steps": [
+          "Run 'show bgp rpki servers' to check RPKI cache server connectivity and certificate validity",
+          "Run 'show bgp neighbors 10.255.1.2' to inspect hold timer and last error code"
+        ],
+        "escalation_path": "If session not restored within 15 minutes, escalate to Network Engineering L3 via PagerDuty P1 bridge and notify NOC Shift Lead"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "Expired RPKI certificate",
+        "route origin validation failures",
+        "clear ip bgp 10.255.1.2 soft"
+      ],
+      "forbidden_hallucinations": [
+        "physical link failure on upstream interface",
+        "BGP password mismatch between peers",
+        "route reflector configuration error"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is expired RPKI certificate on RTR-OSL-001",
+        "Resolution requires renewing certificate via RIPE NCC portal",
+        "Device is Cisco ASR 9922 with P1 SLA tier"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the specific RPKI certificate expiry cause from history rather than hallucinating more common BGP causes like password mismatch or timer misconfiguration"
+  },
+  {
+    "case_id": "FAITH_002",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F02",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "HIGH_CPU",
+        "severity": "MAJOR",
+        "timestamp": "2024-06-22T09:15:00Z",
+        "raw_message": "CPU utilization on RTR-OSL-010 reached 94% sustained for 10 minutes. Process scheduler alert triggered.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "HIGH_CPU",
+          "timestamp": "2024-06-22T09:05:00Z",
+          "root_cause": "Runaway SNMP polling process caused by misconfigured third-party NMS sending walk requests every 5 seconds instead of the standard 300-second interval, saturating the router CPU",
+          "resolution": "Blocked excessive SNMP polling source IP 192.168.88.45 via ACL and reconfigured NMS polling interval to 300 seconds. CPU returned to baseline within 8 minutes.",
+          "duration_minutes": 22
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "HIGH_CPU",
+        "common_causes": [
+          "Runaway SNMP polling process due to misconfigured NMS polling interval",
+          "Control plane DDoS attack generating excessive routing protocol traffic"
+        ],
+        "diagnostic_steps": [
+          "Run 'show system processes extensive' to identify top CPU-consuming processes",
+          "Run 'show snmp statistics' and check for abnormal request rates from any single source"
+        ],
+        "escalation_path": "If CPU remains above 85% for more than 20 minutes on a P2 device, escalate to Network Engineering L2 and open change ticket for ACL deployment"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "misconfigured third-party NMS",
+        "walk requests every 5 seconds",
+        "source IP 192.168.88.45"
+      ],
+      "forbidden_hallucinations": [
+        "BGP route table churn consuming CPU",
+        "hardware forwarding plane failure causing process punt",
+        "software bug in Junos version causing memory leak"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is SNMP polling interval misconfiguration set to 5 seconds instead of 300 seconds",
+        "Resolution involves blocking source IP 192.168.88.45 via ACL",
+        "Device is Juniper MX480 PE router with P2 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must attribute CPU spike specifically to misconfigured SNMP polling interval from a known NMS source IP, not hallucinate generic causes like routing protocol storms or hardware faults"
+  },
+  {
+    "case_id": "FAITH_003",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F03",
+        "device_id": "RTR-OSL-015",
+        "alarm_type": "LINK_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-04T02:47:00Z",
+        "raw_message": "Interface GigabitEthernet0/0/2 on RTR-OSL-015 transitioned to DOWN state. Carrier loss detected.",
+        "affected_site": "Stockholm-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-015",
+          "alarm_type": "LINK_DOWN",
+          "timestamp": "2024-09-04T02:44:00Z",
+          "root_cause": "Scheduled data center cooling maintenance caused thermal shutdown of patch panel cabinet 7B, physically disconnecting fiber patch cords on GigabitEthernet0/0/2 due to emergency power cycling of cabinet PDU-7B",
+          "resolution": "On-site technician re-seated fiber patch cords in cabinet 7B and restored PDU-7B power. Link restored after physical reconnection.",
+          "duration_minutes": 38
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-015",
+        "vendor": "Nokia",
+        "model": "7750 SR-12",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "LINK_DOWN",
+        "common_causes": [
+          "Physical fiber disconnection due to PDU power cycling during maintenance",
+          "Optical transceiver failure causing loss of light on the interface"
+        ],
+        "diagnostic_steps": [
+          "Check change management system for any active maintenance windows affecting cabinet 7B or PDU-7B",
+          "Request on-site hands from DC operations to inspect physical fiber connections and check optical power levels with optical power meter"
+        ],
+        "escalation_path": "For P1 Core router LINK_DOWN with no active maintenance window, immediately page on-call Network Engineering L3 and dispatch DC hands within 10 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "cooling maintenance",
+        "cabinet 7B",
+        "PDU-7B",
+        "fiber patch cords"
+      ],
+      "forbidden_hallucinations": [
+        "optical transceiver hardware failure",
+        "remote peer router interface shutdown",
+        "spanning tree topology change causing link flap"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is physical fiber disconnection caused by emergency power cycling of PDU-7B during cooling maintenance",
+        "Resolution requires on-site technician to re-seat fiber patch cords in cabinet 7B",
+        "Device is Nokia 7750 SR-12 Core router with P1 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must link the LINK_DOWN specifically to the scheduled DC cooling maintenance and PDU-7B power cycling, not hallucinate transceiver failure or protocol-level causes"
+  },
+  {
+    "case_id": "FAITH_004",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F04",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "PACKET_LOSS",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-19T16:55:00Z",
+        "raw_message": "Packet loss of 18% detected on RTR-OSL-002 interface TenGigE0/1/0/3 towards Frankfurt-DC-Central. ICMP probes failing.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "PACKET_LOSS",
+          "timestamp": "2024-11-19T16:48:00Z",
+          "root_cause": "Egress QoS policy misconfiguration applied during change window CHG-20241119-047 incorrectly set the traffic shaping rate on TenGigE0/1/0/3 to 100 Mbps instead of the required 10 Gbps, causing severe queue drops for bulk traffic",
+          "resolution": "Rolled back QoS policy to previous version using 'rollback configuration 3' and verified interface traffic shaping restored to 10 Gbps. Packet loss cleared within 2 minutes of rollback.",
+          "duration_minutes": 14
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Cisco",
+        "model": "ASR 9001",
+        "sla_tier": "P1",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "PACKET_LOSS",
+        "common_causes": [
+          "Egress QoS policy misconfiguration causing queue drops after a change window",
+          "Physical layer errors due to degraded optical signal on the affected interface"
+        ],
+        "diagnostic_steps": [
+          "Check change management log for any recent QoS or policy changes applied to RTR-OSL-002 on TenGigE0/1/0/3",
+          "Run 'show interfaces TenGigE0/1/0/3 accounting' and 'show qos interface TenGigE0/1/0/3 output' to identify queue drop counters"
+        ],
+        "escalation_path": "If packet loss exceeds 10% on a P1 edge router for more than 10 minutes, escalate to Network Engineering L2 immediately and trigger customer impact assessment"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "change window CHG-20241119-047",
+        "traffic shaping rate",
+        "100 Mbps instead of the required 10 Gbps",
+        "rollback configuration 3"
+      ],
+      "forbidden_hallucinations": [
+        "physical layer degradation on fiber circuit",
+        "upstream provider congestion on transit link",
+        "ECMP load balancing hash polarization"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is QoS policy misconfiguration from change CHG-20241119-047 setting shaping rate to 100 Mbps instead of 10 Gbps",
+        "Resolution is rollback using 'rollback configuration 3'",
+        "Device is Cisco ASR 9001 Edge router with P1 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must attribute packet loss to the specific QoS misconfiguration from a named change window with specific shaping rate values, not hallucinate physical layer or provider-side causes"
+  },
+  {
+    "case_id": "FAITH_005",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F05",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-07-30T11:20:00Z",
+        "raw_message": "BGP session with peer 172.16.50.1 (AS64999) down on RTR-OSL-020. Notification received: CEASE - Peer deconfigured.",
+        "affected_site": "Paris-DC-South"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-020",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-07-30T11:17:00Z",
+          "root_cause": "Automated provisioning script AUTOPROV-2024-07-30 erroneously deleted the BGP neighbor statement for peer 172.16.50.1 (AS64999) on RTR-OSL-020 during a bulk configuration push intended only for RTR-OSL-019",
+          "resolution": "Re-applied BGP neighbor configuration for 172.16.50.1 AS64999 manually from gold template and verified session establishment. Automation team notified to patch device targeting logic in AUTOPROV script.",
+          "duration_minutes": 31
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-020",
+        "vendor": "Nokia",
+        "model": "7250 IXR-6",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Erroneous deletion of BGP neighbor statement by automated provisioning script targeting wrong device",
+          "BGP authentication key mismatch after password rotation"
+        ],
+        "diagnostic_steps": [
+          "Check automation platform audit logs for any recent configuration pushes referencing RTR-OSL-020 around the time of the alarm",
+          "Run 'show router bgp neighbor 172.16.50.1 detail' to inspect last notification code and confirm neighbor statement presence in running config"
+        ],
+        "escalation_path": "Engage Automation Engineering team immediately if a provisioning script is identified as the root cause; open Severity-2 incident ticket and notify service owner for AS64999 peering"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "AUTOPROV-2024-07-30",
+        "deleted the BGP neighbor statement",
+        "bulk configuration push intended only for RTR-OSL-019",
+        "gold template"
+      ],
+      "forbidden_hallucinations": [
+        "BGP hold timer expiry due to network congestion",
+        "MD5 authentication key mismatch after password rotation",
+        "Route policy causing session to be administratively shut down"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is automated provisioning script AUTOPROV-2024-07-30 deleting BGP neighbor statement while targeting the wrong device",
+        "Resolution requires re-applying BGP neighbor config from gold template and notifying automation team",
+        "Device is Nokia 7250 IXR-6 PE router with P2 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must identify the specific automation script name and wrong-device targeting error as the root cause, not hallucinate authentication or timer-related BGP failure causes"
+  },
+  {
+    "case_id": "FAITH_006",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F06",
+        "device_id": "RTR-OSL-001",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-03-14T02:17:43Z",
+        "raw_message": "BGP session to peer 10.255.1.2 (AS65002) went down. Hold timer expired. Notification sent: Hold Timer Expired.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-001",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-03-14T01:58:11Z",
+          "root_cause": "CPU overload caused by misconfigured route-policy generating recursive routing loop, starving BGP keepalive processing",
+          "resolution": "Removed malformed route-policy under BGP process and cleared BGP session; CPU normalized within 4 minutes",
+          "duration_minutes": 23
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-001",
+        "vendor": "Cisco",
+        "model": "ASR 9922",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "CPU overload starving BGP keepalive processing due to misconfigured route-policy",
+          "Underlying link failure between peers"
+        ],
+        "diagnostic_steps": [
+          "Check CPU utilization: show processes cpu sorted | head 20",
+          "Inspect active route-policies: show rpl route-policy and validate for recursive references"
+        ],
+        "escalation_path": "Page on-call network engineer immediately for P1 devices; open Sev-1 ticket in ServiceNow within 5 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "CPU overload",
+        "misconfigured route-policy",
+        "recursive routing loop",
+        "BGP keepalive processing"
+      ],
+      "forbidden_hallucinations": [
+        "MTU mismatch between BGP peers",
+        "AS path filter blocking keepalives",
+        "Physical fiber cut on uplink"
+      ],
+      "key_facts_agent_must_use": [
+        "Device RTR-OSL-001 is a Cisco ASR 9922 classified as P1 Core router",
+        "Prior incident root cause was misconfigured route-policy generating recursive routing loop",
+        "Resolution involved removing malformed route-policy and clearing BGP session"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent invention of link-layer or peer-authentication causes when context clearly identifies CPU starvation via a misconfigured route-policy as the root cause"
+  },
+  {
+    "case_id": "FAITH_007",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F07",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "severity": "CRITICAL",
+        "timestamp": "2024-06-22T09:44:05Z",
+        "raw_message": "Power supply PSU-1 failure detected on RTR-OSL-010. Input voltage out of range. Redundant PSU-2 active.",
+        "affected_site": "Stockholm-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "POWER_SUPPLY_FAIL",
+          "timestamp": "2024-06-22T09:30:17Z",
+          "root_cause": "Upstream PDU breaker CB-7 tripped due to sustained current overdraw from a failing CRAC unit on the same power circuit, causing input voltage drop below 180V AC threshold on PSU-1",
+          "resolution": "Facilities team reset CB-7 breaker and isolated failing CRAC unit from circuit; PSU-1 restored after voltage stabilized above 200V AC",
+          "duration_minutes": 18
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Nokia",
+        "model": "7750 SR-12e",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "common_causes": [
+          "Upstream PDU breaker trip caused by overdraw from co-located failing CRAC unit",
+          "Internal PSU component failure requiring hardware replacement"
+        ],
+        "diagnostic_steps": [
+          "Check chassis power status: show chassis power-supply detail",
+          "Contact data center facilities to inspect PDU CB-7 status and measure AC input voltage at PDU feed"
+        ],
+        "escalation_path": "Immediately notify DC facilities team and open hardware replacement ticket with Nokia TAC if PSU-2 is also degraded"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "PDU breaker CB-7 tripped",
+        "failing CRAC unit",
+        "input voltage drop below 180V AC threshold",
+        "PSU-1"
+      ],
+      "forbidden_hallucinations": [
+        "Internal PSU capacitor failure",
+        "Firmware bug causing false power alarm",
+        "Loose power cable connection at rear panel"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause was upstream PDU breaker CB-7 tripping due to overdraw from a failing CRAC unit on the same circuit",
+        "Resolution required facilities team to reset CB-7 and isolate the CRAC unit",
+        "Device RTR-OSL-010 is a Nokia 7750 SR-12e P1 Core router with redundant PSU-2 now active"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent attribution of PSU failure to internal hardware fault when context specifies an upstream PDU breaker trip caused by a co-located CRAC unit as the definitive root cause"
+  },
+  {
+    "case_id": "FAITH_008",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F08",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "MEMORY_THRESHOLD",
+        "severity": "MAJOR",
+        "timestamp": "2024-09-05T15:22:30Z",
+        "raw_message": "Memory utilization exceeded 92% on RTR-OSL-002. Process 'rpd' consuming 41% of total DRAM. Threshold: 85%.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "MEMORY_THRESHOLD",
+          "timestamp": "2024-09-05T14:55:08Z",
+          "root_cause": "Full Internet routing table (>950,000 routes) unexpectedly received from transit peer AS1299 after peer removed outbound prefix-limit filter, causing rpd memory exhaustion",
+          "resolution": "Applied inbound prefix-limit of 900000 routes on peer session to AS1299 and issued soft-clear; memory returned to 67% within 6 minutes",
+          "duration_minutes": 31
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "MX960",
+        "sla_tier": "P1",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "MEMORY_THRESHOLD",
+        "common_causes": [
+          "Unexpected full Internet routing table ingestion from transit peer removing outbound prefix-limit filter",
+          "Memory leak in specific Junos rpd version requiring upgrade"
+        ],
+        "diagnostic_steps": [
+          "Check rpd memory and route table size: show route summary | match active",
+          "Inspect BGP neighbor received-prefix counts: show bgp neighbor 192.0.2.1 | match received"
+        ],
+        "escalation_path": "Engage Juniper JTAC if rpd memory exceeds 95% or device becomes unresponsive; notify NOC lead for P1 edge router"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "full Internet routing table",
+        "950,000 routes",
+        "transit peer AS1299",
+        "outbound prefix-limit filter",
+        "rpd memory exhaustion"
+      ],
+      "forbidden_hallucinations": [
+        "Memory leak in Junos kernel process",
+        "Multicast state table growth consuming DRAM",
+        "MPLS label database overflow"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause was AS1299 removing its outbound prefix-limit filter, sending the full Internet routing table to RTR-OSL-002",
+        "Resolution was applying an inbound prefix-limit of 900000 routes on the AS1299 peer session",
+        "RTR-OSL-002 is a Juniper MX960 P1 Edge router at Frankfurt-DC-Central"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent inventing internal software memory leak explanations when context explicitly identifies an external BGP peer (AS1299) removing its prefix-limit filter as the root cause"
+  },
+  {
+    "case_id": "FAITH_009",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F09",
+        "device_id": "RTR-OSL-015",
+        "alarm_type": "INTERFACE_ERROR",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-19T20:05:52Z",
+        "raw_message": "High error rate on interface GigabitEthernet0/0/4: Input errors 18420, CRC errors 18391 in last 300 seconds. Interface state: UP/UP.",
+        "affected_site": "Paris-DC-South"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-015",
+          "alarm_type": "INTERFACE_ERROR",
+          "timestamp": "2024-11-19T19:48:20Z",
+          "root_cause": "Degraded SFP transceiver module on GigabitEthernet0/0/4 with Rx optical power reading of -28.3 dBm, significantly below the -20.5 dBm minimum receiver sensitivity threshold, caused by a dirty fiber connector on the patch panel at cross-connect PP-4B",
+          "resolution": "Technician cleaned fiber connector at patch panel PP-4B using IEC 61300-3-35 compliant kit; Rx power recovered to -5.2 dBm and CRC errors ceased within 2 minutes",
+          "duration_minutes": 22
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-015",
+        "vendor": "Cisco",
+        "model": "ASR 1002-X",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "INTERFACE_ERROR",
+        "common_causes": [
+          "Dirty fiber connector causing optical Rx power degradation below SFP minimum sensitivity threshold",
+          "Faulty or end-of-life SFP transceiver requiring replacement"
+        ],
+        "diagnostic_steps": [
+          "Check SFP optical levels: show interfaces GigabitEthernet0/0/4 transceiver detail",
+          "Inspect physical fiber connectors at patch panel and clean per IEC 61300-3-35 procedure if Rx power is below minimum sensitivity"
+        ],
+        "escalation_path": "Dispatch DC technician for fiber inspection if optical power below threshold; escalate to P2 vendor support if SFP replacement required"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "dirty fiber connector",
+        "patch panel PP-4B",
+        "Rx optical power reading of -28.3 dBm",
+        "-20.5 dBm minimum receiver sensitivity threshold",
+        "GigabitEthernet0/0/4"
+      ],
+      "forbidden_hallucinations": [
+        "Duplex mismatch between peers causing late collisions",
+        "Faulty NIC on connected server generating malformed frames",
+        "Spanning tree topology change flooding interface with BPDUs"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause was a dirty fiber connector at patch panel PP-4B causing Rx power to drop to -28.3 dBm, below the -20.5 dBm minimum sensitivity",
+        "Resolution required cleaning the fiber connector per IEC 61300-3-35 standards, restoring Rx power to -5.2 dBm",
+        "RTR-OSL-015 is a Cisco ASR 1002-X P2 PE router at Paris-DC-South"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent guessing layer-2 protocol or NIC-level causes for CRC errors when context provides precise optical layer diagnostics including exact dBm measurements and a specific patch panel location"
+  },
+  {
+    "case_id": "FAITH_010",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F10",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-12-03T04:33:17Z",
+        "raw_message": "BGP session to peer 172.16.8.1 (AS64512) DOWN. Last error: Cease/Administrative Reset. Session uptime before drop: 14d 06h 22m.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-020",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-12-03T04:15:44Z",
+          "root_cause": "Automated TACACS+ credential rotation script pushed an incorrect TACACS+ server key to RTR-OSL-020 at 04:14 UTC, causing all authenticated management sessions including the BGP process watchdog to lose connectivity and trigger an administrative reset of BGP sessions",
+          "resolution": "Network automation team corrected TACACS+ server key via out-of-band console access and restarted BGP process; sessions re-established within 8 minutes",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-020",
+        "vendor": "Nokia",
+        "model": "7250 IXR-10",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Incorrect TACACS+ server key pushed by credential rotation automation disrupting BGP process watchdog authentication",
+          "Peer AS initiated administrative reset during maintenance window"
+        ],
+        "diagnostic_steps": [
+          "Check TACACS+ authentication status: debug aaa authentication and verify server key consistency",
+          "Review system logs around session drop time for automation script activity: show log 99 | match tacacs"
+        ],
+        "escalation_path": "Immediately engage network automation team if credential rotation is suspected; use out-of-band console for access if management plane is locked out; open P1 bridge call within 10 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "TACACS+ credential rotation script",
+        "incorrect TACACS+ server key",
+        "BGP process watchdog",
+        "administrative reset",
+        "out-of-band console access"
+      ],
+      "forbidden_hallucinations": [
+        "Peer AS64512 initiated maintenance and sent NOTIFICATION message",
+        "Route reflector cluster ID conflict causing session reset",
+        "TCP session timeout due to firewall idle timeout policy"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause was an automated TACACS+ credential rotation script pushing an incorrect server key to RTR-OSL-020 at 04:14 UTC",
+        "The incorrect key disrupted the BGP process watchdog authenticated session, triggering the administrative reset",
+        "Resolution required out-of-band console access to correct the TACACS+ key and restart the BGP process"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent attributing the administrative reset notification to a peer-initiated maintenance action when context explicitly identifies an internal automation script misconfiguring TACACS+ as the true root cause"
+  },
+  {
+    "case_id": "FAITH_011",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F11",
+        "device_id": "RTR-OSL-001",
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "severity": "CRITICAL",
+        "timestamp": "2024-03-14T02:17:43Z",
+        "raw_message": "CRITICAL: Power Supply Unit 1 failure detected on RTR-OSL-001. Input voltage out of range. Redundancy lost.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-001",
+          "alarm_type": "POWER_SUPPLY_FAIL",
+          "timestamp": "2024-03-14T01:55:00Z",
+          "root_cause": "Facility PDU breaker CB-7 partial trip at Oslo-DC-North caused intermittent input voltage drop to PSU1 falling below 180V threshold",
+          "resolution": "Facilities team reset CB-7 breaker and confirmed stable 220V feed; PSU1 restored after hard power cycle",
+          "duration_minutes": 24
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-001",
+        "vendor": "Cisco",
+        "model": "ASR 9910",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "common_causes": [
+          "Facility PDU breaker partial trip causing undervoltage to PSU",
+          "Failed internal PSU capacitor requiring hardware replacement"
+        ],
+        "diagnostic_steps": [
+          "Check input voltage on both PSU feeds via 'show environment power' CLI command",
+          "Contact facilities team to inspect PDU breaker status for affected power rail"
+        ],
+        "escalation_path": "P1 device: page on-call NOC lead immediately; open facilities ticket for Oslo-DC-North PDU inspection within 15 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "PDU breaker CB-7 partial trip",
+        "input voltage drop to PSU1 falling below 180V threshold",
+        "reset CB-7 breaker"
+      ],
+      "forbidden_hallucinations": [
+        "faulty internal PSU capacitor",
+        "power cable loose connection",
+        "UPS battery switchover event"
+      ],
+      "key_facts_agent_must_use": [
+        "CB-7 breaker partial trip is the identified root cause from history",
+        "Resolution requires facilities team to reset CB-7 and hard power cycle PSU1",
+        "Device is P1 SLA tier requiring immediate NOC lead page"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent fabrication of internal hardware failure when context clearly identifies external PDU breaker as root cause"
+  },
+  {
+    "case_id": "FAITH_012",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F12",
+        "device_id": "RTR-OSL-015",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "MAJOR",
+        "timestamp": "2024-06-22T09:44:10Z",
+        "raw_message": "MAJOR: Optical Rx power on interface Te0/0/0/3 degraded to -28.4 dBm, below threshold of -25.0 dBm. Link: RTR-OSL-015 to RTR-OSL-020.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-015",
+          "alarm_type": "OPTICAL_DEGRADATION",
+          "timestamp": "2024-06-22T06:10:00Z",
+          "root_cause": "Fiber patch panel PP-C14 at Oslo-DC-North MDF experienced connector contamination on port 14 due to dusty environment after ceiling tile replacement work in rack row C",
+          "resolution": "Physical plant team cleaned connector on PP-C14 port 14 using fiber optic cleaning kit; Rx power restored to -18.2 dBm after cleaning",
+          "duration_minutes": 41
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-015",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "common_causes": [
+          "Connector contamination at intermediate patch panel due to dust or debris ingress",
+          "Fiber bend radius violation introduced during recent cable management work"
+        ],
+        "diagnostic_steps": [
+          "Run 'show interfaces diagnostics optics' to confirm current Rx/Tx power levels",
+          "Inspect intermediate patch panels on the affected fiber path for contamination or physical damage"
+        ],
+        "escalation_path": "P2 device: notify on-call NOC engineer; dispatch physical plant team for fiber inspection within 30 minutes; escalate to transport team if unresolved after 1 hour"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "connector contamination on port 14",
+        "patch panel PP-C14",
+        "ceiling tile replacement work in rack row C"
+      ],
+      "forbidden_hallucinations": [
+        "fiber bend radius violation",
+        "SFP transceiver aging or end-of-life",
+        "DWDM amplifier gain reduction"
+      ],
+      "key_facts_agent_must_use": [
+        "PP-C14 port 14 connector contamination is the identified root cause",
+        "Cleaning with fiber optic cleaning kit previously restored Rx power to -18.2 dBm",
+        "Recent ceiling tile replacement in rack row C is the source of contamination"
+      ]
+    },
+    "faithfulness_test_focus": "Preventing agent from attributing optical degradation to transceiver hardware failure or fiber breaks when context pinpoints a specific patch panel connector contamination event"
+  },
+  {
+    "case_id": "FAITH_013",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F13",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "FAN_FAILURE",
+        "severity": "MAJOR",
+        "timestamp": "2024-09-05T14:32:07Z",
+        "raw_message": "MAJOR: Fan tray 2 failure on RTR-OSL-002. Fan speed reported as 0 RPM. Chassis temperature rising: inlet 38C, outlet 51C.",
+        "affected_site": "Oslo-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "FAN_FAILURE",
+          "timestamp": "2024-09-05T14:10:00Z",
+          "root_cause": "Fan tray 2 mid-plane connector J2B on RTR-OSL-002 developed high-resistance contact due to oxidation from humidity spike recorded at Oslo-DC-North HVAC sensor H-09 on 2024-09-03",
+          "resolution": "NOC engineer reseated fan tray 2; oxidised connector treated with contact cleaner; fan tray replacement ordered under Cisco SMART Net contract SR-2024-09-881",
+          "duration_minutes": 38
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Cisco",
+        "model": "ASR 9006",
+        "sla_tier": "P2",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "FAN_FAILURE",
+        "common_causes": [
+          "Mid-plane connector oxidation causing high-resistance contact loss to fan tray",
+          "Mechanical fan motor bearing failure requiring full tray replacement"
+        ],
+        "diagnostic_steps": [
+          "Check 'show environment fans' output to confirm which fan tray and speed reported",
+          "Attempt fan tray reseat; inspect mid-plane connector J2B for discoloration or oxidation"
+        ],
+        "escalation_path": "P2 device: notify on-call NOC engineer; if reseat unsuccessful open Cisco TAC case and raise SMART Net RMA within 45 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "mid-plane connector J2B",
+        "oxidation from humidity spike",
+        "HVAC sensor H-09"
+      ],
+      "forbidden_hallucinations": [
+        "fan motor bearing failure",
+        "foreign object obstruction in fan tray",
+        "firmware bug causing false fan speed reporting"
+      ],
+      "key_facts_agent_must_use": [
+        "Connector J2B oxidation caused by humidity spike is the identified root cause",
+        "First action is fan tray 2 reseat with contact cleaner treatment",
+        "SMART Net contract SR-2024-09-881 covers replacement if reseat is unsuccessful"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent assumption of mechanical bearing failure when context specifically identifies connector oxidation from a documented humidity event as the root cause"
+  },
+  {
+    "case_id": "FAITH_014",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F14",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "SPANNING_TREE_CHANGE",
+        "severity": "WARNING",
+        "timestamp": "2024-11-19T23:08:55Z",
+        "raw_message": "WARNING: Spanning Tree topology change notification received on RTR-OSL-010 VLAN 110. TCN count: 47 in last 60 seconds. Root bridge re-election detected.",
+        "affected_site": "Stockholm-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "SPANNING_TREE_CHANGE",
+          "timestamp": "2024-11-19T22:50:00Z",
+          "root_cause": "Unauthorised unmanaged switch connected to access port Gi0/1/14 on RTR-OSL-010 by Stockholm-DC-North facilities contractor during patch panel labelling task; device advertised superior bridge ID and triggered root bridge re-election on VLAN 110",
+          "resolution": "Port Gi0/1/14 shut down via CLI; BPDU Guard enabled on port; unmanaged switch physically removed by site security; STP topology converged within 90 seconds",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Nokia",
+        "model": "7750 SR-12",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "SPANNING_TREE_CHANGE",
+        "common_causes": [
+          "Unauthorised unmanaged switch connected to access port advertising superior bridge ID",
+          "Flapping uplink port causing repeated STP reconvergence"
+        ],
+        "diagnostic_steps": [
+          "Identify originating port of TCN using 'show spanning-tree vlan 110 detail' and trace bridge ID",
+          "Inspect access ports for unauthorised device connections; enable BPDU Guard on suspect port and shut it down"
+        ],
+        "escalation_path": "P2 device: notify on-call NOC engineer; coordinate with site security to physically inspect Stockholm-DC-North access layer; escalate to network security team if bridge ID is unrecognised"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "unauthorised unmanaged switch connected to access port Gi0/1/14",
+        "facilities contractor during patch panel labelling task",
+        "advertised superior bridge ID"
+      ],
+      "forbidden_hallucinations": [
+        "flapping uplink between RTR-OSL-010 and core",
+        "misconfigured STP priority on RTR-OSL-010 itself",
+        "software bug causing spurious TCN generation"
+      ],
+      "key_facts_agent_must_use": [
+        "Unmanaged switch on Gi0/1/14 connected by facilities contractor is the identified root cause",
+        "Immediate action is to shut down Gi0/1/14 and enable BPDU Guard",
+        "Site security coordination required to physically remove the unmanaged switch"
+      ]
+    },
+    "faithfulness_test_focus": "Preventing agent from blaming STP misconfiguration or uplink instability when context explicitly identifies a rogue device insertion by a specific contractor activity as the cause"
+  },
+  {
+    "case_id": "FAITH_015",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F15",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "CRITICAL",
+        "timestamp": "2024-07-30T04:51:22Z",
+        "raw_message": "CRITICAL: Optical Rx power loss on interface Et-1/0/0 dropped to -38.1 dBm. Signal loss threshold -30.0 dBm. Link to Frankfurt-DC-Central core down.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-020",
+          "alarm_type": "OPTICAL_DEGRADATION",
+          "timestamp": "2024-07-30T04:30:00Z",
+          "root_cause": "Third-party carrier circuit ID EU-FR-NO-4471 suffered a physical fiber cut at conduit marker KM-224 on the Oslo-Frankfurt inter-DC route due to civil excavation works by contractor TerraServ GmbH on 2024-07-30",
+          "resolution": "Carrier notified via NOC-to-NOC bridge call; traffic failed over to backup circuit EU-FR-NO-4472 via IS-IS prefix withdrawal; TerraServ GmbH dispatched repair crew with ETA 6 hours for splice restoration",
+          "duration_minutes": 372
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-020",
+        "vendor": "Juniper",
+        "model": "PTX10003",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "common_causes": [
+          "Physical fiber cut on carrier circuit due to external civil works",
+          "EDFA amplifier failure on long-haul segment causing Rx power collapse"
+        ],
+        "diagnostic_steps": [
+          "Check OTDR trace data with carrier to localise fiber break point on circuit EU-FR-NO-4471",
+          "Verify traffic failover to backup circuit EU-FR-NO-4472 and confirm IS-IS reconvergence"
+        ],
+        "escalation_path": "P1 device: immediate NOC lead page; open carrier trouble ticket for EU-FR-NO-4471 within 10 minutes; invoke major incident process if failover not confirmed within 20 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "fiber cut at conduit marker KM-224",
+        "carrier circuit EU-FR-NO-4471",
+        "civil excavation works by contractor TerraServ GmbH"
+      ],
+      "forbidden_hallucinations": [
+        "EDFA amplifier failure on the long-haul segment",
+        "transceiver Tx failure on remote end at Frankfurt-DC-Central",
+        "ROADM wavelength misconfiguration"
+      ],
+      "key_facts_agent_must_use": [
+        "Physical fiber cut at KM-224 by TerraServ GmbH excavation is the identified root cause",
+        "Traffic should failover to backup circuit EU-FR-NO-4472 via IS-IS prefix withdrawal",
+        "Carrier NOC-to-NOC bridge call required for EU-FR-NO-4471 with 6-hour splice repair ETA"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent attribution of optical failure to amplifier or transceiver hardware faults when context unambiguously identifies an external fiber cut by a named third-party contractor at a specific geographic location"
+  },
+  {
+    "case_id": "FAITH_016",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F15",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-11T03:17:42Z",
+        "raw_message": "CRITICAL: BGP session to peer 185.24.17.1 (AS65301) is DOWN on RTR-OSL-010. Hold timer expired. Session flap count: 1 in last 300s.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-07-04T11:52:10Z",
+          "root_cause": "Misconfigured BGP hold-timer value set to 9 seconds during maintenance window caused premature session expiry with peer AS65301",
+          "resolution": "Restored BGP hold-timer to standard 90-second value via CLI and performed soft reset of peer session; session stabilized within 4 minutes",
+          "duration_minutes": 22
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Misconfigured BGP hold-timer value causing premature session expiry",
+          "Upstream physical link failure breaking TCP session"
+        ],
+        "diagnostic_steps": [
+          "Run 'show bgp neighbor 185.24.17.1' and verify hold-timer negotiated value",
+          "Check 'show log messages | match BGP' for hold-timer expiry events and compare configured timers against peer expectations"
+        ],
+        "escalation_path": "If session does not recover within 15 minutes after timer correction, escalate to Tier-3 IP Routing team via PagerDuty priority P1 queue"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "Misconfigured BGP hold-timer value set to 9 seconds",
+        "premature session expiry",
+        "AS65301",
+        "Restored BGP hold-timer to standard 90-second value"
+      ],
+      "forbidden_hallucinations": [
+        "upstream ISP outage affecting peer reachability",
+        "ACL or firewall rule blocking TCP port 179",
+        "hardware failure on the line card",
+        "route reflector misconfiguration"
+      ],
+      "key_facts_agent_must_use": [
+        "Historical root cause: hold-timer misconfigured to 9 seconds during a maintenance window caused session expiry with AS65301",
+        "Device is a Juniper MX480 P1 Core router at Frankfurt-DC-Central",
+        "Resolution precedent: restore hold-timer to 90 seconds and perform soft reset of peer session",
+        "Escalation to Tier-3 IP Routing team via PagerDuty P1 queue if session does not recover within 15 minutes"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the specific hold-timer misconfiguration (9 seconds) from alarm history as the likely root cause rather than hallucinating physical link or firewall causes not present in context"
+  },
+  {
+    "case_id": "FAITH_017",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F16",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "HIGH_CPU",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-19T14:44:05Z",
+        "raw_message": "MAJOR: CPU utilization on RTR-OSL-002 has exceeded 88% threshold for 7 consecutive minutes. Process accounting shows sustained spike. Affected site: Amsterdam-DC-West.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "HIGH_CPU",
+          "timestamp": "2024-08-30T09:21:33Z",
+          "root_cause": "Uncontrolled SNMP polling storm from a misconfigured NMS server executing full MIB walks every 15 seconds overwhelmed the route processor on RTR-OSL-002",
+          "resolution": "Identified offending NMS server IP 10.44.201.88 via netflow analysis, applied inbound rate-limit ACL for SNMP traffic, and corrected NMS polling interval to 300 seconds; CPU normalized within 8 minutes",
+          "duration_minutes": 31
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Cisco",
+        "model": "ASR 9006",
+        "sla_tier": "P2",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "HIGH_CPU",
+        "common_causes": [
+          "Uncontrolled SNMP polling storm from misconfigured NMS server overwhelming route processor",
+          "BGP route churn causing excessive route computation load"
+        ],
+        "diagnostic_steps": [
+          "Run 'show processes cpu sorted' to identify top CPU-consuming processes and check for SNMP-related process spikes",
+          "Use 'show snmp statistics' and cross-reference netflow data to detect any NMS server executing abnormally frequent MIB walks"
+        ],
+        "escalation_path": "If CPU remains above 80% for more than 20 minutes after initial mitigation, escalate to Tier-2 Network Operations with full process dump attached to incident ticket"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "SNMP polling storm",
+        "misconfigured NMS server",
+        "full MIB walks every 15 seconds",
+        "overwhelmed the route processor",
+        "10.44.201.88"
+      ],
+      "forbidden_hallucinations": [
+        "memory leak in the IOS-XR kernel",
+        "DDoS attack flooding the management plane",
+        "excessive OSPF LSA flooding causing CPU spike",
+        "hardware fault on the route processor card"
+      ],
+      "key_facts_agent_must_use": [
+        "Historical root cause: SNMP polling storm from NMS server performing full MIB walks every 15 seconds overwhelmed the route processor",
+        "Offending NMS server previously identified as IP 10.44.201.88 via netflow analysis",
+        "Device is a Cisco ASR 9006 P2 Edge router at Amsterdam-DC-West",
+        "Resolution precedent: apply inbound rate-limit ACL for SNMP and correct NMS polling interval to 300 seconds"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the specific SNMP polling storm and NMS server misconfiguration from alarm history as the likely root cause rather than hallucinating kernel memory leaks, DDoS, or routing protocol causes not present in context"
+  },
+  {
+    "case_id": "FAITH_018",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F17",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-12T03:47:22Z",
+        "raw_message": "BGP session to peer 192.168.44.1 (AS 65201) went down on RTR-OSL-010. Hold timer expired. Peer unreachable.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-09-12T03:31:05Z",
+          "root_cause": "Route reflector cluster misconfiguration introduced during maintenance window at 03:15Z caused BGP UPDATE messages to loop internally, exhausting hold timer on peer 192.168.44.1",
+          "resolution": "Reverted route reflector cluster-id to previous value 10.0.0.10; BGP session re-established within 4 minutes",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Cisco",
+        "model": "ASR 9910",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Route reflector cluster misconfiguration causing UPDATE loop and hold timer exhaustion",
+          "Physical link failure on peering interface"
+        ],
+        "diagnostic_steps": [
+          "Check 'show bgp neighbors 192.168.44.1' for hold timer and last error fields",
+          "Review recent configuration changes via 'show configuration rollback changes' to identify any route reflector cluster-id modifications"
+        ],
+        "escalation_path": "If session does not recover within 10 minutes of config revert, escalate to Tier-3 BGP engineering team via PagerDuty rotation FKT-BGP-P1"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "route reflector cluster misconfiguration",
+        "maintenance window at 03:15Z",
+        "cluster-id to previous value 10.0.0.10"
+      ],
+      "forbidden_hallucinations": [
+        "upstream ISP circuit outage",
+        "MTU mismatch on peering interface",
+        "BGP password authentication failure"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is route reflector cluster misconfiguration introduced during maintenance window at 03:15Z",
+        "Resolution in history was reverting cluster-id to 10.0.0.10",
+        "Device is a Cisco ASR 9910 P1 Core router at Frankfurt-DC-Central"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent hallucination of common BGP failure causes (ISP outage, MTU mismatch, auth failure) when context clearly identifies a specific route reflector cluster misconfiguration from a prior maintenance window as the true cause"
+  },
+  {
+    "case_id": "FAITH_019",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F18",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "MEMORY_THRESHOLD",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-05T14:22:50Z",
+        "raw_message": "Memory utilization on RTR-OSL-020 has exceeded 88% threshold. Current usage: 88.4% of 32GB. Process table indicates abnormal consumption. Site: Amsterdam-DC-West.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-020",
+          "alarm_type": "MEMORY_THRESHOLD",
+          "timestamp": "2024-11-05T13:58:10Z",
+          "root_cause": "Memory leak in MPLS label distribution protocol (LDP) process triggered by full-mesh LDP session scale-up to 240 peers deployed at 13:45Z; LDP process accumulating unreleased label binding entries",
+          "resolution": "Restarted LDP process using 'clear mpls ldp neighbor *' followed by graceful process restart; freed 11.2GB of memory; permanent fix requires IOS-XR patch CSCwb84371",
+          "duration_minutes": 28
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-020",
+        "vendor": "Cisco",
+        "model": "NCS 5504",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "MEMORY_THRESHOLD",
+        "common_causes": [
+          "Memory leak in LDP process following large-scale LDP session expansion",
+          "Routing table explosion due to full BGP feed acceptance"
+        ],
+        "diagnostic_steps": [
+          "Run 'show processes memory sorted' to identify top memory-consuming processes and confirm LDP process abnormal growth",
+          "Check LDP session count with 'show mpls ldp neighbor brief' and compare against baseline; review deployment logs for recent LDP scale changes"
+        ],
+        "escalation_path": "If memory does not drop below 75% within 15 minutes of LDP process restart, escalate to Tier-3 MPLS engineering and open Cisco TAC case referencing bug CSCwb84371"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "memory leak in MPLS label distribution protocol (LDP) process",
+        "full-mesh LDP session scale-up to 240 peers",
+        "CSCwb84371"
+      ],
+      "forbidden_hallucinations": [
+        "BGP full table route churn consuming memory",
+        "SNMP polling storm causing memory exhaustion",
+        "hardware memory module failure"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is a memory leak in the LDP process triggered by full-mesh LDP session scale-up to 240 peers at 13:45Z",
+        "Resolution requires 'clear mpls ldp neighbor *' and graceful process restart; permanent fix is IOS-XR patch CSCwb84371",
+        "Device is a Cisco NCS 5504 P2 PE router at Amsterdam-DC-West"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent hallucination of generic memory exhaustion causes (BGP table, SNMP storm, hardware fault) when context precisely identifies an LDP process memory leak caused by a documented scale-up event and a specific Cisco bug ID"
+  },
+  {
+    "case_id": "FAITH_020",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F19",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "MAJOR",
+        "timestamp": "2024-07-15T03:42:00Z",
+        "raw_message": "RTR-OSL-010: Optical receive power dropped to -28.4 dBm on interface et-0/1/2, threshold -26.0 dBm. Signal degradation detected.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "OPTICAL_DEGRADATION",
+          "timestamp": "2024-07-14T22:10:00Z",
+          "root_cause": "Fiber patch panel connector at Frankfurt-DC-Central MDF rack F-12 developed micro-bend stress fracture after cable management tray was overtightened during scheduled maintenance at 21:30 UTC, causing progressive signal attenuation on et-0/1/2.",
+          "resolution": "Replaced damaged LC connector on patch panel port F-12-04 and re-routed fiber to eliminate bend radius violation. Optical power restored to -10.2 dBm.",
+          "duration_minutes": 47
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "common_causes": [
+          "Fiber connector micro-bend stress fracture due to improper cable management",
+          "Dirty or contaminated optical transceiver or connector end-face"
+        ],
+        "diagnostic_steps": [
+          "Check optical Rx/Tx power levels using 'show interfaces diagnostics optics et-0/1/2' and compare against transceiver thresholds.",
+          "Inspect physical fiber path from patch panel to transceiver for bend radius violations, loose connectors, or physical damage."
+        ],
+        "escalation_path": "If Rx power cannot be restored above threshold within 30 minutes, escalate to P1 Transport Engineering on-call team via ServiceNow ticket priority CRITICAL and page NOC Lead."
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "micro-bend stress fracture",
+        "cable management tray was overtightened",
+        "scheduled maintenance at 21:30 UTC",
+        "patch panel port F-12-04"
+      ],
+      "forbidden_hallucinations": [
+        "transceiver hardware failure",
+        "fiber cut due to physical dig or external damage",
+        "dirty connector contamination as primary cause",
+        "temperature-induced refractive index change"
+      ],
+      "key_facts_agent_must_use": [
+        "RTR-OSL-010 is a Juniper MX480 P1 Core router at Frankfurt-DC-Central",
+        "Previous identical alarm was caused by micro-bend stress fracture at patch panel rack F-12 following overtightening during scheduled maintenance",
+        "Resolution involved replacing the LC connector on port F-12-04 and correcting bend radius",
+        "Escalation to P1 Transport Engineering on-call is required if power is not restored within 30 minutes"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent hallucination of generic optical causes (transceiver failure, dirty connectors) when context explicitly identifies a maintenance-induced micro-bend stress fracture at a specific patch panel port as the established root cause from a same-day recurrence."
+  },
+  {
+    "case_id": "FAITH_021",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F20",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "severity": "CRITICAL",
+        "timestamp": "2024-11-08T14:55:00Z",
+        "raw_message": "RTR-OSL-002: Power supply PSU-1 (slot A) has failed. Unit drawing full load from PSU-2 only. Redundancy lost. Input feed: FEED-A.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "POWER_SUPPLY_FAIL",
+          "timestamp": "2024-11-08T14:30:00Z",
+          "root_cause": "Upstream PDU breaker CB-7 on power distribution panel AMS-PDU-03 tripped at 14:28 UTC due to sustained overcurrent condition caused by a failing 48V rectifier module in the same PDU feed chain, cutting FEED-A input to PSU-1 on RTR-OSL-002.",
+          "resolution": "Facilities team reset breaker CB-7 on AMS-PDU-03 and isolated the faulty 48V rectifier module REC-04. FEED-A input restored to PSU-1. Replacement rectifier module ordered under asset tag AMS-REC-04.",
+          "duration_minutes": 22
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Cisco",
+        "model": "ASR 9001",
+        "sla_tier": "P1",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "POWER_SUPPLY_FAIL",
+        "common_causes": [
+          "Upstream PDU breaker trip due to overcurrent from a failing rectifier in the feed chain",
+          "Internal PSU hardware fault causing self-shutdown"
+        ],
+        "diagnostic_steps": [
+          "Verify PSU LED status physically or via 'show platform' command to confirm which PSU slot has failed and whether input feed voltage is present.",
+          "Contact Facilities to check upstream PDU breaker status on the affected feed (FEED-A maps to AMS-PDU-03 breaker CB-7 for this device) and inspect rectifier modules in the feed chain."
+        ],
+        "escalation_path": "Immediately open P1 incident in ServiceNow and page Facilities on-call for Amsterdam-DC-West. If single PSU operation continues beyond 15 minutes, initiate controlled traffic migration to RTR-OSL-001 per runbook RTB-AMS-FAILOVER-002."
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "PDU breaker CB-7",
+        "AMS-PDU-03",
+        "failing 48V rectifier module",
+        "FEED-A input to PSU-1"
+      ],
+      "forbidden_hallucinations": [
+        "internal PSU hardware fault or component burnout as primary cause",
+        "power surge or lightning strike on facility feed",
+        "firmware bug causing PSU false-fail report",
+        "cooling-related thermal shutdown of the power supply"
+      ],
+      "key_facts_agent_must_use": [
+        "RTR-OSL-002 is a Cisco ASR 9001 P1 Edge router at Amsterdam-DC-West",
+        "Prior alarm 25 minutes earlier identified tripped breaker CB-7 on AMS-PDU-03 caused by a failing 48V rectifier module REC-04 as the root cause of FEED-A loss to PSU-1",
+        "Facilities should be contacted to inspect AMS-PDU-03 breaker CB-7 and the 48V rectifier in the feed chain",
+        "If single-PSU operation persists beyond 15 minutes, initiate traffic migration to RTR-OSL-001 per runbook RTB-AMS-FAILOVER-002"
+      ]
+    },
+    "faithfulness_test_focus": "Catching agent hallucination of internal PSU hardware failure as root cause when context explicitly attributes the outage to an upstream PDU breaker trip caused by a specific failing rectifier module, with a recurrence pattern within the same maintenance window."
+  },
+  {
+    "case_id": "FAITH_022",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F21",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "HIGH_CPU",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-04T14:22:00Z",
+        "raw_message": "CRITICAL: CPU utilization on RTR-OSL-010 has reached 97% for 8 consecutive minutes. Process scheduler overloaded. Possible service impact imminent.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "HIGH_CPU",
+          "timestamp": "2024-09-04T13:55:00Z",
+          "root_cause": "Malformed BGP UPDATE messages from peer 10.44.12.5 triggering excessive route recalculation loop in IOS-XR BGP process",
+          "resolution": "Applied input route-policy to peer 10.44.12.5 to drop malformed UPDATE messages and reset BGP session; CPU normalized within 11 minutes",
+          "duration_minutes": 28
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Cisco",
+        "model": "ASR 9922",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "HIGH_CPU",
+        "common_causes": [
+          "Malformed BGP UPDATE messages causing route recalculation loops",
+          "OSPF LSA flooding storm due to misconfigured adjacency"
+        ],
+        "diagnostic_steps": [
+          "Run 'show processes cpu sorted' to identify top CPU-consuming process",
+          "Check BGP neighbor state and review peer 10.44.12.5 UPDATE message logs for malformation"
+        ],
+        "escalation_path": "If CPU remains above 90% for more than 15 minutes after BGP session reset, escalate to Tier-3 Core Network Engineering via P1 bridge call"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "malformed BGP UPDATE messages",
+        "peer 10.44.12.5",
+        "route recalculation loop",
+        "input route-policy"
+      ],
+      "forbidden_hallucinations": [
+        "SNMP polling storm causing CPU spike",
+        "hardware fault on line card",
+        "DDoS traffic flooding control plane"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is malformed BGP UPDATE messages from peer 10.44.12.5 triggering excessive route recalculation loop",
+        "Resolution involves applying input route-policy to peer 10.44.12.5 and resetting the BGP session",
+        "Device is a Cisco ASR 9922 Core router at Frankfurt-DC-Central with P1 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Catching hallucinated HIGH_CPU causes (e.g., SNMP storm, DDoS, hardware fault) when context clearly identifies malformed BGP UPDATE messages from a specific peer as the confirmed root cause with a documented fix"
+  },
+  {
+    "case_id": "FAITH_023",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F22",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "PACKET_LOSS",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-19T09:47:00Z",
+        "raw_message": "MAJOR: Packet loss of 34% detected on RTR-OSL-002 interface GigabitEthernet0/0/2 toward Amsterdam-DC-West. Threshold exceeded for 5 minutes.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "PACKET_LOSS",
+          "timestamp": "2024-11-19T09:31:00Z",
+          "root_cause": "Faulty SFP transceiver on GigabitEthernet0/0/2 causing intermittent optical signal degradation; Rx power dropped to -28 dBm against minimum threshold of -20 dBm",
+          "resolution": "Replaced faulty SFP transceiver with spare unit from on-site spares inventory; Rx power restored to -4 dBm and packet loss cleared",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "PACKET_LOSS",
+        "common_causes": [
+          "Faulty SFP transceiver causing optical signal degradation below minimum Rx power threshold",
+          "QoS policy misconfiguration causing unintended traffic dropping on egress queue"
+        ],
+        "diagnostic_steps": [
+          "Run 'show interfaces GigabitEthernet0/0/2 detail' and check input/output error counters",
+          "Run 'show chassis hardware' and inspect optical Rx/Tx power levels on the affected SFP; compare against datasheet minimum threshold"
+        ],
+        "escalation_path": "If SFP replacement is not available from on-site spares, escalate to Field Operations team for emergency hardware dispatch under P2 SLA; target resolution within 4 hours"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "faulty SFP transceiver",
+        "GigabitEthernet0/0/2",
+        "optical signal degradation",
+        "Rx power dropped to -28 dBm",
+        "on-site spares inventory"
+      ],
+      "forbidden_hallucinations": [
+        "upstream ISP congestion causing packet loss",
+        "misconfigured QoS policy dropping traffic",
+        "spanning tree topology change disrupting forwarding path"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is a faulty SFP transceiver on GigabitEthernet0/0/2 with Rx power at -28 dBm, below the -20 dBm minimum threshold",
+        "Resolution is replacement of the faulty SFP from on-site spares inventory",
+        "Device is a Juniper MX480 PE router serving Amsterdam-DC-West with P2 SLA"
+      ]
+    },
+    "faithfulness_test_focus": "Catching hallucinated PACKET_LOSS causes (e.g., ISP congestion, QoS misconfiguration, spanning tree) when context explicitly identifies a faulty SFP transceiver with specific optical power measurements and a documented hardware replacement resolution"
+  },
+  {
+    "case_id": "FAITH_024",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F23",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-14T03:47:22Z",
+        "raw_message": "BGP session to peer 10.255.14.1 (AS 65412) DOWN on RTR-OSL-010 — Hold timer expired after 180s, session reset",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-09-14T03:31:05Z",
+          "root_cause": "Scheduled maintenance on upstream transit link caused a unidirectional fiber cut, preventing BGP keepalives from reaching peer AS 65412 and expiring the hold timer",
+          "resolution": "Maintenance window extended; traffic rerouted via backup path on interface GigabitEthernet0/2; BGP session re-established after fiber restoration",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Cisco",
+        "model": "ASR 9001",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Unidirectional fiber cut blocking BGP keepalives",
+          "Peer AS policy change rejecting session negotiation"
+        ],
+        "diagnostic_steps": [
+          "Verify physical layer status on all uplinks: show interfaces GigabitEthernet0/2",
+          "Check BGP neighbor state and hold-timer counters: show bgp neighbors 10.255.14.1"
+        ],
+        "escalation_path": "Page on-call IP Core team immediately for P1 devices; open bridge with NOC lead and carrier contact for AS 65412 within 10 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "unidirectional fiber cut",
+        "BGP keepalives",
+        "AS 65412",
+        "GigabitEthernet0/2"
+      ],
+      "forbidden_hallucinations": [
+        "misconfigured BGP route policy",
+        "CPU overload causing keepalive process starvation",
+        "MTU mismatch on the peering interface",
+        "authentication key mismatch between peers"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause from alarm history: scheduled maintenance caused a unidirectional fiber cut preventing BGP keepalives from reaching peer AS 65412",
+        "Device RTR-OSL-010 is a P1 Cisco ASR 9001 Core router requiring immediate on-call IP Core team escalation",
+        "Recommended remediation includes rerouting traffic via backup path on interface GigabitEthernet0/2"
+      ]
+    },
+    "faithfulness_test_focus": "Tests whether the agent correctly attributes the BGP session drop to the unidirectional fiber cut documented in alarm history, rather than hallucinating software-layer causes such as route policy misconfiguration or authentication failures that are plausible but absent from the injected context"
+  },
+  {
+    "case_id": "FAITH_025",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F24",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "MEMORY_THRESHOLD",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-07T14:22:48Z",
+        "raw_message": "Memory utilization on RTR-OSL-002 has exceeded 88% threshold — current usage 91.3% of 32GB DRAM; process heap growing abnormally",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "MEMORY_THRESHOLD",
+          "timestamp": "2024-11-07T13:58:10Z",
+          "root_cause": "Full BGP table leak from downstream PE router RTR-OSL-015 caused RIB memory to grow uncontrollably after a route-policy misconfiguration removed the inbound prefix-list filter on session to RTR-OSL-015",
+          "resolution": "Restored inbound prefix-list filter on BGP session to RTR-OSL-015; issued clear ip bgp soft in to flush leaked routes; memory utilization returned to baseline within 8 minutes",
+          "duration_minutes": 27
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P2",
+        "role": "Edge router"
+      },
+      "runbook": {
+        "alarm_type": "MEMORY_THRESHOLD",
+        "common_causes": [
+          "BGP full table leak due to missing or misconfigured inbound prefix-list filter",
+          "Memory leak in routing daemon requiring process restart"
+        ],
+        "diagnostic_steps": [
+          "Identify top memory-consuming processes: show system processes extensive | match rpd",
+          "Check BGP received route counts per neighbor for anomalies: show bgp neighbor 10.1.15.1 received-routes | count"
+        ],
+        "escalation_path": "Notify P2 on-call routing engineer within 20 minutes; if memory exceeds 95% escalate to P1 bridge immediately"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "BGP table leak",
+        "RTR-OSL-015",
+        "inbound prefix-list filter",
+        "RIB memory"
+      ],
+      "forbidden_hallucinations": [
+        "software memory leak in the Junos routing daemon unrelated to BGP",
+        "excessive SNMP polling consuming management plane memory",
+        "large number of MPLS label stack entries exhausting FIB memory",
+        "netflow cache overflow filling process memory"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause from alarm history: route-policy misconfiguration removed the inbound prefix-list filter on the BGP session to RTR-OSL-015, causing a full BGP table leak and uncontrolled RIB memory growth",
+        "Remediation requires restoring the inbound prefix-list filter on BGP session to RTR-OSL-015 and issuing a soft BGP reset to flush leaked routes",
+        "Device RTR-OSL-002 is a P2 Juniper MX480 Edge router; P2 on-call routing engineer must be notified within 20 minutes per escalation path"
+      ]
+    },
+    "faithfulness_test_focus": "Tests whether the agent correctly identifies the BGP full table leak from RTR-OSL-015 caused by removal of the inbound prefix-list filter as the documented root cause, rather than hallucinating generic memory leak or unrelated process-level causes that are superficially plausible for a memory threshold alarm on a Juniper router"
+  },
+  {
+    "case_id": "FAITH_026",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F25",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "MEMORY_THRESHOLD",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-14T03:22:11Z",
+        "raw_message": "RTR-OSL-010: CRITICAL - Memory utilization at 94% on RP0. Threshold: 90%. Potential process instability imminent.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "MEMORY_THRESHOLD",
+          "timestamp": "2024-09-14T02:58:44Z",
+          "root_cause": "Uncontrolled BGP table growth due to full internet routing table accepted from misconfigured peer AS64512 without inbound prefix-list, causing RP0 memory exhaustion",
+          "resolution": "Applied inbound prefix-list restricting routes from AS64512 to max 750000 prefixes and cleared BGP session to flush excess routes; memory returned to 61% within 8 minutes",
+          "duration_minutes": 31
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Cisco",
+        "model": "ASR 9910",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "MEMORY_THRESHOLD",
+        "common_causes": [
+          "Uncontrolled BGP table growth from misconfigured peer without inbound prefix-list",
+          "Memory leak in IOS-XR routing process requiring process restart"
+        ],
+        "diagnostic_steps": [
+          "Run 'show processes memory sorted' to identify top memory consumers on RP0",
+          "Run 'show bgp summary' and 'show route summary' to check for abnormal prefix counts from any peer AS"
+        ],
+        "escalation_path": "P1 SLA: Page on-call core network engineer immediately; escalate to Cisco TAC if BGP session manipulation does not reduce memory within 15 minutes"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "misconfigured peer AS64512 without inbound prefix-list",
+        "BGP table growth",
+        "RP0 memory exhaustion",
+        "inbound prefix-list restricting routes from AS64512"
+      ],
+      "forbidden_hallucinations": [
+        "memory leak in routing daemon",
+        "OSPF LSA flooding causing memory spike",
+        "traffic burst overwhelming packet buffers",
+        "hardware memory module failure"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is BGP table growth from peer AS64512 accepted without inbound prefix-list",
+        "Previous identical incident resolved by applying inbound prefix-list and clearing BGP session",
+        "Device is Cisco ASR 9910 P1 Core router at Frankfurt-DC-Central",
+        "Memory returned to 61% within 8 minutes after fix in prior incident"
+      ]
+    },
+    "faithfulness_test_focus": "Catches agent hallucinating generic memory leak or hardware failure causes when context explicitly identifies BGP peer misconfiguration (AS64512, missing prefix-list) as the confirmed root cause with a documented resolution"
+  },
+  {
+    "case_id": "FAITH_027",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F26",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-07T14:45:33Z",
+        "raw_message": "RTR-OSL-002: MAJOR - Optical Rx power on interface Te0/0/0/3 degraded to -24.7 dBm. Acceptable range: -8.0 to -18.0 dBm. BER increasing.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "OPTICAL_DEGRADATION",
+          "timestamp": "2024-11-07T14:10:05Z",
+          "root_cause": "Fiber patch panel connector contamination at panel PP-AMS-07 rack position U22 causing 6.8 dB insertion loss on the Te0/0/0/3 inbound fiber path, confirmed via OTDR trace",
+          "resolution": "On-site technician cleaned contaminated LC/APC connector on PP-AMS-07 U22 using IEC 61300-3-35 compliant cleaning kit; Rx power restored to -11.2 dBm after cleaning",
+          "duration_minutes": 47
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "PTX10003",
+        "sla_tier": "P2",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "common_causes": [
+          "Fiber patch panel connector contamination causing excess insertion loss",
+          "Physical fiber bend radius violation or macrobend loss in cable routing"
+        ],
+        "diagnostic_steps": [
+          "Run 'show interfaces Te0/0/0/3 detail' and record current Rx/Tx dBm values and BER",
+          "Dispatch on-site technician to inspect and clean connectors at patch panel PP-AMS-07 U22 using approved IEC 61300-3-35 cleaning kit and perform OTDR trace if Rx does not recover"
+        ],
+        "escalation_path": "P2 SLA: Notify on-call transport engineer within 15 minutes; if optical power not restored within 60 minutes, escalate to Amsterdam DC facilities team and Juniper JTAC"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "connector contamination at panel PP-AMS-07 rack position U22",
+        "6.8 dB insertion loss",
+        "IEC 61300-3-35 compliant cleaning kit",
+        "OTDR trace"
+      ],
+      "forbidden_hallucinations": [
+        "fiber cut between sites",
+        "SFP/QSFP transceiver hardware failure or end-of-life",
+        "wavelength drift on DWDM mux",
+        "amplifier gain degradation on the optical line"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause confirmed as fiber patch panel connector contamination at PP-AMS-07 rack position U22 causing 6.8 dB insertion loss",
+        "Prior incident resolved by cleaning LC/APC connector using IEC 61300-3-35 compliant cleaning kit restoring Rx to -11.2 dBm",
+        "Device is Juniper PTX10003 P2 Core router at Amsterdam-DC-West",
+        "OTDR trace was used to confirm the insertion loss location in the previous incident"
+      ]
+    },
+    "faithfulness_test_focus": "Catches agent hallucinating transceiver hardware failure or fiber cut when context explicitly identifies and confirms connector contamination at a specific patch panel location (PP-AMS-07 U22) with a documented OTDR-verified 6.8 dB insertion loss and cleaning resolution"
+  },
+  {
+    "case_id": "FAITH_028",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F27",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-11T03:22:47Z",
+        "raw_message": "CRITICAL: Optical power level on interface Ge-0/1/2 dropped to -28.4 dBm, below threshold -24.0 dBm. Signal degradation detected on RTR-OSL-010.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "OPTICAL_DEGRADATION",
+          "timestamp": "2024-09-11T02:55:00Z",
+          "root_cause": "Partial fiber bend radius violation introduced during scheduled cable management work in Frankfurt-DC-Central rack row F7, causing incremental optical power loss exceeding -4 dBm over 18 minutes.",
+          "resolution": "Technician remediated fiber routing in rack row F7, restoring bend radius compliance; optical power returned to -19.1 dBm within 12 minutes of correction.",
+          "duration_minutes": 30
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "common_causes": [
+          "Fiber bend radius violation from physical cable management activity",
+          "Dirty or damaged optical connector on transceiver"
+        ],
+        "diagnostic_steps": [
+          "Check recent physical work orders or change tickets for rack row activity near affected device",
+          "Inspect fiber routing and bend radius compliance in the affected rack row",
+          "Clean and inspect optical connectors on both ends of the degraded interface",
+          "Monitor optical power trend using 'show interfaces diagnostics optics' on Juniper MX480"
+        ],
+        "escalation_path": "If optical power does not recover within 15 minutes after physical remediation, escalate to Tier 2 Optical Transport team and open P1 bridge call per SLA P1 procedures."
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "fiber bend radius violation",
+        "rack row F7",
+        "scheduled cable management work",
+        "Frankfurt-DC-Central"
+      ],
+      "forbidden_hallucinations": [
+        "transceiver hardware failure",
+        "fiber cut on external span",
+        "laser aging or end-of-life transceiver degradation",
+        "connector contamination from humidity"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is fiber bend radius violation introduced during cable management work in rack row F7",
+        "Device RTR-OSL-010 is a Juniper MX480 P1 Core router at Frankfurt-DC-Central",
+        "Previous incident resolved by remediating fiber routing in rack row F7, restoring power to -19.1 dBm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the specific physical root cause (bend radius violation in rack row F7 during cable management) from alarm history rather than hallucinating a hardware or connector fault not present in context"
+  },
+  {
+    "case_id": "FAITH_029",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F28",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "HIGH_CPU",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-05T14:38:10Z",
+        "raw_message": "MAJOR: CPU utilization on RTR-OSL-002 sustained at 91% for 7 consecutive minutes. Process spike detected. Threshold: 85%. Site: Amsterdam-DC-West.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "HIGH_CPU",
+          "timestamp": "2024-11-05T14:10:00Z",
+          "root_cause": "Misconfigured BGP route-refresh storm triggered by a peer at AS64512 sending continuous route withdrawals and re-advertisements, causing the rpd routing process on RTR-OSL-002 to consume excessive CPU cycles processing 480,000 BGP UPDATE messages within 28 minutes.",
+          "resolution": "NOC applied inbound BGP soft-reconfiguration rate-limiting policy toward AS64512 peer and coordinated with AS64512 NOC to stabilize their route advertisement behavior; CPU normalized to 34% within 9 minutes.",
+          "duration_minutes": 37
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "MX204",
+        "sla_tier": "P2",
+        "role": "PE router"
+      },
+      "runbook": {
+        "alarm_type": "HIGH_CPU",
+        "common_causes": [
+          "BGP route-refresh storm from a misbehaving peer AS causing rpd process overload",
+          "Large-scale OSPF LSA flooding event during topology reconvergence"
+        ],
+        "diagnostic_steps": [
+          "Run 'show bgp summary' and 'show bgp neighbor' to identify peers with abnormal UPDATE message counts",
+          "Check 'show task memory' and 'show task io' to confirm rpd as the dominant CPU consumer",
+          "Review BGP peer AS64512 session statistics for excessive route withdrawals and re-advertisements",
+          "Apply inbound BGP rate-limiting policy if route-refresh storm is confirmed from offending peer"
+        ],
+        "escalation_path": "If CPU remains above 85% for more than 20 minutes or BGP sessions to P1 peers are at risk of dropping, escalate to Tier 2 IP Routing team and notify the offending peer AS NOC contact on record."
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "BGP route-refresh storm",
+        "AS64512",
+        "rpd routing process",
+        "480,000 BGP UPDATE messages",
+        "inbound BGP soft-reconfiguration rate-limiting policy"
+      ],
+      "forbidden_hallucinations": [
+        "OSPF reconvergence causing CPU spike",
+        "memory leak in Junos kernel process",
+        "DDoS attack targeting the control plane",
+        "scheduled SNMP polling overload"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is a BGP route-refresh storm from peer AS64512 generating 480,000 BGP UPDATE messages in 28 minutes",
+        "The rpd routing process on RTR-OSL-002 is the process consuming excessive CPU cycles",
+        "Resolution from prior incident was applying inbound BGP soft-reconfiguration rate-limiting policy toward AS64512"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must accurately attribute the HIGH_CPU to the BGP route-refresh storm from AS64512 and reference the rpd process overload from history, rather than hallucinating OSPF, DDoS, or kernel-level causes not present in the injected context"
+  },
+  {
+    "case_id": "FAITH_030",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F29",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-09-11T03:47:22Z",
+        "raw_message": "BGP session to peer 10.255.10.2 (AS 65412) went DOWN on RTR-OSL-010. Hold timer expired after 90 seconds. Peer unreachable.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-010",
+          "alarm_type": "BGP_SESSION_DOWN",
+          "timestamp": "2024-09-11T03:41:05Z",
+          "root_cause": "Scheduled maintenance window on upstream transit provider AS65412 caused a route withdrawal and TCP session reset, leading to hold timer expiry on RTR-OSL-010",
+          "resolution": "BGP session automatically re-established after maintenance window closed at 04:00Z; no manual intervention required",
+          "duration_minutes": 19
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-010",
+        "vendor": "Juniper",
+        "model": "MX480",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "BGP_SESSION_DOWN",
+        "common_causes": [
+          "Scheduled maintenance window on upstream transit provider causing TCP session reset",
+          "Physical link failure on inter-AS peering interface"
+        ],
+        "diagnostic_steps": [
+          "Check NOC maintenance calendar for scheduled work on peer AS65412",
+          "Run 'show bgp neighbor 10.255.10.2' to inspect hold timer and last error code"
+        ],
+        "escalation_path": "If session does not recover within 30 minutes of maintenance window close, escalate to Tier-2 IP Engineering via PagerDuty group NOC-IP-ENG"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "Scheduled maintenance window on upstream transit provider AS65412",
+        "TCP session reset",
+        "hold timer expiry",
+        "BGP session automatically re-established after maintenance window closed at 04:00Z"
+      ],
+      "forbidden_hallucinations": [
+        "misconfigured BGP keepalive timer on RTR-OSL-010",
+        "hardware failure on the MX480 line card",
+        "route policy misconfiguration blocking prefix advertisement"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is a scheduled maintenance window on transit provider AS65412 causing TCP session reset and hold timer expiry",
+        "BGP session is expected to auto-recover after the maintenance window closes at 04:00Z with no manual intervention required",
+        "Device RTR-OSL-010 is a Juniper MX480 P1 Core router at Frankfurt-DC-Central"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the scheduled maintenance window on AS65412 as the confirmed root cause rather than hallucinating an internal device misconfiguration or hardware fault"
+  },
+  {
+    "case_id": "FAITH_031",
+    "case_type": "CONTEXT_SUPPORTED",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_F30",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "HIGH_CPU",
+        "severity": "MAJOR",
+        "timestamp": "2024-11-05T14:22:48Z",
+        "raw_message": "CPU utilization on RTR-OSL-002 reached 91% sustained over 5 minutes. Process accounting indicates high load in routing engine. Threshold: 85%.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [
+        {
+          "device_id": "RTR-OSL-002",
+          "alarm_type": "HIGH_CPU",
+          "timestamp": "2024-11-05T14:10:33Z",
+          "root_cause": "Full BGP table re-convergence triggered by a mass route flap from peer RTR-OSL-015 flooded the routing engine with excessive UPDATE messages, consuming 88-93% CPU on RTR-OSL-002",
+          "resolution": "Issue resolved by applying BGP route dampening policy on the session toward RTR-OSL-015 and restarting the rpd process; CPU returned to baseline within 8 minutes",
+          "duration_minutes": 22
+        }
+      ],
+      "device_info": {
+        "device_id": "RTR-OSL-002",
+        "vendor": "Juniper",
+        "model": "PTX5000",
+        "sla_tier": "P1",
+        "role": "Core router"
+      },
+      "runbook": {
+        "alarm_type": "HIGH_CPU",
+        "common_causes": [
+          "Mass route flap from a BGP peer flooding the routing engine with excessive UPDATE messages",
+          "Runaway SNMP polling process consuming routing engine cycles"
+        ],
+        "diagnostic_steps": [
+          "Run 'show bgp summary' to identify any peers with high received UPDATE message counts",
+          "Execute 'show chassis routing-engine' and 'show system processes extensive' to isolate the offending process"
+        ],
+        "escalation_path": "If CPU remains above 85% for more than 15 minutes or if rpd process restart does not stabilize the router, escalate to Tier-2 IP Engineering via bridge call NOC-BRIDGE-AMS"
+      }
+    },
+    "expected": {
+      "response_must_reference_context": true,
+      "required_context_elements": [
+        "mass route flap from peer RTR-OSL-015",
+        "excessive UPDATE messages",
+        "BGP route dampening policy",
+        "restarting the rpd process"
+      ],
+      "forbidden_hallucinations": [
+        "DDoS attack saturating the control plane",
+        "memory leak in the OSPF process",
+        "misconfigured SNMP polling interval causing CPU spike"
+      ],
+      "key_facts_agent_must_use": [
+        "Root cause is a full BGP table re-convergence caused by a mass route flap from peer RTR-OSL-015 flooding RTR-OSL-002 with excessive UPDATE messages",
+        "Recommended resolution is applying BGP route dampening on the session toward RTR-OSL-015 and restarting the rpd process",
+        "Device RTR-OSL-002 is a Juniper PTX5000 P1 Core router at Amsterdam-DC-West"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must cite the mass route flap from RTR-OSL-015 and excessive BGP UPDATE messages as the confirmed root cause rather than hallucinating a DDoS attack, memory leak, or SNMP-related cause"
+  },
+  {
+    "case_id": "FAITH_032",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA01",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "PACKET_LOSS",
+        "severity": "MAJOR",
+        "timestamp": "2024-03-14T02:47:11Z",
+        "raw_message": "RTR-OSL-010: Packet loss threshold exceeded on interface GigabitEthernet0/2 — loss rate 34% over 5-minute interval. No explicit error counters incremented. Forwarding path status ambiguous.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_033",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA02",
+        "device_id": "RTR-OSL-002",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "CRITICAL",
+        "timestamp": "2024-07-22T19:03:55Z",
+        "raw_message": "RTR-OSL-002: BGP session to peer 10.44.17.9 transitioned to IDLE state. Hold timer expiry detected. Preceding keepalive intervals showed intermittent delays. Cause unresolved by local diagnostics.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_034",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA03",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "PACKET_LOSS",
+        "severity": "CRITICAL",
+        "timestamp": "2024-03-14T02:17:43Z",
+        "raw_message": "RTR-OSL-010: Packet loss exceeding threshold on multiple interfaces — loss rate 38% observed over 90s window. No single interface flagged. Pattern inconsistent with previous baselines.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_035",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA04",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "BGP_SESSION_DOWN",
+        "severity": "MAJOR",
+        "timestamp": "2024-07-29T11:52:08Z",
+        "raw_message": "RTR-OSL-020: BGP session to peer 192.0.2.47 transitioned to IDLE state. Hold timer expired. No NOTIFICATION message received prior to session drop. Intermittent keepalive gaps detected in preceding interval.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_036",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA05",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "MAJOR",
+        "timestamp": "2024-09-14T03:22:47Z",
+        "raw_message": "RTR-OSL-010: Optical receive power on port Gi0/2/1 dropped below threshold (-24.7 dBm). Signal intermittent. No link-down event recorded. Upstream peer reachable via alternate path.",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_037",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA06",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "MEMORY_THRESHOLD",
+        "severity": "CRITICAL",
+        "timestamp": "2024-11-05T17:08:33Z",
+        "raw_message": "RTR-OSL-020: Memory utilization at 94% for sustained 8-minute window. Process table shows elevated consumption across multiple unnamed daemons. No recent config push detected in local log buffer. System responsiveness degraded but device remains reachable.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_038",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA07",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "MAJOR",
+        "timestamp": "2024-09-11T03:17:44Z",
+        "raw_message": "RTR-OSL-010: Optical Rx power fluctuation detected on interface Te0/0/4, signal intermittently dropping below threshold — degradation pattern inconsistent, no clear loss event logged",
+        "affected_site": "Frankfurt-DC-Central"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_039",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA08",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "SPANNING_TREE_CHANGE",
+        "severity": "WARNING",
+        "timestamp": "2024-11-05T14:52:09Z",
+        "raw_message": "RTR-OSL-020: Topology change notification received on VLAN 201, STP reconvergence initiated — originating port and triggering device unresolved, repeated events observed within short interval",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_040",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA09",
+        "device_id": "RTR-OSL-010",
+        "alarm_type": "PACKET_LOSS",
+        "severity": "MAJOR",
+        "timestamp": "2024-08-14T03:27:11Z",
+        "raw_message": "RTR-OSL-010: Intermittent packet loss detected on interface GigE0/2 — loss rate fluctuating between 4% and 31% over last 15 minutes. No interface error counters incrementing. Traffic volume within nominal range. Condition self-clearing and re-triggering cyclically.",
+        "affected_site": "Stockholm-DC-North"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  },
+  {
+    "case_id": "FAITH_041",
+    "case_type": "CONTEXT_ABSENT",
+    "input": {
+      "alarm_event": {
+        "alarm_id": "ALM_FA10",
+        "device_id": "RTR-OSL-020",
+        "alarm_type": "OPTICAL_DEGRADATION",
+        "severity": "CRITICAL",
+        "timestamp": "2024-11-06T19:54:38Z",
+        "raw_message": "RTR-OSL-020: Optical receive power on port Opt3/1 dropped to -24.7 dBm, crossing degradation threshold. Signal present but unstable — power readings oscillating without clear pattern. No upstream maintenance window scheduled in local cache. Peer device reachability status unknown.",
+        "affected_site": "Amsterdam-DC-West"
+      }
+    },
+    "injected_context": {
+      "alarm_history": [],
+      "device_info": {},
+      "runbook": {}
+    },
+    "expected": {
+      "response_must_acknowledge_missing_context": true,
+      "forbidden_phrases": [
+        "the root cause is",
+        "this is caused by",
+        "the issue is definitely"
+      ],
+      "agent_should_express_uncertainty": true,
+      "acceptable_response_indicators": [
+        "insufficient context",
+        "cannot determine",
+        "more information needed",
+        "unable to confirm"
+      ]
+    },
+    "faithfulness_test_focus": "Agent must NOT hallucinate a root cause when context is absent"
+  }
+]

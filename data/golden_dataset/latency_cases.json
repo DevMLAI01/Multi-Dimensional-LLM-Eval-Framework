@@ -1,0 +1,1042 @@
+[
+  {
+    "case_id": "LAT_001",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L01",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-12T08:14:22Z",
+      "raw_message": "Interface GigabitEthernet0/0 on RTR-OSL-001 is DOWN. Physical layer signal lost. Link has been inactive for 120 seconds.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.85-0.95",
+      "quality_metric_focus": "correctness",
+      "notes": "Physical layer signal loss on a known P1 device with 2 prior similar events in history. Runbook RB-LINK-001 covers fiber/cable fault diagnosis. Root cause is unambiguously a physical layer disconnection or cable fault."
+    }
+  },
+  {
+    "case_id": "LAT_002",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L02",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-05T14:33:47Z",
+      "raw_message": "CPU utilization on RTR-OSL-002 has reached 94% for the past 10 minutes. Process 'bgpd' is consuming 87% of CPU resources.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.85-0.95",
+      "quality_metric_focus": "correctness",
+      "notes": "BGP daemon is explicitly identified as the CPU-consuming process. Known P2 device with 3 prior similar events logged during BGP route table churn. Runbook RB-CPU-002 directly addresses bgpd high CPU scenarios. Root cause is unambiguous: BGP process overload likely due to route flap or peer instability."
+    }
+  },
+  {
+    "case_id": "LAT_003",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L03",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-09-18T22:05:10Z",
+      "raw_message": "BGP session to peer 10.0.0.1 (AS65001) on RTR-OSL-010 has gone DOWN. Hold timer expired after 90 seconds of no keepalive messages received.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.80-0.95",
+      "quality_metric_focus": "faithfulness",
+      "notes": "BGP hold timer expiry is explicitly stated with peer details. Known P1 device with 2 prior BGP session drops to the same peer in alarm history. Runbook RB-BGP-003 covers hold timer expiry and keepalive failure. Root cause is unambiguously loss of BGP keepalives from peer AS65001."
+    }
+  },
+  {
+    "case_id": "LAT_004",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L04",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-07T03:45:58Z",
+      "raw_message": "Packet loss of 38% detected on interface TenGigabitEthernet1/1 of RTR-OSL-015. Input error counter incrementing at 520 errors/sec. CRC errors confirmed.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.85-0.95",
+      "quality_metric_focus": "correctness",
+      "notes": "CRC errors are explicitly confirmed in the alarm message alongside high packet loss. Known P2 device with 2 prior similar CRC-related packet loss events. Runbook RB-PKT-004 covers CRC error diagnosis pointing to physical media or transceiver fault. Root cause is unambiguously a layer 1 signal integrity issue causing CRC errors."
+    }
+  },
+  {
+    "case_id": "LAT_005",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L05",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MINOR",
+      "timestamp": "2024-07-22T11:58:33Z",
+      "raw_message": "Interface FastEthernet2/0 on RTR-OSL-020 reporting excessive output drops: 1240 drops in last 60 seconds. Output queue consistently full. Bandwidth utilization at 99%.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.80-0.92",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Output drops combined with 99% bandwidth utilization and full output queue are explicitly reported. Known P2 device with 3 prior identical output drop events during traffic peaks. Runbook RB-INT-005 covers output queue saturation and bandwidth exhaustion. Root cause is unambiguously interface bandwidth saturation causing output queue drops."
+    }
+  },
+  {
+    "case_id": "LAT_006",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L06",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-12T08:14:22Z",
+      "raw_message": "BGP session to peer 10.0.0.1 (AS65002) is DOWN on RTR-OSL-001. Hold timer expired after 90 seconds. No KEEPALIVE received. Session has been down for 3 minutes.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.85-0.95",
+      "quality_metric_focus": "correctness",
+      "notes": "Clear BGP hold timer expiry on a known P1 device with 2 prior similar events in history. Single unambiguous root cause: peer unreachable or remote side process restart. Runbook RB-BGP-001 matches directly."
+    }
+  },
+  {
+    "case_id": "LAT_007",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L07",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-05T14:32:10Z",
+      "raw_message": "Interface GigabitEthernet0/2 on RTR-OSL-010 reporting high input error rate: 1240 CRC errors in last 300 seconds. Error rate threshold of 500 exceeded. Physical layer issue suspected.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.82-0.93",
+      "quality_metric_focus": "correctness",
+      "notes": "CRC errors exceeding threshold on a specific interface of a known P2 device. Alarm history shows 2 identical prior events linked to a faulty SFP transceiver. Runbook RB-INTF-CRC-002 covers this scenario directly. Root cause is unambiguously a degraded physical layer component."
+    }
+  },
+  {
+    "case_id": "LAT_008",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L08",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-18T03:47:55Z",
+      "raw_message": "RTR-OSL-002 memory utilization has reached 91% of total available memory (14.56 GB of 16 GB used). Threshold set at 85%. Memory usage has been above threshold continuously for 15 minutes.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.80-0.92",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Memory utilization clearly reported at 91% on a known P1 device. Prior alarm history shows 3 similar events all resolved by restarting the BGP process which had a memory leak. Runbook RB-MEM-001 prescribes exactly this remediation. Diagnosis is fast and unambiguous."
+    }
+  },
+  {
+    "case_id": "LAT_009",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L09",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-02T19:05:33Z",
+      "raw_message": "Power Supply Unit 1 (PSU-1) on RTR-OSL-015 has FAILED. Input voltage lost. PSU-2 is active and carrying full load. Redundancy compromised. Immediate replacement required.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.88-0.97",
+      "quality_metric_focus": "correctness",
+      "notes": "PSU-1 failure with voltage loss clearly stated in alarm message. Device RTR-OSL-015 is a known P1 device with 2 prior PSU failure events documented in history. Runbook RB-PSU-001 specifies immediate hardware replacement procedure. Root cause is hardware failure with no ambiguity."
+    }
+  },
+  {
+    "case_id": "LAT_010",
+    "complexity": "SIMPLE",
+    "input": {
+      "alarm_id": "ALM_L10",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MAJOR",
+      "timestamp": "2024-07-29T11:22:47Z",
+      "raw_message": "Fan module FAN-3 on RTR-OSL-020 has stopped rotating. RPM reading: 0 (expected minimum: 2000 RPM). Chassis temperature rising: currently 68C, warning threshold is 70C. Remaining fans operating normally.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "LOW",
+      "reasoning_depth_required": "SHALLOW"
+    },
+    "expected": {
+      "expected_hypothesis_count": 1,
+      "expected_confidence_range": "0.83-0.94",
+      "quality_metric_focus": "robustness",
+      "notes": "FAN-3 explicitly reported at 0 RPM on a known P2 device RTR-OSL-020. Alarm history contains 2 prior fan failure events on the same device resolved by fan module replacement. Runbook RB-FAN-001 applies directly. Rising temperature adds urgency but does not introduce diagnostic ambiguity."
+    }
+  },
+  {
+    "case_id": "LAT_011",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L11",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "MAJOR",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "BGP session to peer 10.44.12.1 flapped and did not re-establish. Hold timer expired after 90s. Local AS 65001. No NOTIFICATION message received from peer.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.65",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Hold timer expiry without a NOTIFICATION message is ambiguous — could indicate (1) upstream peer router fault or unreachable next-hop, (2) transient link-layer congestion causing keepalive loss, or (3) misconfigured hold-timer value on one side. Runbook covers BGP session drops but assumes NOTIFICATION is received, so it only partially applies. Sparse alarm history means no pattern to correlate against."
+    }
+  },
+  {
+    "case_id": "LAT_012",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L12",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-22T11:05:29Z",
+      "raw_message": "Interface GigabitEthernet0/2 reporting elevated input error counter: 3,412 errors in last 300s. Output queue drops also observed (87 drops). Link state remains UP.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "Link is UP but showing both input errors and output drops simultaneously — could be (1) a physical layer issue such as a degraded cable or SFP causing CRC/framing errors, or (2) traffic congestion or QoS misconfiguration causing queue saturation and coincidental noise. Runbook covers input errors but does not address concurrent output drops. Only 1 prior event on record, insufficient for trend analysis."
+    }
+  },
+  {
+    "case_id": "LAT_013",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L13",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-08-09T16:44:10Z",
+      "raw_message": "Process memory utilization reached 74% on RTR-OSL-015. Top consumer reported as 'bgp' process (31%). System has been running for 47 days without reload. No OOM events logged.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.40-0.60",
+      "quality_metric_focus": "robustness",
+      "notes": "74% memory with BGP as top consumer after 47-day uptime is ambiguous — could be (1) a slow BGP memory leak accumulating over the uptime period requiring a process restart, or (2) legitimate growth in BGP table size due to route additions from peers, which is expected behavior. Runbook addresses memory threshold alarms but does not distinguish between leak patterns and organic table growth. No prior alarms make baselining impossible."
+    }
+  },
+  {
+    "case_id": "LAT_014",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L14",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-03T03:58:02Z",
+      "raw_message": "PSU-1 status changed to FAULT on RTR-OSL-002. Input voltage reading: 204V (threshold: 210-240V). PSU-2 status: OK. Redundancy mode: 1+1. Device operational.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "faithfulness",
+      "notes": "PSU-1 fault with low input voltage (204V vs 210V minimum) is ambiguous — could be (1) a failing or degraded power supply unit with internal component fault misreporting voltage, or (2) a genuine facility-side undervoltage condition on the feed circuit serving PSU-1 requiring facilities team involvement. Runbook covers PSU failure but assumes internal failure; does not include facility voltage diagnostics steps. Device is stable on PSU-2 redundancy, reducing urgency but not clarity."
+    }
+  },
+  {
+    "case_id": "LAT_015",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L15",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MAJOR",
+      "timestamp": "2024-05-17T19:22:55Z",
+      "raw_message": "Fan tray FAN-MODULE-2 RPM dropped below threshold: current 1,850 RPM, expected >=2,400 RPM. Chassis inlet temperature: 38C (normal range <40C). Fan controller reporting intermittent sensor read errors for FAN-MODULE-2.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.42-0.63",
+      "quality_metric_focus": "correctness",
+      "notes": "Low fan RPM combined with intermittent sensor read errors is ambiguous — could be (1) a genuinely degrading fan motor with mechanical wear causing real RPM reduction and noisy sensor readings as a side effect, or (2) a faulty fan controller or sensor producing erroneous RPM readings while the fan operates normally, as evidenced by inlet temp still within normal range. Runbook addresses fan failure but does not provide guidance on distinguishing sensor faults from actual motor degradation. One prior event 6 months ago provides minimal pattern context."
+    }
+  },
+  {
+    "case_id": "LAT_016",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L16",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "MAJOR",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "PSU-2 output voltage deviation detected on RTR-OSL-001; measured 11.4V against nominal 12V threshold. Unit operational but redundancy reduced. No prior maintenance logged.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.40-0.65",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Voltage sag on PSU-2 could indicate (1) gradual PSU hardware degradation approaching failure, or (2) transient upstream power feed instability causing undervoltage. Runbook covers full PSU failure but not borderline voltage deviation. Sparse alarm history means no trend data available to distinguish causes."
+    }
+  },
+  {
+    "case_id": "LAT_017",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L17",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "MAJOR",
+      "timestamp": "2024-06-22T14:55:10Z",
+      "raw_message": "Fan tray slot 3 reporting intermittent RPM drops below threshold on RTR-OSL-010. Chassis temperature currently within normal range. Single prior event recorded 8 months ago, resolved without intervention.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.62",
+      "quality_metric_focus": "correctness",
+      "notes": "Intermittent RPM drops with normal chassis temperature could indicate (1) a failing fan motor requiring replacement, (2) a faulty RPM sensor giving false low readings, or (3) intermittent power delivery to the fan tray. Runbook addresses hard fan failure but not intermittent RPM fluctuation. One prior self-resolved event adds slight ambiguity about whether this is a real fault or a recurring sensor artifact."
+    }
+  },
+  {
+    "case_id": "LAT_018",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L18",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-05T08:30:27Z",
+      "raw_message": "Rx optical power on port Gi0/2/1 dropped to -24.5 dBm, approaching receiver sensitivity floor of -26 dBm. Signal still within FEC correction range. RTR-OSL-002 shows no prior optical alarms on this port.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.42-0.63",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Near-threshold Rx power degradation could indicate (1) gradual fiber connector contamination or physical layer degradation on this span, or (2) the remote transmitter SFP is aging and losing output power. Runbook covers full signal loss but not marginal near-threshold degradation scenarios. No prior events mean no baseline trend exists to determine rate of decline."
+    }
+  },
+  {
+    "case_id": "LAT_019",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L19",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "WARNING",
+      "timestamp": "2024-11-18T19:44:02Z",
+      "raw_message": "STP topology change notification received on RTR-OSL-015 VLAN 120; port-role transition detected but originating bridge not identified in log. One similar event recorded 11 months ago with no documented resolution.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.38-0.60",
+      "quality_metric_focus": "robustness",
+      "notes": "STP topology change with unidentified originating bridge could indicate (1) an unauthorized or unmanaged switch plugged into the network causing a new bridge election, (2) a legitimate downstream device flapping its uplink causing repeated TCN generation, or (3) a misconfigured PortFast or BPDU guard setting triggering false topology changes. Runbook covers standard STP loop scenarios but does not address unidentified bridge sources. Sparse history prevents pattern-based diagnosis."
+    }
+  },
+  {
+    "case_id": "LAT_020",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L20",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-07-09T23:12:55Z",
+      "raw_message": "Interface Te0/0/4 transitioned to down state on RTR-OSL-020. Link had been stable for 6 months. No scheduled maintenance window active. Peer device status unknown at time of alarm generation.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.43-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "Unexpected link-down on a previously stable 10G interface with unknown peer status could indicate (1) physical layer failure such as a damaged cable, dirty connector, or failed SFP on either end, or (2) the remote peer device or its interface went down independently, making this a symptomatic alarm rather than the root cause. Runbook covers local interface failures but does not guide remote peer correlation when peer status is unavailable. No alarm history makes it impossible to determine if this is a recurring pattern."
+    }
+  },
+  {
+    "case_id": "LAT_021",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L21",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "MAJOR",
+      "timestamp": "2024-03-14T07:22:41Z",
+      "raw_message": "STP topology change detected on RTR-OSL-001, VLAN 10 root bridge re-election initiated. Port Gi0/2 transitioned state. Convergence timer running.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.65",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Root bridge re-election could be caused by (1) a physical link flap on Gi0/2 introducing a superior BPDU, or (2) an upstream switch failure causing RTR-OSL-001 to become root by default, or (3) misconfigured bridge priority after a recent change. Runbook covers STP changes but not root re-election specifically. Sparse alarm history prevents pattern recognition."
+    }
+  },
+  {
+    "case_id": "LAT_022",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L22",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-05T14:08:17Z",
+      "raw_message": "Interface Te0/0/1 on RTR-OSL-010 is down. Last successful keepalive was 47 seconds ago. Remote peer status unknown. No scheduled maintenance window active.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "Link down with remote peer status unknown could indicate (1) physical fiber or transceiver failure on the local or remote end, or (2) remote peer device crash or reboot causing keepalive timeout. Runbook covers link-down procedures but does not address scenarios where remote peer state is unverifiable. Only one prior alarm event exists, making trending impossible."
+    }
+  },
+  {
+    "case_id": "LAT_023",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L23",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-19T03:45:02Z",
+      "raw_message": "CPU utilization on RTR-OSL-002 sustained at 87% for 5 minutes. Process breakdown unavailable. Control plane traffic spike observed coinciding with off-peak hours.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.60",
+      "quality_metric_focus": "robustness",
+      "notes": "High CPU during off-peak with control plane spike and no process breakdown could be caused by (1) a routing protocol reconvergence event flooding the CPU with update processing, (2) a network scan or DDoS reflection attack generating excessive punt traffic, or (3) a scheduled but undocumented backup or SNMP polling job consuming cycles. Process breakdown unavailability significantly limits root cause isolation. Runbook addresses high CPU but assumes process data is accessible."
+    }
+  },
+  {
+    "case_id": "LAT_024",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L24",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-11-28T11:31:55Z",
+      "raw_message": "Packet loss of 18% detected on RTR-OSL-015 egress interface Gi0/1 toward next-hop 10.44.2.1. QoS policy applied. Loss is non-uniform, affecting bursts intermittently.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.42-0.63",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Intermittent burst-pattern packet loss on a QoS-enabled interface could be caused by (1) egress queue tail-drop due to insufficient bandwidth allocation in the active QoS policy class-map, or (2) physical layer degradation such as duplex mismatch or marginal optical signal causing intermittent frame corruption and drop. Runbook covers packet loss but does not differentiate between QoS-induced and physical-layer loss scenarios. Zero prior alarm history on this device."
+    }
+  },
+  {
+    "case_id": "LAT_025",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L25",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-08-07T22:14:33Z",
+      "raw_message": "BGP session to peer 192.0.2.55 (AS 64512) on RTR-OSL-020 has gone down. Notification code received: Hold Timer Expired. Session had been stable for 11 days prior. One previous BGP drop event logged 3 months ago.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": true,
+      "device_in_inventory": true,
+      "has_matching_runbook": true,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "Hold Timer Expired notification after 11 days of stability with a single prior drop event could indicate (1) transient underlay congestion or CPU spike preventing timely BGP keepalive processing on either side, or (2) a misconfigured or asymmetric hold-timer negotiation that has become exposed by a recent IOS update or config push. Runbook covers BGP session drops but does not specifically address Hold Timer Expired as distinct from notification codes like OPEN message errors. Sparse history (1 prior event) makes recurrence pattern ambiguous."
+    }
+  },
+  {
+    "case_id": "LAT_026",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L26",
+      "device_id": "RTR-OSL-001",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "MAJOR",
+      "timestamp": "2024-03-14T08:22:11Z",
+      "raw_message": "Intermittent packet loss detected on RTR-OSL-001: 12% drop rate observed over last 5 minutes on ge-0/0/3. Link utilization at 71%. No CRC errors reported.",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": false,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.65",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Packet loss at 71% utilization without CRC errors is ambiguous — could be (1) upstream congestion or traffic burst exceeding interface buffer thresholds, (2) a failing transceiver with intermittent signal degradation not yet manifesting as CRC errors, or (3) a QoS misconfiguration causing selective packet drops. No prior alarm history means baseline is unknown. Runbook covers packet loss with CRC errors but not this clean-signal scenario."
+    }
+  },
+  {
+    "case_id": "LAT_027",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L27",
+      "device_id": "RTR-OSL-010",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-05T14:47:33Z",
+      "raw_message": "BGP session to peer 192.168.44.2 (AS 65204) on RTR-OSL-010 went down. Hold timer expired. Last successful keepalive: 14 minutes ago. No interface state change logged.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": false,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "BGP hold timer expiry without an interface state change is ambiguous — could be (1) CPU overload on RTR-OSL-010 or the peer causing keepalive processing delays, or (2) a silent mid-path network issue (e.g., ACL or firewall rule change) silently dropping BGP control traffic. No alarm history makes it hard to distinguish transient from systemic. Runbook addresses BGP down due to interface failure but not hold-timer expiry with stable interfaces."
+    }
+  },
+  {
+    "case_id": "LAT_028",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L28",
+      "device_id": "RTR-OSL-002",
+      "alarm_type": "INTERFACE_ERROR",
+      "severity": "MINOR",
+      "timestamp": "2024-09-19T22:05:58Z",
+      "raw_message": "Interface xe-2/1/0 on RTR-OSL-002 reporting incrementing output errors (187 in last 10 min). Input counters clean. Remote peer shows no corresponding errors. Link is operationally UP.",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": false,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 3,
+      "expected_confidence_range": "0.40-0.60",
+      "quality_metric_focus": "robustness",
+      "notes": "Output errors with clean input and no peer-side errors are ambiguous — could be (1) a local egress buffer overflow due to traffic shaping misconfiguration, (2) a hardware issue on the local port ASIC causing TX framing errors that the peer's FEC is silently correcting, or (3) a software counter bug on this firmware version. Sparse alarm history (0 prior events) prevents trending analysis. Runbook addresses bidirectional interface errors but not unidirectional output-only error patterns."
+    }
+  },
+  {
+    "case_id": "LAT_029",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L29",
+      "device_id": "RTR-OSL-015",
+      "alarm_type": "MEMORY_THRESHOLD",
+      "severity": "WARNING",
+      "timestamp": "2024-11-02T03:31:44Z",
+      "raw_message": "RTR-OSL-015 memory utilization crossed 78% threshold. Routing table size: 892k prefixes (normal). Active BGP sessions: 14 (normal). Process heap growth detected in last 30 minutes but no single dominant process identified.",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": false,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.42-0.62",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Memory growth with no dominant process and all known metrics normal is ambiguous — could be (1) a slow memory leak in a background daemon (e.g., SNMP or syslog agent) accumulating over time, or (2) gradual fragmentation of memory due to sustained high churn in ephemeral routing state (e.g., flapping routes) not visible in snapshot metrics. Only 1 prior alarm event (a different type) exists, so memory baseline is unknown. Runbook covers memory threshold caused by routing table explosion but does not address diffuse multi-process heap growth."
+    }
+  },
+  {
+    "case_id": "LAT_030",
+    "complexity": "MEDIUM",
+    "input": {
+      "alarm_id": "ALM_L30",
+      "device_id": "RTR-OSL-020",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "MAJOR",
+      "timestamp": "2024-07-28T17:14:09Z",
+      "raw_message": "RTR-OSL-020 PSU-1 reporting fault status. Input voltage reads 221V (within spec). Output voltage reads 11.6V DC (nominal: 12V). Device currently running on PSU-2 only. Temperature sensors normal. No datacenter power event recorded.",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": true,
+      "has_matching_runbook": false,
+      "ambiguity_level": "MEDIUM",
+      "reasoning_depth_required": "MODERATE"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.45-0.65",
+      "quality_metric_focus": "correctness",
+      "notes": "PSU output voltage slightly below nominal with in-spec input and normal temperature is ambiguous — could be (1) an aging or degraded PSU with a failing internal DC-DC converter beginning to drift out of regulation, or (2) a marginal internal load spike on PSU-1 causing output droop, possibly triggered by a brief surge that the monitoring snapshot is not capturing. No prior PSU alarm history for this device means no degradation trend is available. Runbook covers hard PSU failure and complete input voltage loss but does not address partial output voltage droop scenarios."
+    }
+  },
+  {
+    "case_id": "LAT_031",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L31",
+      "device_id": "RTR-UNKNOWN-901",
+      "alarm_type": "POWER_SUPPLY_FAIL",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "PSU-A and PSU-B both reporting abnormal state; UPS telemetry lost on rack segments 3,4,7; downstream switching fabric unresponsive; generator handoff log incomplete; possible PDU contention detected on bus 2 and bus 5 simultaneously — origin device unverified",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "robustness",
+      "notes": "Both redundant PSUs reporting failure simultaneously on an unregistered device, UPS telemetry lost across multiple rack segments, and generator handoff incomplete — ambiguous whether this is a true dual-PSU hardware failure, a site-wide power grid event, or a PDU bus fault propagating false states. No inventory record, no runbook, and no alarm history prevent root-cause isolation. Agent must reason from first principles about cascading power failure patterns."
+    }
+  },
+  {
+    "case_id": "LAT_032",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L32",
+      "device_id": "RTR-UNKNOWN-914",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-07-09T11:44:02Z",
+      "raw_message": "Topology change notifications flooding from unresolved bridge ID; root bridge election cycling detected across VLANs 10,20,100,200; multiple downstream switches reporting port state oscillation; MAC table flush events >1400/min site-wide; STP BPDU origin MAC not matching any registered device; possible rogue bridge insertion or split-brain condition — corroborating alarms from 6 unnamed adjacents",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.45",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Spanning tree instability cascading across multiple VLANs site-wide from an unregistered device with an unrecognized bridge MAC. Ambiguous whether root cause is a rogue/misconfigured device inserted into the network, a legitimate device with corrupted STP state, or a split-brain condition from a prior link failure. Six adjacent unnamed devices reporting corroborating alarms. No inventory match, no runbook, and no alarm history make confident root-cause identification impossible. Agent must conservatively flag loop risk and avoid prescriptive remediation."
+    }
+  },
+  {
+    "case_id": "LAT_033",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L33",
+      "device_id": "RTR-UNKNOWN-967",
+      "alarm_type": "OPTICAL_DEGRADATION",
+      "severity": "MAJOR",
+      "timestamp": "2024-10-22T19:05:18Z",
+      "raw_message": "Optical Rx power fluctuating between -3.1 dBm and -19.8 dBm on ports 1,3,5,7,9 with no stable baseline; OSNR alerts on multiple wavelengths; coherent DSP lock failures intermittent; adjacent DWDM amplifier reporting gain tilt; fiber plant provenance unknown — possible multi-span degradation, connector contamination, or EDFA saturation; alarm source device not in CMDB; correlated alarms from 2 unidentified adjacent transponders",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "correctness",
+      "notes": "Optical power wildly oscillating across 5 ports simultaneously on an unregistered device with unknown fiber plant provenance. Ambiguous between multi-span physical fiber degradation, EDFA/amplifier gain tilt causing wavelength-dependent loss, or widespread connector contamination. DWDM amplifier corroborating alarm adds complexity. No CMDB entry means span length, fiber type, and expected power budget are unknown. Two adjacent unnamed transponders also alarming. Agent cannot determine whether this is a localized device fault or a site-wide optical layer failure without physical plant data."
+    }
+  },
+  {
+    "case_id": "LAT_034",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L34",
+      "device_id": "RTR-UNKNOWN-988",
+      "alarm_type": "FAN_FAILURE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-03T15:28:55Z",
+      "raw_message": "Multiple fan tray modules reporting RPM=0 or invalid sensor reads; chassis inlet temp sensor offline; outlet temp escalating but values inconsistent across sensors; ASIC junction temps unavailable due to I2C bus errors; adjacent devices in same rack reporting elevated ambient; CRAC unit telemetry for row 7 shows anomaly; unclear if fan hardware failed, sensor bus corrupted, or cooling infrastructure failure — device identity unconfirmed in any asset register",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.45",
+      "quality_metric_focus": "robustness",
+      "notes": "Fan failure alarm is deeply ambiguous: RPM=0 readings could indicate true fan hardware failure, I2C sensor bus corruption producing false zero-reads, or a firmware fault. Outlet temps are inconsistent, ASIC junction temps unavailable, and the CRAC unit for the row is also anomalous — suggesting possible broader cooling infrastructure failure rather than isolated device fan fault. Device is not in any asset register, precluding chassis model identification, fan tray count, or thermal thresholds. Adjacent rack devices also showing elevated ambient. Agent cannot distinguish device-level hardware failure from row-level cooling event."
+    }
+  },
+  {
+    "case_id": "LAT_035",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L35",
+      "device_id": "RTR-UNKNOWN-955",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-12-01T04:52:11Z",
+      "raw_message": "Mass link-down event: 47 interfaces transitioning to down state within 90-second window; device responding intermittently to SNMP polls; BGP sessions to 3 unidentified peers dropped; IS-IS adjacencies lost; ARP table cleared; some interfaces reporting carrier loss while others report admin-down — origin unclear; management plane partially reachable; possible control plane crash, mass fiber cut, line card reset, or config push gone wrong; no change tickets found for maintenance window; 11 downstream devices now unreachable",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "faithfulness",
+      "notes": "47 simultaneous interface link-downs on an unregistered device is a site-impacting event with no clear single cause. The mix of carrier-loss and admin-down states is contradictory — suggesting either a control plane crash that incorrectly marked interfaces admin-down, a mass fiber cut, a line card reset clearing forwarding state, or an erroneous config push. SNMP partial reachability means the device is not fully down, complicating diagnosis. BGP and IS-IS both lost, 11 downstream devices unreachable, no change tickets, and no inventory record eliminate standard remediation paths. Agent must reason conservatively, flag site-wide impact risk, and avoid assuming any single cause."
+    }
+  },
+  {
+    "case_id": "LAT_036",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L36",
+      "device_id": "RTR-UNKNOWN-991",
+      "alarm_type": "SPANNING_TREE_CHANGE",
+      "severity": "CRITICAL",
+      "timestamp": "2024-03-14T02:17:43Z",
+      "raw_message": "STP topology change detected simultaneously on multiple VLANs (IDs unspecified); upstream and downstream bridge roles ambiguous; possible root bridge election in progress or completed; secondary alarms indicate MAC table flush events on 3+ adjacent segments; site switching fabric may be destabilized; origin device unregistered in NMS",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "robustness",
+      "notes": "Device is completely unknown to NMS; STP change spans multiple VLANs with no VLAN IDs provided; root bridge status is uncertain; MAC flush events on adjacent segments suggest cascading L2 instability across Frankfurt-DC-Central switching fabric; no runbook exists for unregistered bridge causing site-wide STP reconvergence; agent must reason about blast radius without any topology context"
+    }
+  },
+  {
+    "case_id": "LAT_037",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L37",
+      "device_id": "RTR-UNKNOWN-974",
+      "alarm_type": "BGP_SESSION_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-06-22T18:55:11Z",
+      "raw_message": "BGP session loss reported; peer address not resolved in routing table; concurrent OSPF adjacency warnings on same device; possible upstream provider impact or internal redistribution loop; multiple prefixes withdrawn — count unknown; downstream devices reporting partial reachability failures; device identity and AS number not confirmed in IPAM or CMDB",
+      "affected_site": "Amsterdam-DC-West"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.45",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Device AS number and peer IP are both unknown; simultaneous OSPF adjacency warnings suggest multi-protocol routing plane disruption; prefix withdrawal count is unquantified making impact assessment impossible; device not in CMDB or IPAM so ownership and role are indeterminate; agent cannot distinguish provider-edge failure from internal redistribution loop without inventory context; site-wide partial reachability implies cascading downstream impact"
+    }
+  },
+  {
+    "case_id": "LAT_038",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L38",
+      "device_id": "RTR-UNKNOWN-863",
+      "alarm_type": "HIGH_CPU",
+      "severity": "MAJOR",
+      "timestamp": "2024-09-05T11:28:07Z",
+      "raw_message": "Sustained CPU utilization anomaly detected; process names not captured; concurrent memory pressure warnings on same unregistered node; neighboring devices reporting increased control-plane latency and intermittent hello timer expiry across multiple protocols; possible software loop, traffic storm ingress, or active exploitation of management plane; no baseline metrics available for comparison; device model and OS version unknown",
+      "affected_site": "Stockholm-DC-North"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "robustness",
+      "notes": "No process names captured so root cause process is completely unknown; absence of baseline metrics means severity of CPU spike cannot be normalized; concurrent memory pressure complicates isolation; neighboring hello timer expiry suggests the high CPU is already causing multi-protocol adjacency degradation across Stockholm-DC-North; three plausible causes exist (software loop, traffic storm, security incident) but agent cannot differentiate without OS version, model, or historical telemetry; device entirely absent from inventory"
+    }
+  },
+  {
+    "case_id": "LAT_039",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L39",
+      "device_id": "RTR-UNKNOWN-742",
+      "alarm_type": "PACKET_LOSS",
+      "severity": "CRITICAL",
+      "timestamp": "2024-11-19T07:44:52Z",
+      "raw_message": "Packet loss event reported across multiple interfaces simultaneously; loss percentage inconsistent between SNMP poll and NetFlow export data; affected traffic classes unknown; co-occurring alarms from physically adjacent unregistered devices suggest site-wide fabric issue rather than single-node fault; QoS policy state unknown; hardware error counters inaccessible due to SNMP community string mismatch; physical layer diagnostics unavailable",
+      "affected_site": "Paris-DC-South"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.45",
+      "quality_metric_focus": "correctness",
+      "notes": "SNMP and NetFlow data are contradicting each other making loss quantification unreliable; SNMP community string mismatch blocks hardware diagnostic access; multiple adjacent unregistered devices also alarming suggests this is not an isolated node problem but a Paris-DC-South fabric-level event; traffic class affectation is unknown so SLA impact cannot be assessed; QoS state unknown means intentional dropping cannot be ruled out; agent must reason without any telemetry baseline or physical layer data"
+    }
+  },
+  {
+    "case_id": "LAT_040",
+    "complexity": "COMPLEX",
+    "input": {
+      "alarm_id": "ALM_L40",
+      "device_id": "RTR-UNKNOWN-615",
+      "alarm_type": "LINK_DOWN",
+      "severity": "CRITICAL",
+      "timestamp": "2024-12-03T23:02:18Z",
+      "raw_message": "Multiple interface down events reported in rapid succession on unregistered device; physical vs logical failure ambiguous — optical signal status unavailable; simultaneous alarms from what may be redundant peer devices suggest failover did not activate or is also degraded; upstream carrier circuit IDs unknown; maintenance window registry shows no scheduled work for site; power feed anomaly reported by separate environmental monitoring system at same timestamp; correlation between power event and link failures unconfirmed",
+      "affected_site": "Frankfurt-DC-Central"
+    },
+    "complexity_factors": {
+      "has_alarm_history": false,
+      "device_in_inventory": false,
+      "has_matching_runbook": false,
+      "ambiguity_level": "HIGH",
+      "reasoning_depth_required": "DEEP"
+    },
+    "expected": {
+      "expected_hypothesis_count": 2,
+      "expected_confidence_range": "0.20-0.40",
+      "quality_metric_focus": "faithfulness",
+      "notes": "Simultaneous multi-interface link-down events on an unknown device coinciding with a power feed anomaly creates an unresolvable ambiguity between physical layer failure and power-induced reset; optical signal status is unavailable blocking physical diagnosis; redundant peer devices also alarming means failover protection may have failed entirely; carrier circuit IDs are unknown so provider engagement is not actionable; no maintenance window is registered ruling out planned work; agent must acknowledge it cannot determine whether this is a power event, hardware failure, or upstream carrier issue without further data collection"
+    }
+  }
+]

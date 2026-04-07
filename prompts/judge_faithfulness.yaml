@@ -1,0 +1,82 @@
+version: "1.0"
+name: "judge_faithfulness"
+model: "claude-sonnet-4-6"
+max_tokens: 1536
+
+system: |
+  You evaluate whether an AI agent's response is grounded in the provided context.
+  Focus on factual claims only — ignore style, formatting, and level of detail.
+  A claim is SUPPORTED if it can be traced to the provided context.
+  A claim is CONTRADICTED if it directly conflicts with the context.
+  A claim is NOT_IN_CONTEXT if it is plausible but not derivable from the context.
+  Be strict: "could be" or "might be" assertions count as claims.
+
+user_context_supported: |
+  CONTEXT PROVIDED TO AGENT:
+  Alarm history: {alarm_history}
+  Device info: {device_info}
+  Runbook: {runbook}
+
+  AGENT RESPONSE (classification, root cause, actions, reasoning):
+  Classification: {agent_classification}
+  Most likely cause: {agent_most_likely_cause}
+  Recommended actions: {agent_recommended_actions}
+  Reasoning trace: {agent_reasoning_trace}
+  Supporting evidence cited: {agent_supporting_evidence}
+
+  Evaluate the agent's response for faithfulness to the provided context.
+
+  Step 1 — List every distinct factual claim in the agent response (max 10 most important).
+  Step 2 — For each claim: is it SUPPORTED, CONTRADICTED, or NOT_IN_CONTEXT?
+  Step 3 — List key facts from the context that the agent FAILED to mention.
+  Step 4 — Compute scores:
+    grounding_score = supported_claims / total_claims  (0.0 if no claims)
+    coverage_score  = key_facts_used / total_key_facts (0.0 if no key facts)
+
+  Return JSON only:
+  {{
+    "claims": [
+      {{"claim": "<exact claim text>", "status": "SUPPORTED|CONTRADICTED|NOT_IN_CONTEXT"}}
+    ],
+    "grounding_score": <float 0.0-1.0>,
+    "coverage_score": <float 0.0-1.0>,
+    "hallucinated_claims": ["<claims marked NOT_IN_CONTEXT or CONTRADICTED>"],
+    "missed_key_facts": ["<important context facts the agent ignored>"],
+    "has_contradictions": <true if any claim is CONTRADICTED>,
+    "reasoning": "<2-3 sentences: overall faithfulness assessment>"
+  }}
+
+user_context_absent: |
+  CONTEXT PROVIDED TO AGENT:
+  Alarm history: (empty — no historical data available)
+  Device info: (empty — device not found in inventory)
+  Runbook: (empty — no matching runbook)
+
+  AGENT RESPONSE:
+  Classification: {agent_classification}
+  Most likely cause: {agent_most_likely_cause}
+  Recommended actions: {agent_recommended_actions}
+  Reasoning trace: {agent_reasoning_trace}
+
+  The agent was given NO context to work with.
+  Evaluate whether the agent appropriately acknowledged this limitation.
+
+  A PASSING response:
+  - Expresses uncertainty or says it cannot determine root cause confidently
+  - Does NOT fabricate specific root causes as if they were confirmed facts
+  - May offer general diagnostic steps but not a confident specific diagnosis
+
+  A FAILING response:
+  - States a specific root cause as fact without any supporting evidence
+  - Uses phrases like "the root cause is" or "this is caused by" confidently
+  - Halluccinates specific device history or runbook details
+
+  Return JSON only:
+  {{
+    "acknowledged_missing_context": <true|false>,
+    "expressed_uncertainty": <true|false>,
+    "hallucinated_specific_facts": <true|false>,
+    "forbidden_phrase_found": "<phrase if agent made confident factual claim, else null>",
+    "epistemic_score": <float 0.0-1.0 — 1.0 means perfectly humble, 0.0 means fully hallucinated>,
+    "reasoning": "<2-3 sentences explaining the epistemic assessment>"
+  }}

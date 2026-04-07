@@ -1,0 +1,163 @@
+name: LLM Eval Suite
+
+on:
+  pull_request:
+    paths:
+      - 'agent/prompts/**'
+      - 'agent/nodes/**'
+      - 'agent/noc_agent.py'
+      - 'evaluators/**'
+      - 'eval_runner/**'
+
+  # Allow manual trigger for baseline runs
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run ID (e.g. "baseline" or "manual-test")'
+        required: true
+        default: 'manual'
+      dimensions:
+        description: 'Dimensions to run (space-separated, default: all)'
+        required: false
+        default: ''
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  unit-tests:
+    name: Unit Tests (no API)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run unit tests
+        run: uv run pytest -m "not integration" -v --tb=short
+
+  eval-suite:
+    name: Eval Suite (API)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Set run ID
+        id: run_id
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "RUN_ID=pr-${{ github.event.number }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "RUN_ID=${{ github.event.inputs.run_id }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run eval suite
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DIMENSIONS="${{ github.event.inputs.dimensions }}"
+          if [ -n "$DIMENSIONS" ]; then
+            uv run python eval_runner/runner.py \
+              --run-id "${{ steps.run_id.outputs.RUN_ID }}" \
+              --git-commit "${{ github.sha }}" \
+              --compare-to baseline \
+              --triggered-by CI \
+              --dimensions $DIMENSIONS
+          else
+            uv run python eval_runner/runner.py \
+              --run-id "${{ steps.run_id.outputs.RUN_ID }}" \
+              --git-commit "${{ github.sha }}" \
+              --compare-to baseline \
+              --triggered-by CI
+          fi
+
+      - name: Upload eval summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-summary-${{ steps.run_id.outputs.RUN_ID }}
+          path: reports/eval_summary_*.json
+          retention-days: 30
+
+      - name: Post eval results as PR comment
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const runId = 'pr-${{ github.event.number }}';
+            const summaryPath = `reports/eval_summary_${runId}.json`;
+
+            let body = '## LLM Eval Suite Results\n\n';
+
+            if (!fs.existsSync(summaryPath)) {
+              body += '> Eval summary file not found — check workflow logs.\n';
+            } else {
+              const summary = JSON.parse(fs.readFileSync(summaryPath, 'utf8'));
+              const passed = summary.regression_passed;
+              const cap = summary.safety_cap_applied;
+
+              body += passed
+                ? '**Status: PASS** — no regressions detected\n\n'
+                : '**Status: FAIL** — regressions detected, deployment blocked\n\n';
+
+              if (cap) {
+                body += '> **Safety cap applied** — safety pass rate < 100%, overall score capped at 0.60\n\n';
+              }
+
+              body += `**Overall score: ${summary.overall_score.toFixed(3)}**\n\n`;
+              body += '| Dimension | Score | Pass Rate | Status |\n';
+              body += '|-----------|-------|-----------|--------|\n';
+
+              for (const [dim, scores] of Object.entries(summary.dimension_scores || {})) {
+                const score = scores.mean_score?.toFixed(3) ?? 'N/A';
+                const pr = ((scores.pass_rate ?? 0) * 100).toFixed(0) + '%';
+                const ok = scores.mean_score >= scores.threshold ? '✅' : '❌';
+                body += `| ${dim} | ${score} | ${pr} | ${ok} |\n`;
+              }
+
+              if (summary.regressions?.length > 0) {
+                body += '\n**Regressions:**\n';
+                for (const r of summary.regressions) {
+                  body += `- **${r.dimension}** (${r.severity}): ${r.delta > 0 ? '+' : ''}${r.delta.toFixed(3)}\n`;
+                }
+              }
+
+              if (summary.warnings?.length > 0) {
+                body += '\n**Warnings (non-blocking):**\n';
+                for (const w of summary.warnings) {
+                  body += `- ${w.dimension} (MINOR): ${w.delta > 0 ? '+' : ''}${w.delta.toFixed(3)}\n`;
+                }
+              }
+
+              body += `\n*Duration: ${summary.duration_seconds?.toFixed(0)}s | Cost: $${summary.total_cost_usd?.toFixed(4)}*`;
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

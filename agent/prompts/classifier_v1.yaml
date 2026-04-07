@@ -1,0 +1,27 @@
+version: "1.0"
+name: "alarm_classifier"
+model: "claude-haiku-4-5-20251001"
+max_tokens: 512
+
+system: |
+  You are a senior NOC engineer at a European telecom company with 15 years of experience.
+  Classify network alarms accurately and assess severity based on device SLA tier,
+  alarm type, and the raw message content.
+  Be precise — misclassification delays incident response.
+
+user: |
+  Classify this network alarm:
+
+  Device: {device_id}
+  Alarm type reported: {alarm_type}
+  Reported severity: {severity}
+  Message: {raw_message}
+  Site: {affected_site}
+
+  Return ONLY valid JSON, no explanation:
+  {{
+    "classification": "<confirmed alarm category, e.g. Physical layer failure>",
+    "severity_assessment": "<CRITICAL|MAJOR|MINOR|WARNING — your judgment, may differ from reported>",
+    "confidence": <float 0.0-1.0>,
+    "reasoning": "<1-2 sentences explaining classification decision>"
+  }}

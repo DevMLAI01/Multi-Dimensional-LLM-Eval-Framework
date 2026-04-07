@@ -1,0 +1,5092 @@
+[
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 34,
+    "root_cause": "Fiber cut in Forus industrial area during construction work",
+    "resolution": "Rerouted traffic via backup MPLS tunnel to Stockholm-DC-North",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-042",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:18:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Sustained DDoS attack targeting BGP route reflection processes",
+    "resolution": "Applied rate limiting filters and engaged DDoS mitigation service",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-14T09:27:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Congestion on Amsterdam to Frankfurt backbone during peak hours",
+    "resolution": "Enabled traffic shaping and activated secondary carrier link",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-078",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-01T22:15:00Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP session timeout due to keepalive timer misconfiguration",
+    "resolution": "Corrected BGP timers on London and Paris routers and restarted session",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-031",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-03-12T16:45:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Transceiver module failure on Paris to Amsterdam inter-DC link",
+    "resolution": "Replaced SFP+ module and verified signal levels on restored link",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-009",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-05T11:22:00Z",
+    "duration_minutes": 45,
+    "root_cause": "CRC errors caused by degraded fiber connection to ISP handoff",
+    "resolution": "Cleaned fiber connectors and coordinated with ISP to verify their termination",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-056",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-18T19:33:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Memory leak in routing software processing BGP updates from 2000 peers",
+    "resolution": "Applied vendor patch and reloaded routing process gracefully without restart",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-023",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-02T07:08:00Z",
+    "duration_minutes": 18,
+    "root_cause": "Primary PSU failure detected during routine hardware monitoring",
+    "resolution": "Swapped redundant power supply module, primary PSU sent for RMA",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-011",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-05-16T13:41:00Z",
+    "duration_minutes": 29,
+    "root_cause": "Bearing failure in intake fan assembly causing noise threshold alert",
+    "resolution": "Replaced failed fan module and monitored chassis temperature for two hours",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRS-037",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-03T02:19:00Z",
+    "duration_minutes": 51,
+    "root_cause": "Optical signal attenuation from dirt on Warsaw to Berlin cable pair",
+    "resolution": "Scheduled maintenance window to clean and inspect fiber terminations",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-17T15:52:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Unplanned failover due to primary uplink maintenance window starting early",
+    "resolution": "Verified STP convergence and restored primary link to normal operation",
+    "severity": "MINOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-043",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-07-01T10:34:00Z",
+    "duration_minutes": 78,
+    "root_cause": "Cross-connect cable loose at Berlin carrier meet-me-point exchange",
+    "resolution": "Coordinated with facility team to reseat and secure cross-connect",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-016",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-14T23:11:00Z",
+    "duration_minutes": 43,
+    "root_cause": "Unexpected multicast storm from misconfigured video delivery network",
+    "resolution": "Disabled IGMP on affected VLAN and traced source of multicast traffic",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-079",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-02T08:47:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Buffer exhaustion on London egress interface during traffic spike",
+    "resolution": "Tuned queue management parameters and reviewed traffic engineering rules",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-032",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-19T21:03:00Z",
+    "duration_minutes": 11,
+    "root_cause": "BGP peer reset due to authentication key mismatch after planned update",
+    "resolution": "Synchronized authentication keys between Paris and London routers",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-010",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-09-03T12:26:00Z",
+    "duration_minutes": 38,
+    "root_cause": "FCS errors from duplex mismatch on Stockholm to Oslo Ethernet link",
+    "resolution": "Confirmed auto-negotiation settings and forced gigabit full duplex mode",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-057",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-21T17:55:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Router accumulated aged OSPF LSA entries due to stub area misconfiguration",
+    "resolution": "Cleared OSPF database and reconfigured stub area type correctly",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-024",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-10-05T06:12:00Z",
+    "duration_minutes": 92,
+    "root_cause": "Transceiver overtemperature shutdown on Copenhagen to Helsinki link",
+    "resolution": "Replaced defective SFP module and improved airflow in interface module",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-012",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-10-18T20:44:00Z",
+    "duration_minutes": 25,
+    "root_cause": "Secondary PSU voltage regulator failure detected by hardware monitoring",
+    "resolution": "Shifted load to primary PSU and ordered replacement PSU for secondary",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRS-038",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-01T09:29:00Z",
+    "duration_minutes": 17,
+    "root_cause": "Exhaust fan motor failure reducing chassis cooling capability",
+    "resolution": "Replaced fan module and verified temperature returned to baseline range",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-16T04:37:00Z",
+    "duration_minutes": 63,
+    "root_cause": "Gradual signal loss in Oslo to Amsterdam long-haul DWDM channel",
+    "resolution": "Coordinated with carrier to inspect and repair submarine cable segment",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-044",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-11-29T18:15:00Z",
+    "duration_minutes": 4,
+    "root_cause": "Planned STP topology change during scheduled maintenance window",
+    "resolution": "Monitored convergence and verified all VLAN traffic paths restored",
+    "severity": "MINOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-017",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-12-08T14:21:00Z",
+    "duration_minutes": 47,
+    "root_cause": "BGP route refresh caused Amsterdam uplink carrier to flap twice",
+    "resolution": "Increased BGP timers and coordinated with ISP on their stability issues",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-080",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-12-20T11:08:00Z",
+    "duration_minutes": 26,
+    "root_cause": "Tail drop on London interface during year-end heavy backup traffic",
+    "resolution": "Increased interface buffer memory and deployed RED congestion control",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-01-15T14:32:00Z",
+    "duration_minutes": 45,
+    "root_cause": "BGP route convergence causing excessive CPU utilization",
+    "resolution": "Cleared BGP session and reloaded routing table",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-003",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-22T09:15:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Fiber cut on primary trunk line to Frankfurt",
+    "resolution": "Failed over to backup MPLS circuit automatically",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-002",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-03T11:45:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Buffer overflow on egress interface due to traffic spike",
+    "resolution": "Increased queue depth and enabled traffic shaping",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-005",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-14T16:20:00Z",
+    "duration_minutes": 38,
+    "root_cause": "DDoS attack with spoofed BGP advertisements detected",
+    "resolution": "Applied rate limiting and activated BGP prefix filtering",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-004",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-02-28T08:05:00Z",
+    "duration_minutes": 7,
+    "root_cause": "Secondary power supply module failed during warm standby",
+    "resolution": "Replaced failed PSU module and verified N+1 redundancy",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-001",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-05T13:50:00Z",
+    "duration_minutes": 89,
+    "root_cause": "DWDM signal attenuation due to aged fiber splice points",
+    "resolution": "Scheduled fiber maintenance and replaced aging splitters",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-002",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-03-18T10:12:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Memory leak in BGP daemon after software version upgrade",
+    "resolution": "Rolled back to previous software version and restarted",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-003",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-03-25T15:33:00Z",
+    "duration_minutes": 52,
+    "root_cause": "Excessive netflow export processing on monitoring interface",
+    "resolution": "Reduced netflow sampling rate and optimized export bandwidth",
+    "severity": "MINOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-004",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-04-02T07:28:00Z",
+    "duration_minutes": 34,
+    "root_cause": "BGP peer unreachable due to route flapping in upstream AS",
+    "resolution": "Configured BGP dampening parameters and notified upstream ISP",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-001",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-15T12:44:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Front intake fan bearing failure detected in sensor logs",
+    "resolution": "Replaced failed fan assembly and cleared temperature alarm",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-22T14:16:00Z",
+    "duration_minutes": 5,
+    "root_cause": "CRC errors on GigabitEthernet interface due to dirty optics",
+    "resolution": "Cleaned transceiver optics and cleared interface counters",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-001",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-05-03T09:51:00Z",
+    "duration_minutes": 67,
+    "root_cause": "SNMP polling storm from misconfigured monitoring system",
+    "resolution": "Disabled aggressive polling and tuned SNMP trap intervals",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-004",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-05-17T11:23:00Z",
+    "duration_minutes": 8,
+    "root_cause": "STP topology change triggered by cable reconnection event",
+    "resolution": "Verified correct STP priority and disabled port fast on uplink",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-002",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-05-28T16:39:00Z",
+    "duration_minutes": 121,
+    "root_cause": "IPv6 neighbor solicitation flooding from misconfigured subnet",
+    "resolution": "Applied IPv6 ND rate limiting and identified rogue host",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-002",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-06-10T13:05:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Queue tail drop on congested WAN interface to Belgium",
+    "resolution": "Upgraded circuit bandwidth and implemented QoS prioritization",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-003",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-24T10:17:00Z",
+    "duration_minutes": 44,
+    "root_cause": "ISIS SPF convergence storm due to topology instability",
+    "resolution": "Increased ISIS SPF throttle timers and stabilized network",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-003",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-07-08T08:42:00Z",
+    "duration_minutes": 18,
+    "root_cause": "Transceiver module pulled out during maintenance window",
+    "resolution": "Reseated transceiver module and verified signal levels",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-002",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-07-22T14:58:00Z",
+    "duration_minutes": 203,
+    "root_cause": "Excessive routing table growth from full BGP table download",
+    "resolution": "Applied BGP prefix limit and configured route filtering",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-002",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-05T12:21:00Z",
+    "duration_minutes": 73,
+    "root_cause": "Multicast flooding due to misconfigured IGMP snooping",
+    "resolution": "Corrected IGMP snooping parameters and pruned multicast groups",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-002",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-08-19T15:34:00Z",
+    "duration_minutes": 112,
+    "root_cause": "DWDM channel power imbalance across wavelength channels",
+    "resolution": "Adjusted EDFA pump power levels and rebalanced channels",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-02T09:47:00Z",
+    "duration_minutes": 27,
+    "root_cause": "BGP session timeout due to network latency spike",
+    "resolution": "Increased BGP hold timer and verified path MTU settings",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-004",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-09-16T11:19:00Z",
+    "duration_minutes": 58,
+    "root_cause": "ACL evaluation overload from inefficient rule ordering",
+    "resolution": "Optimized ACL rule order and compiled into hardware hash table",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-001",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-09-30T07:12:00Z",
+    "duration_minutes": 11,
+    "root_cause": "Primary power supply breaker tripped from overload condition",
+    "resolution": "Reset circuit breaker and verified load distribution",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-003",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-10-14T13:26:00Z",
+    "duration_minutes": 85,
+    "root_cause": "Malformed IP options processing in transit packets",
+    "resolution": "Enabled IP option filtering and updated IOS software",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-003",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-28T10:05:00Z",
+    "duration_minutes": 3,
+    "root_cause": "FCS error burst on Ethernet link from electromagnetic interference",
+    "resolution": "Rerouted traffic and applied EMI shielding to cable",
+    "severity": "WARNING",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-042",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:22:00Z",
+    "duration_minutes": 18,
+    "root_cause": "Fiber cut near Majorstuen construction site excavation",
+    "resolution": "Rerouted traffic via backup STM-16 circuit, scheduled repair crew",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-078",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:45:00Z",
+    "duration_minutes": 45,
+    "root_cause": "DDoS attack from compromised botnet targeting BGP advertisements",
+    "resolution": "Activated upstream null-route filtering, increased rate limiting thresholds",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-091",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-14T09:12:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Congestion on Amsterdam-Frankfurt trunk during peak business hours",
+    "resolution": "Enabled traffic shaping QoS policies, load balanced to secondary path",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LDN-056",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-02-28T22:33:00Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP keepalive timeout due to software bug in IOS version 15.2",
+    "resolution": "Upgraded to patched IOS 15.2.4.1, reestablished BGP peer adjacency",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PRY-034",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-05T16:19:00Z",
+    "duration_minutes": 6,
+    "root_cause": "Mismatched MTU settings between Paris and Amsterdam routers",
+    "resolution": "Standardized MTU to 1500 bytes, cleared interface counters",
+    "severity": "MINOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-067",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-03-18T11:44:00Z",
+    "duration_minutes": 22,
+    "root_cause": "BGP routing table grew to 650k prefixes without purge of stale routes",
+    "resolution": "Executed route aggregation, cleared RIB cache, scheduled maintenance window",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-085",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-01T05:08:00Z",
+    "duration_minutes": 30,
+    "root_cause": "Secondary PSU failed due to capacitor degradation, age 7 years",
+    "resolution": "Switched to primary PSU, ordered replacement unit for next maintenance",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-048",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-04-12T13:27:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Buffer overflow on egress interface during OSPF SPF calculation",
+    "resolution": "Adjusted buffer sizes in hardware config, reduced OSPF timers",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-071",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-25T07:52:00Z",
+    "duration_minutes": 35,
+    "root_cause": "Bearing failure in rear exhaust fan motor, thermal paste dried",
+    "resolution": "Replaced fan module, verified chassis temperature returned to normal",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRW-061",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-03T20:14:00Z",
+    "duration_minutes": 27,
+    "root_cause": "Fiber optic connector contaminated with dust causing signal attenuation",
+    "resolution": "Cleaned connector with fiber optic cleaner, restored optical power",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-089",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-05-17T10:31:00Z",
+    "duration_minutes": 14,
+    "root_cause": "Transient microbursts from misconfigured traffic shaper on branch link",
+    "resolution": "Updated traffic shaper policer rate to 80 percent of link capacity",
+    "severity": "MINOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-043",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-02T18:46:00Z",
+    "duration_minutes": 51,
+    "root_cause": "SNMP trap processing loop caused by MIB parsing error in monitoring agent",
+    "resolution": "Disabled problematic SNMP OID queries, restarted management module",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-076",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-19T04:22:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Loop detected due to accidental cable connection in redundant switch pair",
+    "resolution": "Identified errant cable, disconnected port, recalculated spanning tree",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LDN-029",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-08T12:55:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Excessive broadcast storms from ARP resolution loops in VLAN 204",
+    "resolution": "Enabled ARP rate limiting, moved gateway to stable VLAN segment",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PRY-072",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-07-22T15:33:00Z",
+    "duration_minutes": 9,
+    "root_cause": "Duplex mismatch between router and ISP provider edge equipment",
+    "resolution": "Configured both interfaces to full duplex mode, verified line protocol",
+    "severity": "MINOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-045",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-08-06T21:17:00Z",
+    "duration_minutes": 16,
+    "root_cause": "Syslog buffer accumulated 2GB of debug messages from OSPF convergence",
+    "resolution": "Reduced OSPF debugging verbosity, cleared syslog circular buffer",
+    "severity": "MINOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-062",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-20T08:41:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Partner carrier port misconfiguration blocking Frankfurt to London trunk",
+    "resolution": "Coordinated with ISP to correct port speed and encapsulation settings",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-083",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-09-04T17:28:00Z",
+    "duration_minutes": 11,
+    "root_cause": "Packet loss due to oversubscribed trunk interface handling peak traffic",
+    "resolution": "Enabled load balancing across secondary trunk, purchased upgrade capacity",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-039",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-19T02:14:00Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP peer reset due to EBGP multihop TTL configuration mismatch",
+    "resolution": "Corrected EBGP TTL settings on both peers, cleared BGP adjacency",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRW-054",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-02T19:36:00Z",
+    "duration_minutes": 44,
+    "root_cause": "Optical signal degradation caused by bent fiber cable in raceway",
+    "resolution": "Rerouted cable properly through conduit, restored optical signal power",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-015",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-10-16T11:03:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Malformed BGP update from upstream peer causing excessive CPU recalculation",
+    "resolution": "Reset BGP session, enabled incoming route validation filtering",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-037",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-11-09T09:22:00Z",
+    "duration_minutes": 17,
+    "root_cause": "Queue tail drop on congested Berlin to Amsterdam cross-connect link",
+    "resolution": "Implemented weighted fair queueing, reduced maximum burst transmission unit",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-061",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-24T13:49:00Z",
+    "duration_minutes": 28,
+    "root_cause": "Fan assembly bearing seized after 8 years of continuous operation",
+    "resolution": "Replaced fan module with redundant unit, ordered replacement for spares",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LDN-044",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-12-08T16:11:00Z",
+    "duration_minutes": 20,
+    "root_cause": "Random early detection threshold exceeded during backup window activity",
+    "resolution": "Adjusted RED parameters, scheduled backup traffic to off-peak hours",
+    "severity": "MINOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-01-15T08:32:14Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP neighbor unreachable due to routing table corruption",
+    "resolution": "Cleared BGP session and reloaded routing table configuration",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-042",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-22T14:47:22Z",
+    "duration_minutes": 34,
+    "root_cause": "Fiber optic cable cut by construction equipment in street",
+    "resolution": "Activated backup MPLS tunnel and coordinated fiber repair",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T11:18:45Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP route flapping causing excessive CPU utilization on core router",
+    "resolution": "Applied BGP dampening and stabilized upstream peer advertisements",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-028",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-02-11T09:52:33Z",
+    "duration_minutes": 5,
+    "root_cause": "BGP authentication failure after key rotation event",
+    "resolution": "Updated BGP MD5 authentication keys on both router endpoints",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-037",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-18T16:24:10Z",
+    "duration_minutes": 22,
+    "root_cause": "QoS queue overflow during peak traffic load conditions",
+    "resolution": "Adjusted egress queue buffer and enabled traffic prioritization",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-051",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-05T13:11:28Z",
+    "duration_minutes": 45,
+    "root_cause": "Optical signal attenuation due to aged fiber and connector dirt",
+    "resolution": "Cleaned fiber connectors and cleaned transceiver optics manually",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-019",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-12T10:39:47Z",
+    "duration_minutes": 18,
+    "root_cause": "Peer router configuration error during maintenance window",
+    "resolution": "Coordinated with peer team to restore correct BGP configurations",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-026",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-03-19T15:03:22Z",
+    "duration_minutes": 6,
+    "root_cause": "Memory leak in BGP process from unpatched firmware version",
+    "resolution": "Applied critical firmware patch and restarted BGP daemon",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-044",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-26T12:15:33Z",
+    "duration_minutes": 4,
+    "root_cause": "CRC errors on Ethernet interface due to transceiver mismatch",
+    "resolution": "Replaced transceiver with compatible model and verified link",
+    "severity": "MINOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-033",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-02T09:47:11Z",
+    "duration_minutes": 28,
+    "root_cause": "Power supply unit degradation detected by monitoring systems",
+    "resolution": "Replaced failed power supply during maintenance window",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-007",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-04-08T14:22:44Z",
+    "duration_minutes": 9,
+    "root_cause": "Upstream ISP experienced routing announcement withdrawal",
+    "resolution": "Verified BGP session stability and monitored route convergence",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-035",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-15T11:58:27Z",
+    "duration_minutes": 15,
+    "root_cause": "Fan bearing failure detected by thermal monitoring alerts",
+    "resolution": "Hot-swapped fan module and verified temperature normalization",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-022",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-04-22T16:31:05Z",
+    "duration_minutes": 3,
+    "root_cause": "Switch port state change due to link failure on backup path",
+    "resolution": "Restored primary link and verified spanning tree convergence",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-041",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-05-01T08:14:19Z",
+    "duration_minutes": 11,
+    "root_cause": "Congestion on transatlantic link during business hours peak",
+    "resolution": "Enabled load balancing and traffic engineering polices",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-043",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-05-08T13:45:33Z",
+    "duration_minutes": 7,
+    "root_cause": "DDoS attack detected causing excessive packet processing overhead",
+    "resolution": "Activated upstream DDoS mitigation and traffic filtering rules",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-038",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-05-15T10:27:48Z",
+    "duration_minutes": 14,
+    "root_cause": "BGP hold timer expiration due to network latency increase",
+    "resolution": "Adjusted BGP timers and investigated upstream network issues",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-027",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-22T15:52:14Z",
+    "duration_minutes": 52,
+    "root_cause": "Optical transceiver aging with signal-to-noise ratio degradation",
+    "resolution": "Preemptively replaced aging transceiver module with new unit",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-015",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-06-02T12:33:22Z",
+    "duration_minutes": 31,
+    "root_cause": "Equipment misconfiguration during third party network work",
+    "resolution": "Coordinated with external provider to restore link configuration",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-019",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-06-09T09:16:41Z",
+    "duration_minutes": 2,
+    "root_cause": "Transient line card reset from power fluctuation event",
+    "resolution": "Verified system stability and monitored for recurrence patterns",
+    "severity": "MINOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-047",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-06-16T14:08:55Z",
+    "duration_minutes": 10,
+    "root_cause": "BGP session timeout after network maintenance on peer router",
+    "resolution": "Manually cleared BGP session and waited for convergence",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-012",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-06-23T11:44:27Z",
+    "duration_minutes": 19,
+    "root_cause": "BGP routing table growth exceeded available memory allocation",
+    "resolution": "Upgraded router memory and optimized BGP table filtering",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-048",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-03T16:19:33Z",
+    "duration_minutes": 25,
+    "root_cause": "Misconfigured MTU size causing fragmentation and packet drops",
+    "resolution": "Corrected MTU configuration across all interface paths",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-031",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-07-10T13:22:09Z",
+    "duration_minutes": 44,
+    "root_cause": "Secondary power supply unit failure during redundancy test",
+    "resolution": "Replaced failed PSU unit and verified power redundancy status",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-054",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-07-17T10:05:47Z",
+    "duration_minutes": 16,
+    "root_cause": "BGP session reset caused by unsupported AS path attributes",
+    "resolution": "Updated BGP policy to handle extended community attributes",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-021",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-24T15:41:18Z",
+    "duration_minutes": 13,
+    "root_cause": "Excessive logging enabled during troubleshooting event debugging",
+    "resolution": "Disabled debug logging and restored normal logging levels",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber cut on primary trunk to Stockholm due to construction",
+    "resolution": "Rerouted traffic through secondary link, notified excavation crew",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-023",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-01-22T14:18:00Z",
+    "duration_minutes": 45,
+    "root_cause": "BGP route convergence loop consuming excessive processor cycles",
+    "resolution": "Cleared BGP cache and updated route dampening parameters",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-02-03T08:26:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Loose SFP transceiver in Ethernet module slot seven",
+    "resolution": "Reseated optical transceiver and verified link stability",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-042",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-14T19:33:00Z",
+    "duration_minutes": 67,
+    "root_cause": "QoS queue overflow on WAN interface during peak traffic",
+    "resolution": "Increased buffer allocation and optimized traffic shaping rules",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-008",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-02-28T11:15:00Z",
+    "duration_minutes": 18,
+    "root_cause": "BGP neighbor timeout due to misconfigured hold timer value",
+    "resolution": "Corrected hold timer configuration and reestablished session",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-031",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-05T09:47:00Z",
+    "duration_minutes": 8,
+    "root_cause": "CRC errors on GigabitEthernet interface due to duplex mismatch",
+    "resolution": "Set interface to auto-negotiate and cleared error counters",
+    "severity": "WARNING",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-019",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-03-12T16:52:00Z",
+    "duration_minutes": 34,
+    "root_cause": "Memory leak in OSPF process consuming additional RAM continuously",
+    "resolution": "Restarted OSPF process and applied software patch",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-027",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-03-18T22:11:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Redundant PSU failed due to internal capacitor degradation",
+    "resolution": "Replaced failed power supply unit with spare hardware",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-006",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-25T13:28:00Z",
+    "duration_minutes": 41,
+    "root_cause": "Signal attenuation on fiber due to dirty optical connector",
+    "resolution": "Cleaned connector endfaces and verified optical power levels",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-014",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-02T07:34:00Z",
+    "duration_minutes": 92,
+    "root_cause": "Fan motor bearings failed causing excessive vibration and noise",
+    "resolution": "Replaced failed cooling fan and monitored temperature",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-012",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-09T10:19:00Z",
+    "duration_minutes": 15,
+    "root_cause": "Alignment drift in optical amplifier module causing signal degradation",
+    "resolution": "Realigned optical path and confirmed interface error recovery",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-038",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-04-16T15:42:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Bridge priority recalculation triggered by link state change",
+    "resolution": "Verified STP convergence and checked root bridge stability",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-029",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-04-23T18:56:00Z",
+    "duration_minutes": 73,
+    "root_cause": "Congestion on uplink during large file transfer operations",
+    "resolution": "Enabled traffic prioritization and scheduled bandwidth upgrade",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-051",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-05-01T04:23:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Excessive netflow export processing during DDoS mitigation",
+    "resolution": "Adjusted netflow sampling rate and offloaded DDoS detection",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-016",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-08T21:14:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Port flapping due to bad cable with intermittent connection",
+    "resolution": "Replaced network cable and disabled error logging threshold",
+    "severity": "WARNING",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-044",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-05-15T11:37:00Z",
+    "duration_minutes": 29,
+    "root_cause": "ISP network maintenance interrupted BGP session temporarily",
+    "resolution": "Verified BGP session recovery after ISP maintenance completed",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-033",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-22T09:05:00Z",
+    "duration_minutes": 47,
+    "root_cause": "Increased ARP table size due to new branch office connections",
+    "resolution": "Expanded memory allocation and optimized ARP refresh timers",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-011",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-06-01T14:48:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Carrier switch port malfunction caused link termination",
+    "resolution": "Carrier replaced faulty switch port and restored connectivity",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-018",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-08T17:22:00Z",
+    "duration_minutes": 56,
+    "root_cause": "Macro bend in fiber run degrading signal quality",
+    "resolution": "Rerouted fiber path to eliminate tight bend radius",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-025",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-06-15T12:33:00Z",
+    "duration_minutes": 19,
+    "root_cause": "MTU mismatch between router interface and connected switch",
+    "resolution": "Standardized MTU size to 1500 bytes on both devices",
+    "severity": "WARNING",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-035",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-06-22T23:44:00Z",
+    "duration_minutes": 124,
+    "root_cause": "Primary PSU overload due to increased power consumption",
+    "resolution": "Redistributed load across redundant supplies and added capacity",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-047",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-07-01T06:15:00Z",
+    "duration_minutes": 87,
+    "root_cause": "Fan speed regulator failure causing inadequate cooling airflow",
+    "resolution": "Replaced fan speed controller and verified thermal stability",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-041",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-08T08:27:00Z",
+    "duration_minutes": 4,
+    "root_cause": "Root bridge priority adjusted during maintenance window",
+    "resolution": "Confirmed STP reconvergence and monitored topology stability",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-028",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-15T20:51:00Z",
+    "duration_minutes": 59,
+    "root_cause": "ISP backbone congestion causing packet drop on WAN link",
+    "resolution": "Enabled traffic shaping and contacted ISP for capacity upgrade",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-022",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-22T13:39:00Z",
+    "duration_minutes": 51,
+    "root_cause": "Packet inspection engine overload processing encrypted traffic",
+    "resolution": "Offloaded encrypted traffic and optimized inspection policies",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-01-15T09:23:45Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP routing table explosion from DDoS attack",
+    "resolution": "Cleared BGP cache and applied traffic filtering rules",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-042",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-03T14:17:22Z",
+    "duration_minutes": 45,
+    "root_cause": "Fiber optic cable cut by construction crew",
+    "resolution": "Switched traffic to backup MPLS tunnel via Frankfurt",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-028",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-18T11:04:33Z",
+    "duration_minutes": 8,
+    "root_cause": "Congestion on transatlantic BGP peering session",
+    "resolution": "Increased queue depth and enabled traffic shaping policies",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-015",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-03-05T16:42:11Z",
+    "duration_minutes": 23,
+    "root_cause": "Memory leak in OSPF process causing buffer overflow",
+    "resolution": "Restarted routing daemon and applied software patch",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-053",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-22T07:19:55Z",
+    "duration_minutes": 34,
+    "root_cause": "ISP maintenance window without advance notification",
+    "resolution": "Restored BGP session after ISP completed maintenance work",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-007",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-04-10T13:27:44Z",
+    "duration_minutes": 19,
+    "root_cause": "Excessive CPU load from packet inspection on IDS module",
+    "resolution": "Adjusted IDS sampling rate and distributed load across processors",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-089",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-04-28T10:08:17Z",
+    "duration_minutes": 156,
+    "root_cause": "Fiber bending loss from cable rerouting in data center",
+    "resolution": "Replaced affected fiber segment with proper bend radius",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-031",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-12T15:33:22Z",
+    "duration_minutes": 6,
+    "root_cause": "Unexpected spike in NetFlow data collection processes",
+    "resolution": "Tuned NetFlow export rate and increased memory allocation",
+    "severity": "WARNING",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-044",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-29T09:45:33Z",
+    "duration_minutes": 18,
+    "root_cause": "CRC errors on 10G Ethernet interface due to faulty transceiver",
+    "resolution": "Replaced optical transceiver module and verified link status",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-062",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-07T12:14:08Z",
+    "duration_minutes": 22,
+    "root_cause": "Fan motor bearing failure in chassis cooling subsystem",
+    "resolution": "Replaced failed fan module and monitored chassis temperature",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-009",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-06-23T08:52:17Z",
+    "duration_minutes": 41,
+    "root_cause": "Incomplete BGP session cleanup from failed peer connection",
+    "resolution": "Manually cleared zombie BGP sessions and restarted protocol",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-051",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-07-11T14:26:44Z",
+    "duration_minutes": 67,
+    "root_cause": "Power supply unit capacitor degradation over time",
+    "resolution": "Replaced faulty PSU with redundant unit activation",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-017",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-28T11:19:33Z",
+    "duration_minutes": 3,
+    "root_cause": "Bridge priority misconfiguration on new core switch",
+    "resolution": "Adjusted STP priority values to restore optimal topology",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-022",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-08-05T16:47:22Z",
+    "duration_minutes": 29,
+    "root_cause": "Uncontrolled growth of ARP cache from spoofed packets",
+    "resolution": "Cleared ARP table and implemented dynamic ARP inspection",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-041",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-19T10:33:51Z",
+    "duration_minutes": 11,
+    "root_cause": "Transceiver module unseated due to vibration",
+    "resolution": "Reseated optical transceiver and verified link establishment",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-019",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-09-02T13:15:27Z",
+    "duration_minutes": 14,
+    "root_cause": "Route flapping causing excessive BGP table updates",
+    "resolution": "Implemented BGP dampening and stabilized prefix advertisements",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-076",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-16T09:28:44Z",
+    "duration_minutes": 37,
+    "root_cause": "SNMP trap handler queue accumulation during polling storm",
+    "resolution": "Increased SNMP queue size and reduced polling frequency",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-018",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-09-30T15:04:11Z",
+    "duration_minutes": 9,
+    "root_cause": "Queue overflow on downlink interface during peak traffic",
+    "resolution": "Enabled priority queuing and implemented traffic rate limiting",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-056",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-10-14T07:42:33Z",
+    "duration_minutes": 26,
+    "root_cause": "BGP keepalive timeout from network latency spike",
+    "resolution": "Increased BGP holdtime timer and restored peering session",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-037",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-28T12:19:55Z",
+    "duration_minutes": 48,
+    "root_cause": "Dirt and debris on fiber optic connector endfaces",
+    "resolution": "Cleaned connectors with approved fiber cleaning supplies",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-035",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-11-11T14:36:22Z",
+    "duration_minutes": 19,
+    "root_cause": "BGP route refresh operation consuming excessive heap memory",
+    "resolution": "Optimized BGP RIB storage and applied memory management patch",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-064",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-25T11:08:44Z",
+    "duration_minutes": 5,
+    "root_cause": "Single bit error rate increase on aged copper cable",
+    "resolution": "Replaced CAT6A cable segment with certified new cabling",
+    "severity": "MINOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-043",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-12-09T16:21:33Z",
+    "duration_minutes": 24,
+    "root_cause": "Runaway control plane process from configuration reload loop",
+    "resolution": "Halted config reload and restored stable running configuration",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-038",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-12-23T08:15:17Z",
+    "duration_minutes": 31,
+    "root_cause": "Syslog buffer overflow from excessive debugging on interface",
+    "resolution": "Disabled debug logging and cleared syslog queue buffers",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-01-15T03:22:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Primary PSU module failure detected in redundant power supply unit",
+    "resolution": "Replaced failed power supply module with spare, verified redundancy restored",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-042",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:11:00Z",
+    "duration_minutes": 120,
+    "root_cause": "BGP route table explosion due to upstream route leak announcement",
+    "resolution": "Applied route filtering policy and cleared BGP session to upstream",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-018",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-17T08:45:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber optic cable cut by construction crew at exchange point",
+    "resolution": "Rerouted traffic to secondary link, coordinated with facility for repair",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-056",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-02T19:33:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Queue buffer exhaustion on egress interface due to traffic spike",
+    "resolution": "Increased egress queue buffer size and adjusted traffic shaping policies",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-031",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-03-18T11:22:00Z",
+    "duration_minutes": 35,
+    "root_cause": "Secondary power supply module failed due to capacitor degradation",
+    "resolution": "Swapped PSU module with spare from inventory stock",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-009",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-05T06:18:00Z",
+    "duration_minutes": 52,
+    "root_cause": "Cooling fan motor bearing failure in chassis cooling module",
+    "resolution": "Replaced failed fan unit with identical spare component",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-078",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-04-22T13:47:00Z",
+    "duration_minutes": 18,
+    "root_cause": "BGP neighbor configuration mismatch after network policy update",
+    "resolution": "Corrected BGP neighbor AS number and restarted BGP daemon process",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-025",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-08T21:56:00Z",
+    "duration_minutes": 89,
+    "root_cause": "Memory leak in BGP process consuming increasing system memory",
+    "resolution": "Restarted BGP daemon and applied memory monitoring watchdog timer",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-041",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-20T09:12:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Optical signal degradation due to dirt accumulation on connector ends",
+    "resolution": "Cleaned fiber optic connectors and verified optical power levels",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-067",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-06-03T16:34:00Z",
+    "duration_minutes": 44,
+    "root_cause": "Transceiver module CRC errors due to faulty small form-factor module",
+    "resolution": "Replaced SFP module and cleared interface error counters",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-012",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-06-17T04:28:00Z",
+    "duration_minutes": 41,
+    "root_cause": "Power supply thermal shutdown triggered by ambient temperature overheat",
+    "resolution": "Improved data center cooling, replaced PSU thermal sensor",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-033",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-29T12:15:00Z",
+    "duration_minutes": 7,
+    "root_cause": "STP topology change triggered by link failure on edge switch port",
+    "resolution": "Restored failed edge switch link, STP converged to stable topology",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-043",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-11T15:42:00Z",
+    "duration_minutes": 103,
+    "root_cause": "SNMP polling storm caused by misconfigured network monitoring system",
+    "resolution": "Adjusted SNMP polling intervals and limited concurrent polling sessions",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-019",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-25T22:51:00Z",
+    "duration_minutes": 32,
+    "root_cause": "Transient packet loss during hardware failover between redundant linecards",
+    "resolution": "Completed linecard failover and verified traffic restoration",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-078",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-09T10:33:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Gigabit Ethernet link down on provider edge interface to customer",
+    "resolution": "Replaced failed network interface card in router chassis",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-056",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-08-22T02:47:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Redundant PSU failed due to input voltage regulation circuit malfunction",
+    "resolution": "Replaced power supply module, monitored power input stability",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-044",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-09-04T18:26:00Z",
+    "duration_minutes": 61,
+    "root_cause": "Secondary cooling fan seized due to bearing lubrication failure",
+    "resolution": "Replaced fan assembly with new unit and verified thermal status",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-088",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-18T07:19:00Z",
+    "duration_minutes": 26,
+    "root_cause": "BGP session timeout due to upstream peer router software upgrade",
+    "resolution": "Waited for peer upgrade completion, BGP session re-established",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-072",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-10-02T20:11:00Z",
+    "duration_minutes": 145,
+    "root_cause": "Memory exhaustion due to excessive number of OSPF adjacencies",
+    "resolution": "Optimized OSPF network design and cleared unnecessary adjacencies",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-034",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-16T14:58:00Z",
+    "duration_minutes": 203,
+    "root_cause": "DWDM optical channel power degradation due to fiber bend loss",
+    "resolution": "Repositioned fiber routing to reduce bend radius, verified optical levels",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-087",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-03T11:44:00Z",
+    "duration_minutes": 55,
+    "root_cause": "Ethernet interface CRC error accumulation on copper cable run",
+    "resolution": "Replaced ethernet cable and cleared interface error statistics",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-077",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-11-17T05:22:00Z",
+    "duration_minutes": 48,
+    "root_cause": "Primary power supply unit voltage regulation failure detected",
+    "resolution": "Swapped PSU with spare, verified dual PSU redundancy operational",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-051",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-12-01T17:33:00Z",
+    "duration_minutes": 5,
+    "root_cause": "STP topology recalculation due to primary uplink failure event",
+    "resolution": "Repaired primary uplink and STP topology converged normally",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-073",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-12-15T23:47:00Z",
+    "duration_minutes": 87,
+    "root_cause": "Control plane CPU overload during massive BGP prefix table update",
+    "resolution": "Applied route filtering and rate-limited BGP update processing",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Fiber cut on secondary backbone link due to construction",
+    "resolution": "Rerouted traffic via primary link, scheduled fiber repair crew",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-047",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-02-03T14:28:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Front fan module bearing failure in cooling system",
+    "resolution": "Replaced faulty fan module, verified thermal sensors nominal",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-023",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-18T09:15:00Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP route processing spike during prefix table update",
+    "resolution": "Optimized routing policy, redistributed CPU load across processors",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-056",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-01T11:33:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Queue overflow on egress interface during traffic spike",
+    "resolution": "Increased buffer allocation, adjusted QoS policies for traffic classes",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-031",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-14T16:47:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Peer router underwent unplanned maintenance reboot cycle",
+    "resolution": "Verified BGP configuration, reestablished peering after peer recovery",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-012",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-02T02:19:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Rear fan assembly stopped rotating, dust accumulation detected",
+    "resolution": "Replaced fan assembly, cleaned intake filters preventatively",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-089",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-17T13:04:00Z",
+    "duration_minutes": 18,
+    "root_cause": "Loose SFP module in GigabitEthernet interface causing signal loss",
+    "resolution": "Reseated SFP module, verified optical signal strength and power levels",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-COP-044",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-05T20:51:00Z",
+    "duration_minutes": 3,
+    "root_cause": "Memory leak in routing protocol daemon consuming heap memory",
+    "resolution": "Restarted routing daemon, deployed memory leak fix patch",
+    "severity": "WARNING",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-067",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-19T07:36:00Z",
+    "duration_minutes": 29,
+    "root_cause": "Primary power supply unit failed, secondary unit not active",
+    "resolution": "Activated redundant power supply, replaced failed PSU module",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-021",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-02T10:22:00Z",
+    "duration_minutes": 52,
+    "root_cause": "Middle fan tier bearing seized due to lack of lubrication",
+    "resolution": "Replaced entire fan module assembly, checked all cooling paths",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-16T15:18:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Optical signal power dropped below threshold on DWDM channel",
+    "resolution": "Cleaned fiber connectors, realigned optics, monitored signal stability",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-038",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-03T12:44:00Z",
+    "duration_minutes": 11,
+    "root_cause": "Switch priority mismatch causing unexpected root bridge election",
+    "resolution": "Corrected switch priorities, stabilized spanning tree topology",
+    "severity": "MINOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-07-21T08:05:00Z",
+    "duration_minutes": 41,
+    "root_cause": "Fan speed control failure, bearing degradation over time",
+    "resolution": "Installed replacement fan, validated thermal equilibrium restored",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-072",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-08T19:33:00Z",
+    "duration_minutes": 6,
+    "root_cause": "Malformed packet inspection causing excessive CPU context switching",
+    "resolution": "Adjusted packet filter rules, enabled hardware offloading features",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-045",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-22T22:17:00Z",
+    "duration_minutes": 34,
+    "root_cause": "BGP flapping due to unstable peer connectivity and session resets",
+    "resolution": "Implemented BGP dampening, stabilized peer link with increased holdtime",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-033",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-04T05:51:00Z",
+    "duration_minutes": 2,
+    "root_cause": "Interface statistics buffer overflow during high traffic analysis",
+    "resolution": "Cleared statistics cache, tuned buffer allocation parameters",
+    "severity": "MINOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-052",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-09-18T17:42:00Z",
+    "duration_minutes": 48,
+    "root_cause": "Supercap failure in fan control circuit preventing rotation",
+    "resolution": "Replaced fan control module with supercap, verified rotation normal",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-COP-019",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-10-01T13:28:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Transient congestion on multicast replication tree causing drops",
+    "resolution": "Adjusted multicast group bandwidth limits and tree forwarding",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-041",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-15T09:06:00Z",
+    "duration_minutes": 13,
+    "root_cause": "Duplex mismatch between router and switch causing frame corruption",
+    "resolution": "Set interfaces to auto-negotiate, verified matching duplex modes",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-037",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-10-29T21:14:00Z",
+    "duration_minutes": 55,
+    "root_cause": "Fan motor winding insulation breakdown causing electrical short",
+    "resolution": "Installed new fan motor assembly, performed insulation resistance test",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-055",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-11-07T11:39:00Z",
+    "duration_minutes": 8,
+    "root_cause": "ACL rule inadvertently blocking BGP port 179 traffic to peer",
+    "resolution": "Updated firewall policy to permit BGP traffic, reestablished session",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-061",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-21T16:52:00Z",
+    "duration_minutes": 44,
+    "root_cause": "DWDM amplifier pump laser output power degradation over months",
+    "resolution": "Replaced amplifier module, verified BER and optical power metrics",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-059",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-05T03:27:00Z",
+    "duration_minutes": 36,
+    "root_cause": "Fan blade fracture from manufacturing defect causing imbalance",
+    "resolution": "Replaced fan assembly with redesigned unit, logged vendor quality issue",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-034",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-19T14:21:00Z",
+    "duration_minutes": 26,
+    "root_cause": "Secondary power supply capacitor failure during voltage regulation",
+    "resolution": "Activated primary power supply, scheduled replacement of failed unit",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-01-15T03:42:18Z",
+    "duration_minutes": 127,
+    "root_cause": "Fiber optic connector contamination at splice point",
+    "resolution": "Cleaned connector and realigned fiber coupling, restored signal",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-045",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-02-03T14:22:05Z",
+    "duration_minutes": 43,
+    "root_cause": "BGP peer route reflector memory exhaustion caused session reset",
+    "resolution": "Restarted BGP process and cleared route table cache",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-023",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-02-18T08:15:42Z",
+    "duration_minutes": 89,
+    "root_cause": "Fiber attenuation increased due to bending stress on cable",
+    "resolution": "Relocated cable tray and adjusted routing to reduce bending radius",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-067",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-03-05T22:33:19Z",
+    "duration_minutes": 156,
+    "root_cause": "Copper cable cut during third-party construction activities",
+    "resolution": "Rerouted traffic through backup circuit and repaired cable next day",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-012",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-03-22T11:47:33Z",
+    "duration_minutes": 67,
+    "root_cause": "Unoptimized routing policy causing excessive ACL lookups",
+    "resolution": "Optimized access control lists and redistributed CPU load across processes",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-038",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-04-10T16:28:44Z",
+    "duration_minutes": 203,
+    "root_cause": "Aging DWDM transceiver showing increased optical power loss",
+    "resolution": "Replaced DWDM transceiver module with newer generation hardware",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-091",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-28T09:12:07Z",
+    "duration_minutes": 34,
+    "root_cause": "Primary power supply capacitor failure detected in redundancy check",
+    "resolution": "Switched to secondary power supply and scheduled component replacement",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-056",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-05-14T13:51:22Z",
+    "duration_minutes": 92,
+    "root_cause": "Input queue overflow due to traffic burst exceeding buffer capacity",
+    "resolution": "Enabled traffic shaping and increased buffer allocation on interface",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-029",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-31T02:19:55Z",
+    "duration_minutes": 118,
+    "root_cause": "Wavelength-selective loss in CWDM filter due to manufacturing defect",
+    "resolution": "Replaced CWDM filter module and verified spectral response",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-074",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-12T19:44:33Z",
+    "duration_minutes": 28,
+    "root_cause": "Cooling fan bearing wear out causing excessive vibration and shutdown",
+    "resolution": "Replaced failed fan module with redundant spare from inventory",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-084",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-06-27T10:26:18Z",
+    "duration_minutes": 41,
+    "root_cause": "Excessive CRC errors on Gigabit Ethernet interface due to duplex mismatch",
+    "resolution": "Reconfigured interface to auto-negotiate and verified peer settings",
+    "severity": "MINOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-102",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-07-08T15:33:51Z",
+    "duration_minutes": 73,
+    "root_cause": "Memory leak in OSPF routing protocol causing gradual heap exhaustion",
+    "resolution": "Applied software patch and restarted routing daemon gracefully",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-047",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-07-25T07:14:29Z",
+    "duration_minutes": 156,
+    "root_cause": "Fiber macro-bend loss from improper racking during equipment upgrade",
+    "resolution": "Adjusted fiber management system and tested optical power levels",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-043",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-08-09T12:05:44Z",
+    "duration_minutes": 19,
+    "root_cause": "Switch priority change triggered topology recalculation and brief loop",
+    "resolution": "Reverted switch priority setting and verified loop-free topology",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-055",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-20T21:37:12Z",
+    "duration_minutes": 64,
+    "root_cause": "Congestion on egress interface from unexpected traffic surge",
+    "resolution": "Activated traffic engineering policy and balanced load across paths",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-061",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-09-03T04:52:17Z",
+    "duration_minutes": 244,
+    "root_cause": "Fiber cut from rodent activity in underground duct causing complete loss",
+    "resolution": "Rerouted traffic and scheduled fiber repair with digging crew",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-138",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-09-17T17:23:33Z",
+    "duration_minutes": 51,
+    "root_cause": "DDoS attack causing excessive packet processing on edge router",
+    "resolution": "Activated blackhole routing and deployed traffic scrubbing policy",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-088",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-01T06:18:44Z",
+    "duration_minutes": 23,
+    "root_cause": "Transceiver module detected signal degradation below minimum threshold",
+    "resolution": "Cleaned transceiver optics with lint-free swabs and verified alignment",
+    "severity": "MINOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-075",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-14T14:45:22Z",
+    "duration_minutes": 137,
+    "root_cause": "Polarization mode dispersion accumulation in aged submarine cable",
+    "resolution": "Adjusted pre-emphasis coefficients and upgraded receiver DSP firmware",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-033",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-10-29T11:12:55Z",
+    "duration_minutes": 37,
+    "root_cause": "BGP hold timer expired due to slow neighbor keep-alive processing",
+    "resolution": "Increased BGP timers and optimized neighbor configuration parameters",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-051",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-05T23:31:08Z",
+    "duration_minutes": 105,
+    "root_cause": "Optical amplifier gain flattening filter degradation reducing channel power",
+    "resolution": "Replaced optical amplifier module and recalibrated power levels",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-067",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-11-18T08:44:33Z",
+    "duration_minutes": 58,
+    "root_cause": "NetFlow data collection consuming excessive DRAM for statistics buffering",
+    "resolution": "Disabled NetFlow on unused interfaces and tuned export intervals",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-069",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-11-30T18:57:44Z",
+    "duration_minutes": 201,
+    "root_cause": "Carrier Ethernet circuit failure at ISP Point of Presence due to equipment fault",
+    "resolution": "Contacted ISP for emergency maintenance and restored via backup circuit",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-085",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-12-10T20:19:27Z",
+    "duration_minutes": 167,
+    "root_cause": "Mux/demux filter wavelength shift from thermal drift in expansion module",
+    "resolution": "Adjusted filter temperature compensation and verified wavelength alignment",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-076",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-21T13:26:15Z",
+    "duration_minutes": 31,
+    "root_cause": "Secondary cooling fan failed due to thermal switch malfunction",
+    "resolution": "Replaced cooling fan assembly and verified thermal sensor operation",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:47:22Z",
+    "duration_minutes": 12,
+    "root_cause": "Fiber cut at kilometer marker 4.2 on Oslo-Stockholm backbone",
+    "resolution": "Rerouted traffic through secondary path, fiber repair scheduled",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-012",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:22:11Z",
+    "duration_minutes": 45,
+    "root_cause": "BGP route convergence during network topology change event",
+    "resolution": "Optimized BGP timers and redistributed prefix list processing",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-008",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-02-18T08:15:33Z",
+    "duration_minutes": 3,
+    "root_cause": "Port priority change on upstream switch due to power cycle",
+    "resolution": "Verified STP convergence completed, topology restored normally",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-004",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-01T11:56:47Z",
+    "duration_minutes": 28,
+    "root_cause": "Buffer overflow on ingress interface due to traffic spike",
+    "resolution": "Enabled QoS priority queuing and increased buffer allocation",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-009",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-14T22:33:15Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP neighbor reset due to TCP connection timeout misconfiguration",
+    "resolution": "Adjusted keepalive and hold timer values to 5 and 15 seconds",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-002",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-02T16:44:22Z",
+    "duration_minutes": 31,
+    "root_cause": "CRC errors on Ethernet interface due to dirty fiber connector",
+    "resolution": "Cleaned fiber connectors and replaced damaged jumper cable",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-011",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-04-19T09:27:53Z",
+    "duration_minutes": 2,
+    "root_cause": "Link failure triggered BPDU recalculation across core switches",
+    "resolution": "Confirmed new STP root election, no manual intervention needed",
+    "severity": "WARNING",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-006",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-05T13:12:08Z",
+    "duration_minutes": 19,
+    "root_cause": "Netflow collector storing excessive traffic statistics in memory",
+    "resolution": "Disabled detailed netflow collection, scheduled memory cleanup",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-007",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-22T05:33:41Z",
+    "duration_minutes": 42,
+    "root_cause": "Primary power supply fan failure causing thermal shutdown",
+    "resolution": "Replaced defective power supply module with spare unit",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-010",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-08T18:49:15Z",
+    "duration_minutes": 11,
+    "root_cause": "Chassis cooling fan bearing failure detected by sensors",
+    "resolution": "Swapped chassis cooling module with redundant unit installed",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-25T20:15:27Z",
+    "duration_minutes": 64,
+    "root_cause": "Optical signal strength degrading due to macro-bend in fiber",
+    "resolution": "Located bend point, adjusted fiber routing, restored signal strength",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-005",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-11T12:41:33Z",
+    "duration_minutes": 4,
+    "root_cause": "Designated port transitioned due to improved BPDU priority",
+    "resolution": "Monitored STP convergence completion without service impact",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-014",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-07-28T07:23:09Z",
+    "duration_minutes": 26,
+    "root_cause": "Interface disabled by loop protection due to spanning tree loop",
+    "resolution": "Identified misconfigured switch, corrected port priority settings",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-009",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-14T10:56:42Z",
+    "duration_minutes": 38,
+    "root_cause": "DDoS attack triggering excessive ACL processing on core router",
+    "resolution": "Deployed traffic filtering, enabled rate limiting on ingress",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-003",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-08-30T15:34:18Z",
+    "duration_minutes": 5,
+    "root_cause": "Root port changed due to higher cost path becoming available",
+    "resolution": "Verified topology change propagation, confirmed stable convergence",
+    "severity": "WARNING",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-011",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-09-12T21:47:56Z",
+    "duration_minutes": 22,
+    "root_cause": "Transient congestion on Stockholm-Oslo peering link during peak",
+    "resolution": "Added additional bandwidth through secondary carrier link",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-007",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-28T04:18:33Z",
+    "duration_minutes": 15,
+    "root_cause": "BGP soft reset triggered by prefix filter configuration change",
+    "resolution": "Reestablished BGP session after filter validation completed",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-013",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-10T17:22:44Z",
+    "duration_minutes": 9,
+    "root_cause": "Transceiver module reporting high error rate on 10G interface",
+    "resolution": "Replaced transceiver module, verified interface functionality restored",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-009",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-10-26T11:53:22Z",
+    "duration_minutes": 3,
+    "root_cause": "Backup root bridge elected due to primary root bridge isolation",
+    "resolution": "Restored primary root connectivity, STP reconverged normally",
+    "severity": "WARNING",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-004",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-11-09T14:35:17Z",
+    "duration_minutes": 25,
+    "root_cause": "BGP routing table expansion due to unexpected prefix advertisements",
+    "resolution": "Applied more specific route filtering, cleared cache entries",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-005",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-21T23:44:09Z",
+    "duration_minutes": 52,
+    "root_cause": "Wavelength drift in DWDM system due to temperature variations",
+    "resolution": "Adjusted laser frequency, thermal stabilizer activated in cabinet",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-016",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-05T08:12:37Z",
+    "duration_minutes": 34,
+    "root_cause": "Secondary power supply unit failure detected on redundant supply",
+    "resolution": "Installed replacement PSU, verified dual supply redundancy functional",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-002",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-12-18T19:28:51Z",
+    "duration_minutes": 2,
+    "root_cause": "Port state transition from blocking to forwarding during recovery",
+    "resolution": "Confirmed stable STP state after network topology stabilized",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-007",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-28T06:51:19Z",
+    "duration_minutes": 18,
+    "root_cause": "Intake fan motor bearing degradation causing vibration alarm",
+    "resolution": "Replaced fan assembly, verified adequate airflow through chassis",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:17Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber cut at junction point near Sentrum tunnel construction",
+    "resolution": "Rerouted traffic through redundant MPLS path to backup circuit",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-012",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:28:45Z",
+    "duration_minutes": 87,
+    "root_cause": "DDoS attack targeting BGP route reflector with spoofed prefixes",
+    "resolution": "Applied ACL filters and enabled RPKI validation on all peers",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-008",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-18T09:15:33Z",
+    "duration_minutes": 156,
+    "root_cause": "Queue overflow on 100G interface due to misconfigured QoS policy",
+    "resolution": "Adjusted queue thresholds and rebalanced traffic across ports",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-005",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-03-01T22:07:19Z",
+    "duration_minutes": 45,
+    "root_cause": "Transceiver module overheating causing automatic shutdown on port",
+    "resolution": "Replaced faulty SFP+ module and verified thermal management systems",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-014",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-14T11:34:22Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP neighbor timeout due to network latency spike on backup link",
+    "resolution": "Cleared BGP session and adjusted hold timer to 90 seconds",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-003",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-28T16:42:08Z",
+    "duration_minutes": 34,
+    "root_cause": "CRC errors on Ethernet interface due to loose connector in patch panel",
+    "resolution": "Reseated fiber connector and confirmed clean polish with inspection",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-009",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-05T08:19:44Z",
+    "duration_minutes": 245,
+    "root_cause": "Memory leak in BGP process after receiving malformed AS-PATH attribute",
+    "resolution": "Upgraded router firmware to patch version and restarted routing daemon",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-011",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-19T12:56:31Z",
+    "duration_minutes": 18,
+    "root_cause": "Primary PSU failed due to capacitor degradation in power module",
+    "resolution": "Failed over to secondary PSU and scheduled replacement during maintenance window",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-007",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-05-02T19:23:15Z",
+    "duration_minutes": 67,
+    "root_cause": "Fan motor bearing failure causing thermal shutdown alarm",
+    "resolution": "Replaced failed cooling fan module and verified chassis temperature normalization",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-006",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-16T06:41:27Z",
+    "duration_minutes": 289,
+    "root_cause": "Optical signal degradation from fiber bending radius violation in conduit",
+    "resolution": "Rerouted fiber path through properly sized conduit with gentle bends",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-05-29T13:18:52Z",
+    "duration_minutes": 156,
+    "root_cause": "Carrier Ethernet service interrupted by ISP equipment malfunction upstream",
+    "resolution": "Coordinated with ISP to replace faulty DSLAM and verified link restoration",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-004",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-12T10:05:39Z",
+    "duration_minutes": 8,
+    "root_cause": "Network topology change triggered by link failure on switch core stack",
+    "resolution": "Restored failed link and verified spanning tree convergence complete",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-013",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-25T21:44:18Z",
+    "duration_minutes": 92,
+    "root_cause": "Excessive BGP route flapping from unstable peering session",
+    "resolution": "Configured route flap damping and increased BGP update frequency timers",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-010",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-07-08T04:22:41Z",
+    "duration_minutes": 31,
+    "root_cause": "Automatic link shutdown due to excessive CRC errors from far-end port",
+    "resolution": "Identified and replaced defective transceiver at remote site peer router",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-002",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-22T15:37:24Z",
+    "duration_minutes": 203,
+    "root_cause": "Buffer exhaustion on egress interface during peak traffic surge period",
+    "resolution": "Increased buffer allocation and deployed traffic shaping policy limits",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-015",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-05T17:51:06Z",
+    "duration_minutes": 19,
+    "root_cause": "BGP session reset from peer route reflector during software restart",
+    "resolution": "Waited for peer to complete restart and confirmed automatic session reestablishment",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-011",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-08-19T09:12:33Z",
+    "duration_minutes": 41,
+    "root_cause": "FCS errors due to electromagnetic interference from adjacent power cables",
+    "resolution": "Rerouted Ethernet cables away from power distribution and verified error clearance",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-007",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-09-02T11:25:47Z",
+    "duration_minutes": 67,
+    "root_cause": "Dark fiber link failed due to termination box corrosion and connector oxidation",
+    "resolution": "Replaced connector assembly and applied protective compound to prevent future corrosion",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-012",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-16T14:48:19Z",
+    "duration_minutes": 178,
+    "root_cause": "Memory exhaustion from accumulating ARP table entries for broadcast storm",
+    "resolution": "Identified broadcast storm source and applied MAC filtering to affected interface",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-009",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-10-03T23:19:22Z",
+    "duration_minutes": 24,
+    "root_cause": "Secondary PSU failure triggered by voltage regulation circuit malfunction",
+    "resolution": "Swapped in replacement PSU module from spare inventory and logged RMA request",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-009",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-17T08:34:56Z",
+    "duration_minutes": 312,
+    "root_cause": "Gradual optical signal loss from fiber connector contamination and dust buildup",
+    "resolution": "Cleaned fiber connectors with precision equipment and verified signal power restoration",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-008",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-01T16:07:13Z",
+    "duration_minutes": 55,
+    "root_cause": "Cooling fan assembly failure from bearing wear and insufficient lubrication",
+    "resolution": "Installed replacement fan module and scheduled preventive maintenance for all units",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-010",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-11-14T20:16:38Z",
+    "duration_minutes": 89,
+    "root_cause": "Microwave link outage caused by heavy rain attenuation and signal fading",
+    "resolution": "Waited for weather conditions to clear and confirmed automatic link recovery",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-015",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-11-28T12:43:22Z",
+    "duration_minutes": 5,
+    "root_cause": "Spanning tree recalculation from scheduled maintenance port flap test",
+    "resolution": "Completed planned topology verification and confirmed redundancy functionality",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-01-15T03:22:00Z",
+    "duration_minutes": 45,
+    "root_cause": "BGP route flapping causing excessive CPU utilization on RIB",
+    "resolution": "Applied route dampening and restarted BGP process gracefully",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-042",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-03T14:11:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber cut on primary cross-connect between Berlin and Frankfurt",
+    "resolution": "Switched traffic to secondary path and scheduled fiber repair",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-087",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-02-18T09:45:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Memory leak in OSPF process consuming forty percent of available RAM",
+    "resolution": "Restarted OSPF daemon and upgraded process memory limits configuration",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-056",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-05T11:33:00Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP session timeout due to neighbor device maintenance window notification",
+    "resolution": "Waited for neighbor maintenance completion and session reestablished",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-021",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-22T16:52:00Z",
+    "duration_minutes": 89,
+    "root_cause": "Optical signal power degradation on hundred kilometer DWDM span",
+    "resolution": "Cleaned optic connectors and replaced attenuating inline amplifier module",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-033",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-04-10T02:17:00Z",
+    "duration_minutes": 34,
+    "root_cause": "Packet processing spike from DDoS attack on customer network segment",
+    "resolution": "Activated traffic scrubbing center and implemented rate limiting policies",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-078",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-28T08:04:00Z",
+    "duration_minutes": 156,
+    "root_cause": "CRC errors on ten gigabit interface due to faulty transceiver module",
+    "resolution": "Replaced optic transceiver and verified interface error rate normalized",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-044",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-05-14T13:28:00Z",
+    "duration_minutes": 28,
+    "root_cause": "Buffer exhaustion on egress interface due to unexpected traffic surge",
+    "resolution": "Increased interface queue buffers and implemented QoS traffic shaping",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-019",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-29T22:41:00Z",
+    "duration_minutes": 44,
+    "root_cause": "Redundant power supply unit failed due to internal capacitor degradation",
+    "resolution": "Replaced failed PSU with spare unit and restored full redundancy",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-065",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-07T10:15:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Cooling fan bearing failure in chassis causing excessive vibration noise",
+    "resolution": "Replaced failed fan module and verified thermal sensors normalized",
+    "severity": "WARNING",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-012",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-19T05:33:00Z",
+    "duration_minutes": 52,
+    "root_cause": "Excessive logging of debug messages consuming CPU and disk I/O resources",
+    "resolution": "Disabled debug logging and adjusted log level to informational only",
+    "severity": "MINOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-089",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-02T15:22:00Z",
+    "duration_minutes": 8,
+    "root_cause": "Spanning tree topology change due to unplanned link flap event",
+    "resolution": "Investigated root cause and stabilized network topology with repairs",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-112",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-07-18T11:47:00Z",
+    "duration_minutes": 67,
+    "root_cause": "BGP unnumbered interface configuration error after software upgrade",
+    "resolution": "Corrected BGP interface configuration and restored routing adjacency",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-041",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-05T03:09:00Z",
+    "duration_minutes": 71,
+    "root_cause": "Multicast routing table explosion causing CPU spike in forwarding engine",
+    "resolution": "Applied multicast group limits and pruned redundant multicast routes",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-058",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-08-23T07:52:00Z",
+    "duration_minutes": 95,
+    "root_cause": "Memory accumulation from uncleared BGP adjacency information buffers",
+    "resolution": "Cleared BGP neighbor cache and implemented periodic memory optimization",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-076",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-09-11T18:35:00Z",
+    "duration_minutes": 123,
+    "root_cause": "Dirty connectors on optical interfaces reducing signal power margin",
+    "resolution": "Performed comprehensive optical interface cleaning with proper tools",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-035",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-09-27T12:14:00Z",
+    "duration_minutes": 41,
+    "root_cause": "Microbursts overwhelming input buffer on ingress interface from peer",
+    "resolution": "Negotiated traffic rate reduction and enhanced traffic engineering policies",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-091",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-10-08T21:03:00Z",
+    "duration_minutes": 17,
+    "root_cause": "BGP session reset due to local policy violation on incoming prefix list",
+    "resolution": "Updated prefix list policy and re-established BGP adjacency gracefully",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-047",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-10-22T04:26:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Netflow data export process consuming excessive CPU due to misconfiguration",
+    "resolution": "Adjusted netflow sampling rate and optimized export parameters",
+    "severity": "MINOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-082",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-06T09:18:00Z",
+    "duration_minutes": 203,
+    "root_cause": "Persistent frame errors on interface due to mismatched speed and duplex",
+    "resolution": "Corrected interface speed configuration to gigabit and full duplex mode",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-055",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-11-19T14:51:00Z",
+    "duration_minutes": 56,
+    "root_cause": "Power supply unit overheated due to blocked air intake ventilation slot",
+    "resolution": "Cleared air intake obstruction and replaced overheated power supply",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-067",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-12-02T17:44:00Z",
+    "duration_minutes": 48,
+    "root_cause": "Routing protocol churn from network topology changes creating convergence load",
+    "resolution": "Stabilized topology with link repairs and optimized routing timers",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-039",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-15T06:29:00Z",
+    "duration_minutes": 25,
+    "root_cause": "Second cooling fan bearing failure in redundant fan module pair",
+    "resolution": "Replaced failed redundant fan and monitored temperature thresholds",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-083",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-12-28T20:07:00Z",
+    "duration_minutes": 112,
+    "root_cause": "BGP table growth exceeding available memory from route advertisements",
+    "resolution": "Implemented route aggregation policy and scheduled device memory upgrade",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:22:14Z",
+    "duration_minutes": 47,
+    "root_cause": "Fiber cut on Oslo-Stockholm backbone segment",
+    "resolution": "Rerouted traffic via Berlin gateway, fiber repaired by contractor",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-02-03T14:45:32Z",
+    "duration_minutes": 23,
+    "root_cause": "Congestion on Frankfurt uplink during peak hours",
+    "resolution": "Enabled QoS prioritization and added temporary bandwidth allocation",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-002",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-14T11:08:47Z",
+    "duration_minutes": 156,
+    "root_cause": "BGP route flapping causing excessive CPU processing cycles",
+    "resolution": "Increased BGP dampening parameters and restarted routing daemon",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-004",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-01T22:15:23Z",
+    "duration_minutes": 8,
+    "root_cause": "Firewall rule misconfiguration blocked BGP traffic port",
+    "resolution": "Corrected firewall ACL rules and reestablished BGP peer sessions",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-001",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-12T09:33:56Z",
+    "duration_minutes": 34,
+    "root_cause": "Optical transceiver degradation on Paris-Amsterdam link",
+    "resolution": "Replaced faulty optical module and verified signal quality",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-002",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-25T16:42:11Z",
+    "duration_minutes": 12,
+    "root_cause": "CRC errors due to loose fiber connector in backbone",
+    "resolution": "Reseated fiber optic connectors and monitored error counters",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-005",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-08T07:19:44Z",
+    "duration_minutes": 89,
+    "root_cause": "Memory leak in OSPF daemon consuming excess resources",
+    "resolution": "Restarted OSPF process and scheduled patch deployment for fix",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-003",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-04-19T13:27:38Z",
+    "duration_minutes": 45,
+    "root_cause": "Signal attenuation on Copenhagen-Helsinki cross-connect cable",
+    "resolution": "Cleaned fiber ends and adjusted optical amplifier gain settings",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-001",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-05-02T19:56:22Z",
+    "duration_minutes": 67,
+    "root_cause": "Buffer exhaustion during traffic spike to Helsinki datacenter",
+    "resolution": "Increased buffer allocation and enabled RED queue management",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRW-004",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-16T02:34:51Z",
+    "duration_minutes": 21,
+    "root_cause": "Power supply unit degradation in Warsaw router chassis",
+    "resolution": "Replaced failed PSU module and verified redundant power system",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-05-28T10:11:07Z",
+    "duration_minutes": 16,
+    "root_cause": "Fan motor bearing failure in cooling subsystem",
+    "resolution": "Replaced fan module and monitored chassis temperature",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-001",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-06-09T15:43:29Z",
+    "duration_minutes": 28,
+    "root_cause": "Misconfigured traffic policing on Berlin ingress interface",
+    "resolution": "Adjusted rate limiting policies and cleared buffer backlog",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-004",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-22T08:52:15Z",
+    "duration_minutes": 5,
+    "root_cause": "Switch port state transition due to link instability",
+    "resolution": "Stabilized link conditions and verified spanning tree convergence",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-002",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-05T20:19:43Z",
+    "duration_minutes": 124,
+    "root_cause": "Abnormal multicast traffic flooding London router CPU",
+    "resolution": "Implemented multicast filtering rules and optimized routing tables",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-18T11:36:58Z",
+    "duration_minutes": 41,
+    "root_cause": "Jitter and packet reordering on Paris-London MPLS tunnel",
+    "resolution": "Reconfigured MPLS path and increased tunnel bandwidth reservation",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-003",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-08-01T06:24:11Z",
+    "duration_minutes": 18,
+    "root_cause": "Duplex mismatch on copper uplink to Stockholm backbone",
+    "resolution": "Set interface to full duplex auto-negotiate and cleared errors",
+    "severity": "MINOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-002",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-14T17:05:26Z",
+    "duration_minutes": 52,
+    "root_cause": "Oversubscribed Frankfurt aggregation link during backup window",
+    "resolution": "Rescheduled backup jobs and enabled load balancing across links",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-001",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-27T12:47:38Z",
+    "duration_minutes": 11,
+    "root_cause": "BGP neighbor timeout due to network latency spike",
+    "resolution": "Reduced BGP holddown timer and stabilized network conditions",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-002",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-09-09T21:38:52Z",
+    "duration_minutes": 38,
+    "root_cause": "Helsinki optical path power loss exceeding acceptable thresholds",
+    "resolution": "Replaced optical amplifier and realigned laser transmission power",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRW-002",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-22T04:15:19Z",
+    "duration_minutes": 72,
+    "root_cause": "ARP cache overflow from large broadcast domain in Warsaw",
+    "resolution": "Implemented ARP rate limiting and increased ARP table size",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-10-05T14:22:41Z",
+    "duration_minutes": 29,
+    "root_cause": "Congestion on Oslo to Frankfurt peering due to DDoS traffic",
+    "resolution": "Activated DDoS mitigation and redirected malicious traffic flows",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BRL-002",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-10-18T09:51:33Z",
+    "duration_minutes": 63,
+    "root_cause": "Carrier ethernet service outage from ISP on Berlin link",
+    "resolution": "Coordinated with carrier, service restored and rerouted traffic",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-001",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-02T18:09:27Z",
+    "duration_minutes": 22,
+    "root_cause": "Amsterdam router cooling fan seized in primary tray",
+    "resolution": "Replaced fan assembly and verified redundant cooling operation",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-11-15T16:33:44Z",
+    "duration_minutes": 44,
+    "root_cause": "London interface queue overrun during peak international traffic",
+    "resolution": "Enabled deep packet inspection and activated traffic shaping policies",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP neighbor timeout due to network congestion on WAN link",
+    "resolution": "Cleared BGP session and verified routing table convergence",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-042",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-03T14:28:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Fiber optic cable cut at fiber junction between Berlin and Frankfurt",
+    "resolution": "Rerouted traffic to backup MPLS tunnel and requested cable repair",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-007",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-18T10:15:00Z",
+    "duration_minutes": 8,
+    "root_cause": "OSPF route flapping caused excessive CPU utilization on router",
+    "resolution": "Stabilized OSPF timers and restarted routing process daemon",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-056",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-05T22:33:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Optical signal degradation due to dirty transceiver optics",
+    "resolution": "Cleaned optical interfaces and replaced degraded transceiver module",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-023",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-12T09:47:00Z",
+    "duration_minutes": 6,
+    "root_cause": "BGP keepalive timeout on peering with ISP AS65001",
+    "resolution": "Verified BGP configuration and restarted neighbor session",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-011",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-28T16:22:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Interface queue overflow due to misconfigured traffic shaping",
+    "resolution": "Adjusted QoS policies and buffer allocation on ingress interface",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-089",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-02T11:58:00Z",
+    "duration_minutes": 2,
+    "root_cause": "Memory leak in BGP routing table caused by malformed prefix advertisements",
+    "resolution": "Cleared BGP cache and deployed patched router firmware version",
+    "severity": "WARNING",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-034",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-04-15T19:11:00Z",
+    "duration_minutes": 18,
+    "root_cause": "BGP session reset due to hold timer expiration on peer link",
+    "resolution": "Adjusted BGP timer parameters and confirmed peer router availability",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-045",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-29T05:30:00Z",
+    "duration_minutes": 34,
+    "root_cause": "Primary power supply unit failed due to capacitor degradation",
+    "resolution": "Replaced failed PSU with spare and verified redundant power operation",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-062",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-07T13:44:00Z",
+    "duration_minutes": 11,
+    "root_cause": "CRC errors on Ethernet interface due to bad cable connection",
+    "resolution": "Reseated cable connectors and verified interface error counters reset",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-05-22T02:19:00Z",
+    "duration_minutes": 27,
+    "root_cause": "Router cooling fan bearing failure detected by temperature sensor",
+    "resolution": "Replaced fan module and confirmed system temperature returned to normal",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-051",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-06-03T08:36:00Z",
+    "duration_minutes": 9,
+    "root_cause": "BGP session flapping due to unstable WAN link with high jitter",
+    "resolution": "Enabled BGP dampening and increased route flap damping parameters",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-019",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-06-18T15:52:00Z",
+    "duration_minutes": 4,
+    "root_cause": "Switch port blocked by spanning tree due to topology change detection",
+    "resolution": "Verified STP convergence and checked port role transitions",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-067",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-01T21:15:00Z",
+    "duration_minutes": 19,
+    "root_cause": "DDoS attack caused excessive control plane processing on border router",
+    "resolution": "Activated BGP flowspec filtering rules to drop malicious traffic patterns",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-031",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-07-14T12:08:00Z",
+    "duration_minutes": 89,
+    "root_cause": "Optical power loss due to dust accumulation in cable patch panel",
+    "resolution": "Cleaned patch panel connectors and verified optical power levels restored",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-027",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-29T10:41:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Buffer exhaustion on output interface due to congestion spike",
+    "resolution": "Added traffic engineering path and redistributed load across links",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-104",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-11T17:29:00Z",
+    "duration_minutes": 14,
+    "root_cause": "BGP neighbor session reset due to authentication key mismatch",
+    "resolution": "Updated BGP MD5 authentication keys and verified peer configuration",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-048",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-08-25T07:03:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Excessive prefix advertisements from upstream ISP consumed router memory",
+    "resolution": "Implemented BGP prefix filtering and adjusted memory allocation limits",
+    "severity": "WARNING",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-058",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-09-06T20:47:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Serial port module failed on long-distance frame relay link",
+    "resolution": "Replaced faulty serial module and restored connectivity via backup link",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-075",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-09-19T14:22:00Z",
+    "duration_minutes": 16,
+    "root_cause": "Framing errors on T1 circuit due to service provider equipment failure",
+    "resolution": "Coordinated with ISP to replace faulty DSU equipment on their end",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-008",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-10-02T03:55:00Z",
+    "duration_minutes": 7,
+    "root_cause": "BGP neighbor down due to firewall rule blocking TCP port 179",
+    "resolution": "Updated firewall ACLs to allow BGP traffic and restored session",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-068",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-10-16T11:33:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Secondary cooling fan stopped due to motor failure in hot climate",
+    "resolution": "Installed replacement fan module and reset temperature alarm thresholds",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-026",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-10-28T18:14:00Z",
+    "duration_minutes": 13,
+    "root_cause": "CPU spike from intensive logging due to misconfigured debug commands",
+    "resolution": "Disabled debug logging and optimized system logging configuration",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-073",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-11-09T09:28:00Z",
+    "duration_minutes": 3,
+    "root_cause": "Root bridge election change due to priority shift on edge switch",
+    "resolution": "Verified spanning tree convergence and stabilized topology",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-044",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-21T23:41:00Z",
+    "duration_minutes": 112,
+    "root_cause": "Optical fiber bend radius violation caused signal attenuation",
+    "resolution": "Rerouted fiber path to correct bend radius and replaced damaged segment",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber cut on underground cable segment Oslo-Stockholm",
+    "resolution": "Rerouted traffic via Berlin backbone link, initiated repair crew",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-002",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:28:00Z",
+    "duration_minutes": 87,
+    "root_cause": "BGP route convergence storm from upstream network change",
+    "resolution": "Applied route dampening and restarted BGP process gracefully",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-045",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-02-18T09:15:00Z",
+    "duration_minutes": 12,
+    "root_cause": "CRC errors on 100G optical interface due to dirty connector",
+    "resolution": "Cleaned optical connectors with approved cleaning kit and verified",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-011",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-05T22:33:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Congestion on transatlantic link due to unexpected traffic spike",
+    "resolution": "Increased bandwidth allocation and enabled traffic shaping policies",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-023",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-22T16:47:00Z",
+    "duration_minutes": 34,
+    "root_cause": "BGP neighbor reset due to misconfigured password on peer device",
+    "resolution": "Coordinated with peer ASN to correct BGP authentication credentials",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-007",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-10T11:22:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Transceiver module failure on 10G interface causing bit errors",
+    "resolution": "Replaced SFP+ transceiver module and monitored error rates recovery",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-019",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-28T05:08:00Z",
+    "duration_minutes": 92,
+    "root_cause": "Memory leak in BGP process accumulating route table entries",
+    "resolution": "Applied software patch and scheduled controlled router restart",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-006",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-12T18:55:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Redundant power supply unit failed due to component aging",
+    "resolution": "Swapped failed PSU with spare unit, verified redundancy restored",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-002",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-05-29T13:41:00Z",
+    "duration_minutes": 18,
+    "root_cause": "Fan motor bearing failure causing cessation of airflow",
+    "resolution": "Replaced failed fan module and cleared thermal warning condition",
+    "severity": "WARNING",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRS-008",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-06-07T10:23:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Duplex mismatch on Ethernet link causing frame collisions and errors",
+    "resolution": "Negotiated correct full-duplex settings on both interface endpoints",
+    "severity": "MINOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-004",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-19T20:12:00Z",
+    "duration_minutes": 124,
+    "root_cause": "Optical signal degradation on 400G coherent interface from fiber stress",
+    "resolution": "Rerouted traffic and scheduled fiber replacement in maintenance window",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-014",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-02T07:34:00Z",
+    "duration_minutes": 8,
+    "root_cause": "BPDU received from switch indicating topology change in access layer",
+    "resolution": "Verified switch connectivity and confirmed normal spanning tree operation",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-067",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-07-16T15:48:00Z",
+    "duration_minutes": 51,
+    "root_cause": "Input queue drops on congested interface during peak traffic hours",
+    "resolution": "Adjusted QoS policies and added interface buffer configuration",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-033",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-04T12:19:00Z",
+    "duration_minutes": 73,
+    "root_cause": "OSPF SPF recalculation loop triggered by unstable routing advertisements",
+    "resolution": "Disabled advertising from unstable peer and cleared routing cache",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-041",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-22T03:26:00Z",
+    "duration_minutes": 47,
+    "root_cause": "Buffer exhaustion on output interface during sustained DDoS attack",
+    "resolution": "Activated DDoS mitigation filters and increased buffer allocation",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-021",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-09-08T21:57:00Z",
+    "duration_minutes": 29,
+    "root_cause": "Flapping interface caused by intermittent cable connection problem",
+    "resolution": "Reseated network cable connector and verified interface stability",
+    "severity": "MINOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-031",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-25T17:42:00Z",
+    "duration_minutes": 61,
+    "root_cause": "BGP session timeout due to routing protocol processing delay",
+    "resolution": "Increased BGP holdtimer and applied performance tuning parameters",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-018",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-10-11T09:33:00Z",
+    "duration_minutes": 135,
+    "root_cause": "Netflow statistics collection consuming excessive memory allocation",
+    "resolution": "Disabled detailed netflow and applied memory reduction configuration",
+    "severity": "WARNING",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HLS-015",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-10-28T14:05:00Z",
+    "duration_minutes": 39,
+    "root_cause": "MPLS LSP failure on primary path due to intermediate node reboot",
+    "resolution": "Traffic converged to secondary MPLS path automatically and verified",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WRS-034",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-05T11:16:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Late collisions detected on half-duplex interface configuration",
+    "resolution": "Converted to full-duplex mode and disabled collision error reporting",
+    "severity": "MINOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-009",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-19T08:47:00Z",
+    "duration_minutes": 98,
+    "root_cause": "Chromatic dispersion accumulation on long-haul 800km optical link",
+    "resolution": "Activated optical dispersion compensation and monitored signal quality",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-027",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-02T19:28:00Z",
+    "duration_minutes": 44,
+    "root_cause": "Power supply capacitor degradation causing voltage regulation failure",
+    "resolution": "Replaced faulty power supply unit and validated redundancy function",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-089",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-12-16T06:51:00Z",
+    "duration_minutes": 84,
+    "root_cause": "Runts and giants detected from jumbo frame MTU mismatch configuration",
+    "resolution": "Aligned MTU size across all interfaces and cleared error counters",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-052",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-29T23:14:00Z",
+    "duration_minutes": 26,
+    "root_cause": "Fan assembly bearing seized after prolonged continuous operation",
+    "resolution": "Replaced fan assembly and cleared thermal alert notification system",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-01-15T03:42:18Z",
+    "duration_minutes": 127,
+    "root_cause": "BGP routing table memory leak in IOS-XE version 17.3.1",
+    "resolution": "Restarted BGP process and upgraded to patched IOS-XE 17.3.2",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-004",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-03T14:28:45Z",
+    "duration_minutes": 34,
+    "root_cause": "Fiber cut on transatlantic cable segment near landing station",
+    "resolution": "Rerouted traffic through backup MPLS tunnel to Frankfurt DC",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-002",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-02-14T08:15:33Z",
+    "duration_minutes": 89,
+    "root_cause": "NetFlow collector accumulating expired flow entries in DRAM",
+    "resolution": "Disabled NetFlow and cleared flow cache, re-enabled with tuning",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-007",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-03-02T19:47:52Z",
+    "duration_minutes": 156,
+    "root_cause": "DDoS attack targeting DNS resolution on edge network segment",
+    "resolution": "Activated upstream DDoS mitigation service and rate-limited traffic",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-005",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-18T11:22:07Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP neighbor session timeout due to Telnet configuration error",
+    "resolution": "Corrected BGP timers and re-established peering with ASN 3356",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-04-05T06:33:19Z",
+    "duration_minutes": 67,
+    "root_cause": "Queue overflow on Gig0/0/0 due to misconfigured traffic shaping",
+    "resolution": "Adjusted QoS policy to increase queue depth and buffer allocation",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-001",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-04-19T15:08:44Z",
+    "duration_minutes": 203,
+    "root_cause": "Optical signal degradation on 100G DWDM channel due to dirty connector",
+    "resolution": "Scheduled maintenance to clean SC connectors and re-seat transceivers",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-002",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-07T22:51:16Z",
+    "duration_minutes": 98,
+    "root_cause": "OSPF LSDB growth due to unstable neighbors advertising excessive routes",
+    "resolution": "Identified and quarantined unstable neighbor, cleared OSPF database",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-006",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-23T09:14:28Z",
+    "duration_minutes": 45,
+    "root_cause": "CRC errors on 10GbE interface due to faulty cable on port Eth0/1",
+    "resolution": "Replaced category 6A ethernet cable and verified signal integrity",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-004",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-06-10T13:37:51Z",
+    "duration_minutes": 178,
+    "root_cause": "Primary PSU failure due to capacitor aging in Catalyst 9500-40X",
+    "resolution": "Replaced faulty power supply module with redundant PSU activated",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-007",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-06-28T17:22:39Z",
+    "duration_minutes": 112,
+    "root_cause": "SNMP agent memory leak accumulating sysDescr query responses",
+    "resolution": "Disabled SNMP polling temporarily and restarted SNMP daemon process",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-002",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-07-14T04:19:44Z",
+    "duration_minutes": 67,
+    "root_cause": "Cooling fan bearing failure in Nexus 9396PX switch chassis",
+    "resolution": "Replaced defective fan module and verified thermal sensor readings",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-005",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-29T20:46:18Z",
+    "duration_minutes": 8,
+    "root_cause": "Unexpected STP BPDU received from misconfigured access layer switch",
+    "resolution": "Identified errant switch and disabled BPDU Guard configuration",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-003",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-12T10:55:33Z",
+    "duration_minutes": 94,
+    "root_cause": "Buffer exhaustion on BGP prefix filtering during route aggregation update",
+    "resolution": "Increased buffer allocation and optimized prefix list processing rules",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-001",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-26T23:17:22Z",
+    "duration_minutes": 201,
+    "root_cause": "Syslog parsing causing high CPU utilization on Route Processor module",
+    "resolution": "Disabled verbose syslog and configured remote syslog server buffering",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-001",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-08T07:33:47Z",
+    "duration_minutes": 145,
+    "root_cause": "Kernel memory fragmentation from excessive ACL rule reloads during updates",
+    "resolution": "Restarted routing engine and consolidated ACL configuration into single load",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-006",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-09-22T12:44:19Z",
+    "duration_minutes": 22,
+    "root_cause": "Transceiver module SFP+ unseated due to vibration from adjacent equipment",
+    "resolution": "Reseated SFP+ module and verified link LED status confirmation",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-005",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-05T18:09:52Z",
+    "duration_minutes": 267,
+    "root_cause": "Chromatic dispersion accumulation on long-haul 400G coherent interface",
+    "resolution": "Adjusted coherent DSP parameters and updated line card firmware",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-002",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-10-19T14:28:36Z",
+    "duration_minutes": 31,
+    "root_cause": "BGP OPEN message version mismatch with peer due to IOS upgrade lag",
+    "resolution": "Upgraded peer router IOS and re-established BGP connection immediately",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-007",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-11-02T02:15:44Z",
+    "duration_minutes": 156,
+    "root_cause": "ARP cache explosion from misconfigured DHCP relay agent forwarding",
+    "resolution": "Corrected DHCP relay configuration and cleared dynamic ARP entries",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-004",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-16T09:52:11Z",
+    "duration_minutes": 78,
+    "root_cause": "Layer 2 framing errors on LAG member due to speed mismatch negotiation",
+    "resolution": "Forced interface speed to 10Gbps and re-added member to LAG bundle",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-006",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-12-01T16:41:27Z",
+    "duration_minutes": 89,
+    "root_cause": "Control plane policing ineffective against sustained ICMP echo flood attack",
+    "resolution": "Implemented strict CoPP policy and enabled hardware-based DoS protection",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-001",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-12-15T21:33:58Z",
+    "duration_minutes": 134,
+    "root_cause": "Multicast routing table explosion from unstable RP election in PIM-SM",
+    "resolution": "Stabilized PIM-SM RP and pruned unnecessary multicast group entries",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-005",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-28T05:19:34Z",
+    "duration_minutes": 43,
+    "root_cause": "Secondary PSU failure detected in redundant power supply configuration",
+    "resolution": "Replaced failed power supply module and verified redundancy status",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Primary PSU failed due to capacitor degradation in aging unit",
+    "resolution": "Replaced faulty power supply module with spare redundant unit",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-045",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-08T14:17:00Z",
+    "duration_minutes": 8,
+    "root_cause": "Fiber optic cable cut during construction work nearby",
+    "resolution": "Rerouted traffic through backup fiber path after patching cut",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-023",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-20T09:05:00Z",
+    "duration_minutes": 47,
+    "root_cause": "BGP route flapping caused by unstable upstream ISP advertisements",
+    "resolution": "Applied route dampening filters and notified upstream ISP to stabilize",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-078",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-12T22:33:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Transceiver module degradation due to humidity and temperature fluctuations",
+    "resolution": "Replaced SFP+ transceiver and improved environmental controls in rack",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-056",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-03-28T01:14:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Redundant PSU failed during load balancing test procedures",
+    "resolution": "Hot-swapped failed PSU and verified dual power supply functionality",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-012",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-05T16:48:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Cooling fan bearing seized due to dust accumulation and age",
+    "resolution": "Replaced failed fan module and performed system cleaning maintenance",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-089",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-04-17T11:22:00Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP session timeout due to firewall rule change blocking TCP port 179",
+    "resolution": "Restored firewall ACL permitting BGP traffic and verified session establishment",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-034",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-02T07:39:00Z",
+    "duration_minutes": 64,
+    "root_cause": "Memory leak in routing daemon caused excessive buffer allocation",
+    "resolution": "Restarted routing daemon and applied vendor security patch to fix leak",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-067",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-19T13:56:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Transient line card error from electromagnetic interference source",
+    "resolution": "Identified and relocated interference source, reseated line card connector",
+    "severity": "WARNING",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-041",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-06-03T18:11:00Z",
+    "duration_minutes": 89,
+    "root_cause": "Congestion on shared transit link due to DDoS attack traffic upstream",
+    "resolution": "Applied traffic scrubbing at upstream ISP and rerouted via secondary path",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-019",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-06-15T02:27:00Z",
+    "duration_minutes": 44,
+    "root_cause": "Secondary PSU module failed during scheduled maintenance window test",
+    "resolution": "Replaced PSU module with spare and verified both supplies operational",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-067",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-01T10:34:00Z",
+    "duration_minutes": 3,
+    "root_cause": "Primary switch failed causing STP topology recalculation and traffic reroute",
+    "resolution": "Failed switch brought online after power cycle and STP converged normally",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-045",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-18T20:15:00Z",
+    "duration_minutes": 72,
+    "root_cause": "SNMP polling storm from misconfigured network management platform",
+    "resolution": "Corrected SNMP polling intervals and rate-limited monitoring requests",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-092",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-08-06T05:48:00Z",
+    "duration_minutes": 27,
+    "root_cause": "Voltage regulator failure in primary PSU during peak load conditions",
+    "resolution": "Swapped failed PSU with redundant unit and verified voltage stability",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-078",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-08-22T15:52:00Z",
+    "duration_minutes": 118,
+    "root_cause": "Dirty fiber connector reducing signal strength below operational threshold",
+    "resolution": "Cleaned fiber connectors using IPA solution and verified signal levels",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-031",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-09-08T12:41:00Z",
+    "duration_minutes": 15,
+    "root_cause": "SFP module unseated due to vibration from adjacent equipment failure",
+    "resolution": "Reseated SFP module and secured with locking mechanism to prevent shifting",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRA-102",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-24T21:03:00Z",
+    "duration_minutes": 53,
+    "root_cause": "ARP table exhaustion from arp flood attack on network segment",
+    "resolution": "Deployed ARP limiting rules and coordinated with security team to mitigate",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-048",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-10-11T08:19:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Secondary cooling fan failed causing temperature elevation in chassis",
+    "resolution": "Replaced failed fan assembly and confirmed thermal readings returned normal",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-081",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-10-27T04:56:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Faulty PSU thermal protection triggered due to ambient temperature spike",
+    "resolution": "Improved cooling airflow and replaced PSU with new generation unit",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-055",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-11-09T17:34:00Z",
+    "duration_minutes": 9,
+    "root_cause": "Peer router configuration reset during unplanned maintenance by remote ISP",
+    "resolution": "Restored BGP configuration from backup and verified peer connectivity",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-038",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-11-25T11:47:00Z",
+    "duration_minutes": 4,
+    "root_cause": "CRC errors from marginal signal quality on long distance fiber link",
+    "resolution": "Adjusted laser power levels and replaced aging transceiver module",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-054",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-12-07T09:22:00Z",
+    "duration_minutes": 41,
+    "root_cause": "Queue overflow on egress interface during unexpected traffic burst",
+    "resolution": "Increased interface queue buffers and adjusted traffic shaping policies",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-061",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-19T23:15:00Z",
+    "duration_minutes": 29,
+    "root_cause": "PSU power sequencing circuit failure during cold start boot sequence",
+    "resolution": "Replaced PSU board and tested redundancy failover under load conditions",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-105",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-12-31T06:08:00Z",
+    "duration_minutes": 68,
+    "root_cause": "Control plane denial of service from malformed BGP update packets",
+    "resolution": "Applied BGP input filters for invalid routes and upgraded router firmware",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:00Z",
+    "duration_minutes": 12,
+    "root_cause": "Fiber cut on primary uplink to Stockholm backbone",
+    "resolution": "Traffic rerouted through secondary path, fiber repaired by contractor",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-045",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:28:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Routing table explosion due to BGP route leak from upstream",
+    "resolution": "BGP filters applied, route dampening enabled, routing table stabilized",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-012",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-02-18T08:15:00Z",
+    "duration_minutes": 23,
+    "root_cause": "Front intake fan bearing failure detected on chassis",
+    "resolution": "Fan module replaced with spare, thermal monitoring normalized",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-089",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-05T19:33:00Z",
+    "duration_minutes": 8,
+    "root_cause": "BGP session timeout due to ACL misconfiguration on peer router",
+    "resolution": "ACL rules corrected, BGP session established, route convergence completed",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-067",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-22T11:47:00Z",
+    "duration_minutes": 67,
+    "root_cause": "Congestion on transatlantic link during peak traffic hours",
+    "resolution": "Traffic load balanced across secondary circuits, QoS policies adjusted",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-023",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-08T06:22:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Rear exhaust fan stopped due to dust accumulation and wear",
+    "resolution": "Fan module replaced, chassis cleaned, temperature sensors reset",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-156",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-04-19T22:11:00Z",
+    "duration_minutes": 18,
+    "root_cause": "PSU-A failure detected, system running on redundant PSU-B",
+    "resolution": "Failed PSU replaced with spare unit, redundancy restored",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-034",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-05-02T13:56:00Z",
+    "duration_minutes": 42,
+    "root_cause": "High CRC errors on Ethernet interface due to bad cable",
+    "resolution": "Interface cable replaced with certified CAT6A, errors cleared",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-077",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-15T09:34:00Z",
+    "duration_minutes": 28,
+    "root_cause": "Memory utilization at 92% due to unresolved ARP table growth",
+    "resolution": "ARP cache cleared, memory optimization enabled, threshold alert adjusted",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-091",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-01T16:45:00Z",
+    "duration_minutes": 19,
+    "root_cause": "Center cooling fan seized, chassis temperature rising rapidly",
+    "resolution": "Fan assembly replaced, thermal throttling disabled, normal operation restored",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-14T02:18:00Z",
+    "duration_minutes": 156,
+    "root_cause": "Optical power levels degraded on long-haul DWDM circuit",
+    "resolution": "DWDM amplifiers calibrated, fiber cleaned at termination points",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-078",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-07-03T12:07:00Z",
+    "duration_minutes": 25,
+    "root_cause": "Power supply cooling fan failure, temperature monitoring triggered",
+    "resolution": "Cooling fan replaced, power supply tested, operations resumed",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-056",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-18T17:29:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Rapid topology change due to link flapping on access switch",
+    "resolution": "Access switch port reconfigured, flapping cleared, topology stabilized",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-042",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-08-05T10:53:00Z",
+    "duration_minutes": 73,
+    "root_cause": "CPU spike caused by SNMP polling interval misconfiguration",
+    "resolution": "SNMP polling intervals adjusted, process restarted, utilization normalized",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-103",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-08-22T20:36:00Z",
+    "duration_minutes": 22,
+    "root_cause": "Supervisor module cooling fan bearing failure",
+    "resolution": "Fan cartridge replaced, supervisor module health verified",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-088",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-09-10T04:42:00Z",
+    "duration_minutes": 31,
+    "root_cause": "Interface shut down due to exceeding error threshold limits",
+    "resolution": "Faulty line card identified and replaced, interface re-enabled",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-201",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-09-27T15:21:00Z",
+    "duration_minutes": 94,
+    "root_cause": "Intermittent packet loss on metro Ethernet due to congestion",
+    "resolution": "Additional bandwidth provisioned, traffic engineering policies updated",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-067",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-08T11:15:00Z",
+    "duration_minutes": 38,
+    "root_cause": "SFP transceiver degradation detected on optical interface",
+    "resolution": "SFP transceiver replaced with qualified module, interface re-enabled",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-045",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-10-23T07:49:00Z",
+    "duration_minutes": 29,
+    "root_cause": "Linecard cooling fan failure affecting slot temperature monitoring",
+    "resolution": "Cooling fan replaced, linecard diagnostics passed, traffic resumed",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-112",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-11-04T21:37:00Z",
+    "duration_minutes": 11,
+    "root_cause": "BGP neighbor became unreachable due to network maintenance window",
+    "resolution": "Neighbor route restored, BGP convergence completed successfully",
+    "severity": "CRITICAL",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-015",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-11-16T18:52:00Z",
+    "duration_minutes": 52,
+    "root_cause": "Memory leak in routing protocol daemon causing gradual increase",
+    "resolution": "Routing daemon restarted, memory monitoring enhanced, patch applied",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-123",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-29T09:28:00Z",
+    "duration_minutes": 26,
+    "root_cause": "Intake filter clogged, reducing airflow to cooling fan motor",
+    "resolution": "Intake filter replaced, fans cleaned and tested, airflow restored",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-189",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-12-11T14:03:00Z",
+    "duration_minutes": 127,
+    "root_cause": "Fiber bend radius violation on patched cable segment",
+    "resolution": "Cable rerouted with proper bend radius, optical power normalized",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-167",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-12-20T03:11:00Z",
+    "duration_minutes": 15,
+    "root_cause": "Redundant PSU failed, single PSU maintaining device operation",
+    "resolution": "Failed PSU replaced, redundancy check passed, monitoring resumed",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-01-15T03:22:00Z",
+    "duration_minutes": 45,
+    "root_cause": "Fiber optic cable bend radius violation near splice point",
+    "resolution": "Repositioned cable routing and verified light levels above threshold",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-047",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-01-22T14:15:00Z",
+    "duration_minutes": 120,
+    "root_cause": "BGP route flapping causing excessive CPU utilization",
+    "resolution": "Implemented BGP dampening and cleared route oscillations",
+    "severity": "CRITICAL",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-023",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-02-03T08:45:00Z",
+    "duration_minutes": 62,
+    "root_cause": "Transceiver temperature drift causing signal attenuation",
+    "resolution": "Replaced faulty QSFP module and validated optical power",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-089",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-02-14T19:30:00Z",
+    "duration_minutes": 8,
+    "root_cause": "Transient carrier loss on metro Ethernet link",
+    "resolution": "Link auto-recovered after carrier signal stabilization",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-056",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-02-28T11:20:00Z",
+    "duration_minutes": 34,
+    "root_cause": "Primary PSU overcurrent protection tripped due to load surge",
+    "resolution": "Reset PSU and distributed load across redundant power modules",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-012",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-03-07T06:15:00Z",
+    "duration_minutes": 88,
+    "root_cause": "Micro-bending in fiber caused by equipment racking pressure",
+    "resolution": "Relieved pressure point and re-spooled cable with proper slack",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-078",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-18T15:45:00Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP peer misconfiguration after unplanned configuration deployment",
+    "resolution": "Reverted to previous config and corrected peer ASN settings",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-034",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-25T22:10:00Z",
+    "duration_minutes": 156,
+    "root_cause": "CRC errors due to duplex mismatch between switch ports",
+    "resolution": "Configured both ends to auto-negotiate and verified link speed",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-091",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-04-02T09:33:00Z",
+    "duration_minutes": 42,
+    "root_cause": "Queue congestion on egress interface during traffic spike",
+    "resolution": "Applied QoS policies and increased buffer memory allocation",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAW-045",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-04-11T16:22:00Z",
+    "duration_minutes": 71,
+    "root_cause": "Dust contamination on optical connector ferrule endface",
+    "resolution": "Cleaned connector with lint-free cloth and IPA solution",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-002",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-04-19T12:08:00Z",
+    "duration_minutes": 27,
+    "root_cause": "Front panel fan motor bearing degradation and increased noise",
+    "resolution": "Replaced failed cooling fan and verified airflow temperature",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-048",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-27T10:55:00Z",
+    "duration_minutes": 93,
+    "root_cause": "Memory leak in routing protocol software during convergence",
+    "resolution": "Applied software patch and restarted affected routing daemon",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-024",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-05T04:42:00Z",
+    "duration_minutes": 55,
+    "root_cause": "Fiber optic dispersion compensation module alignment drift",
+    "resolution": "Recalibrated DCM module and validated signal eye diagram",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-090",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-05-13T13:37:00Z",
+    "duration_minutes": 5,
+    "root_cause": "Topology change due to upstream link failure and convergence",
+    "resolution": "Detected and converged to alternate path automatically",
+    "severity": "WARNING",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-057",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-22T18:19:00Z",
+    "duration_minutes": 81,
+    "root_cause": "Laser transmitter wavelength drift exceeding tolerance specification",
+    "resolution": "Replaced DWDM transceiver and restored proper wavelength",
+    "severity": "MAJOR",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-013",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-06-01T07:24:00Z",
+    "duration_minutes": 38,
+    "root_cause": "Input buffer overflow during multicast replication storm",
+    "resolution": "Implemented IGMP snooping and rate-limited multicast packets",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-079",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-10T20:51:00Z",
+    "duration_minutes": 110,
+    "root_cause": "DDoS attack generating excessive control plane processing load",
+    "resolution": "Activated DDoS mitigation scrubbing and rate limiting rules",
+    "severity": "CRITICAL",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-035",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-18T11:46:00Z",
+    "duration_minutes": 64,
+    "root_cause": "Chromatic dispersion accumulation on long-haul fiber span",
+    "resolution": "Adjusted dispersion compensation and optimized launch power",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-092",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-06-26T02:15:00Z",
+    "duration_minutes": 19,
+    "root_cause": "SFP module insertion detection switch intermittent contact",
+    "resolution": "Reseated SFP module and cleaned connector contacts",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAW-046",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-07-04T14:32:00Z",
+    "duration_minutes": 47,
+    "root_cause": "Late collision errors on half-duplex legacy circuit interface",
+    "resolution": "Upgraded interface to full-duplex and updated peer configuration",
+    "severity": "MINOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-003",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-07-12T17:28:00Z",
+    "duration_minutes": 73,
+    "root_cause": "Polarization mode dispersion degradation on aged fiber link",
+    "resolution": "Deployed compensator module and validated BER performance",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-049",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-07-20T09:01:00Z",
+    "duration_minutes": 84,
+    "root_cause": "BGP table explosion from malformed route advertisements",
+    "resolution": "Filtered invalid routes and applied prefix limits on peer",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-025",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-07-29T05:47:00Z",
+    "duration_minutes": 59,
+    "root_cause": "Receiver optical power degradation from connector contamination",
+    "resolution": "Cleaned all optical connectors and verified power budgets",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-091",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-07T21:14:00Z",
+    "duration_minutes": 16,
+    "root_cause": "BGP hold timer expiration due to processing delays",
+    "resolution": "Increased hold timer and optimized route processor configuration",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:42:17Z",
+    "duration_minutes": 23,
+    "root_cause": "Fiber optic cable cut during road construction work",
+    "resolution": "Rerouted traffic via backup MPLS tunnel to Berlin-DC-East",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-045",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:28:52Z",
+    "duration_minutes": 87,
+    "root_cause": "Routing table explosion due to BGP route leak from peer",
+    "resolution": "Applied route filter and cleared BGP session to upstream ISP",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-023",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-02-14T09:15:33Z",
+    "duration_minutes": 4,
+    "root_cause": "Switch port disabled due to link quality degradation threshold",
+    "resolution": "Cleaned fiber connectors and re-enabled STP on port Eth0/1",
+    "severity": "MINOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-067",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-01T18:45:09Z",
+    "duration_minutes": 156,
+    "root_cause": "Queue tail drop on egress interface due to capacity saturation",
+    "resolution": "Enabled QoS policy and increased buffer allocation on egress",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-089",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-12T11:22:41Z",
+    "duration_minutes": 45,
+    "root_cause": "BGP neighbor timeout due to network latency spike and keepalive loss",
+    "resolution": "Reset BGP session and verified TCP connectivity to peer router",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-031",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-03-25T07:33:18Z",
+    "duration_minutes": 12,
+    "root_cause": "Dirty optical transceiver causing high error rate on 10Gbps link",
+    "resolution": "Replaced SFP+ transceiver and verified interface integrity",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-052",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-04-07T16:51:22Z",
+    "duration_minutes": 78,
+    "root_cause": "Memory leak in BGP process consuming system RAM incrementally",
+    "resolution": "Restarted BGP daemon and applied vendor software patch",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-044",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-04-18T13:16:45Z",
+    "duration_minutes": 3,
+    "root_cause": "Primary switch failed triggering STP topology recalculation event",
+    "resolution": "Brought primary switch back online after hardware replacement",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-078",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-02T02:19:37Z",
+    "duration_minutes": 34,
+    "root_cause": "Power supply unit PSU-2 failed due to capacitor degradation",
+    "resolution": "Replaced failed PSU unit and verified redundant power operation",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-061",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-05-14T10:47:51Z",
+    "duration_minutes": 92,
+    "root_cause": "Fiber attenuation increasing due to bend in underground cable segment",
+    "resolution": "Spliced fiber cable at damaged section and restored signal integrity",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-015",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-05-26T15:32:08Z",
+    "duration_minutes": 2,
+    "root_cause": "BPDU received from new switch in redundant topology path",
+    "resolution": "Verified spanning tree root priority and port roles are optimal",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-038",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-07T08:23:14Z",
+    "duration_minutes": 67,
+    "root_cause": "Fan module bearing failure causing abnormal acoustic signature",
+    "resolution": "Replaced fan module and restored normal chassis cooling operation",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-041",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-06-19T22:11:26Z",
+    "duration_minutes": 124,
+    "root_cause": "OSPF convergence storm due to unstable neighbor link oscillations",
+    "resolution": "Applied interface stability timer and dampened OSPF hello packets",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-073",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-07-03T12:44:39Z",
+    "duration_minutes": 203,
+    "root_cause": "Congestion on uplink due to unexpected traffic surge from DDoS attack",
+    "resolution": "Deployed DDoS mitigation filter and scaled bandwidth via secondary link",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-095",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-16T19:57:22Z",
+    "duration_minutes": 5,
+    "root_cause": "Switch port moved to blocking state due to loop detection",
+    "resolution": "Investigated topology and disabled redundant cross-connect port",
+    "severity": "WARNING",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STK-047",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-02T04:18:56Z",
+    "duration_minutes": 18,
+    "root_cause": "Remote end switch port disabled for scheduled maintenance window",
+    "resolution": "Coordinated with peer site and restored link after maintenance completed",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-066",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-08-14T17:29:43Z",
+    "duration_minutes": 31,
+    "root_cause": "CRC errors on interface due to corrupted cable shielding and EMI",
+    "resolution": "Replaced network cable with shielded variant and verified error clearance",
+    "severity": "MAJOR",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-057",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-08-27T06:35:19Z",
+    "duration_minutes": 72,
+    "root_cause": "BGP authentication key mismatch after unscheduled peer router reboot",
+    "resolution": "Verified BGP MD5 authentication key consistency with peer network team",
+    "severity": "CRITICAL",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-085",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-09-08T14:12:31Z",
+    "duration_minutes": 6,
+    "root_cause": "Network reconfiguration triggered STP root bridge election change",
+    "resolution": "Adjusted switch bridge priority to maintain stable topology hierarchy",
+    "severity": "WARNING",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAR-074",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-09-21T09:46:08Z",
+    "duration_minutes": 95,
+    "root_cause": "Netflow data collection consuming excessive memory buffers without cleanup",
+    "resolution": "Adjusted netflow cache timeout and enabled aggressive cache flushing",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-028",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-10-05T11:58:22Z",
+    "duration_minutes": 156,
+    "root_cause": "Laser transceiver aging causing gradual optical power output reduction",
+    "resolution": "Scheduled and performed hot-swap replacement of optical transceiver",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-052",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-10-18T20:33:45Z",
+    "duration_minutes": 7,
+    "root_cause": "Port state transition from forwarding to blocking during rapid topology change",
+    "resolution": "Enabled BPDU guard and verified rapid spanning tree convergence parameters",
+    "severity": "MINOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-058",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-11-02T03:24:17Z",
+    "duration_minutes": 41,
+    "root_cause": "Redundant power supply unit failed during load balancing rebalance",
+    "resolution": "Replaced defective PSU and restored dual-supply redundancy status",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-081",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-11-15T16:47:33Z",
+    "duration_minutes": 53,
+    "root_cause": "Cooling fan assembly fault due to dust accumulation and bearing wear",
+    "resolution": "Cleaned chassis fans and replaced failed fan assembly unit",
+    "severity": "MAJOR",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-103",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-12-01T08:19:02Z",
+    "duration_minutes": 4,
+    "root_cause": "Secondary uplink activated due to primary link failure detection event",
+    "resolution": "Restored primary link and verified failover mechanism functionality",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-OSL-001",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-01-15T03:22:18Z",
+    "duration_minutes": 47,
+    "root_cause": "Fiber cut on Oslo-Bergen trunk line during roadwork",
+    "resolution": "Rerouted traffic via Stockholm backup circuit, restored after repair",
+    "severity": "CRITICAL",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-042",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-02-03T14:51:09Z",
+    "duration_minutes": 23,
+    "root_cause": "BGP route convergence spike from upstream AS path changes",
+    "resolution": "Adjusted BGP timers and cleared route cache manually",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-015",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-02-18T08:33:44Z",
+    "duration_minutes": 3,
+    "root_cause": "Port priority misconfiguration on redundant core switch",
+    "resolution": "Corrected RSTP priority values on AMS-SW-008",
+    "severity": "WARNING",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-068",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-03-07T11:15:27Z",
+    "duration_minutes": 156,
+    "root_cause": "Saturated MPLS tunnel due to unplanned traffic surge from ISP peer",
+    "resolution": "Activated secondary MPLS path and implemented traffic policing",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-051",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-03-22T16:42:33Z",
+    "duration_minutes": 18,
+    "root_cause": "BGP session timeout due to persistent TCP resets from peer router",
+    "resolution": "Cleared BGP session and verified TCP connectivity to peer",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-027",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-04-05T09:28:15Z",
+    "duration_minutes": 89,
+    "root_cause": "Faulty SFP transceiver showing CRC errors on 10G interface",
+    "resolution": "Replaced SFP module and verified error rate dropped to zero",
+    "severity": "MAJOR",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-089",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-04-19T13:07:52Z",
+    "duration_minutes": 2,
+    "root_cause": "Root bridge failure triggered unexpected topology recalculation",
+    "resolution": "Root bridge recovered, topology converged within 2 seconds",
+    "severity": "WARNING",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-034",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-05-12T22:19:48Z",
+    "duration_minutes": 67,
+    "root_cause": "Memory leak in OSPF process consuming 2GB per day",
+    "resolution": "Restarted OSPF daemon and implemented memory monitoring threshold",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-058",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "timestamp": "2024-05-28T01:33:21Z",
+    "duration_minutes": 34,
+    "root_cause": "Primary power supply PSU-A failed due to internal capacitor degradation",
+    "resolution": "Hot-swapped PSU-A unit while device remained online",
+    "severity": "CRITICAL",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAW-073",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-06-09T10:45:33Z",
+    "duration_minutes": 120,
+    "root_cause": "Fan module FAN-03 failed due to bearing wear and dust accumulation",
+    "resolution": "Replaced fan module and cleaned internal chassis dust filters",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-012",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-06-22T15:22:10Z",
+    "duration_minutes": 45,
+    "root_cause": "Optical signal degradation on long-haul circuit due to fiber bend",
+    "resolution": "Identified pinched fiber section, spliced and tested restoration",
+    "severity": "MAJOR",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-065",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-07-03T07:14:46Z",
+    "duration_minutes": 4,
+    "root_cause": "Scheduled maintenance completed on backup link, restored to active",
+    "resolution": "Verified RSTP convergence and confirmed all ports operational",
+    "severity": "WARNING",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-047",
+    "alarm_type": "HIGH_CPU",
+    "timestamp": "2024-07-19T18:56:22Z",
+    "duration_minutes": 31,
+    "root_cause": "Excessive ARP requests from misconfigured customer network segment",
+    "resolution": "Implemented ARP rate limiting and notified customer for remediation",
+    "severity": "MAJOR",
+    "affected_site": "Amsterdam-DC-West"
+  },
+  {
+    "device_id": "RTR-LON-031",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-08-02T12:33:57Z",
+    "duration_minutes": 78,
+    "root_cause": "Queue overflow on egress interface due to inadequate buffer sizing",
+    "resolution": "Increased buffer allocation and implemented WRED congestion control",
+    "severity": "CRITICAL",
+    "affected_site": "London-DC-Central"
+  },
+  {
+    "device_id": "RTR-PAR-019",
+    "alarm_type": "LINK_DOWN",
+    "timestamp": "2024-08-16T20:41:15Z",
+    "duration_minutes": 91,
+    "root_cause": "Layer 2 switch port disabled due to spanning tree BPDU guard violation",
+    "resolution": "Identified rogue switch, removed from network, re-enabled port",
+    "severity": "CRITICAL",
+    "affected_site": "Paris-DC-South"
+  },
+  {
+    "device_id": "RTR-STO-044",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "timestamp": "2024-09-01T04:28:03Z",
+    "duration_minutes": 12,
+    "root_cause": "BGP authentication failure after credential update on peer side",
+    "resolution": "Updated MD5 authentication key and re-established BGP adjacency",
+    "severity": "CRITICAL",
+    "affected_site": "Stockholm-DC-North"
+  },
+  {
+    "device_id": "RTR-FRK-016",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-09-14T09:51:31Z",
+    "duration_minutes": 5,
+    "root_cause": "Link failure on active trunk triggered alternate path activation",
+    "resolution": "Monitored convergence, restored primary link after repair completion",
+    "severity": "WARNING",
+    "affected_site": "Frankfurt-DC-Central"
+  },
+  {
+    "device_id": "RTR-CPH-062",
+    "alarm_type": "INTERFACE_ERROR",
+    "timestamp": "2024-10-03T14:17:44Z",
+    "duration_minutes": 56,
+    "root_cause": "Dirty fiber connector causing intermittent signal loss and errors",
+    "resolution": "Cleaned optical connectors and verified error rates returned to baseline",
+    "severity": "MAJOR",
+    "affected_site": "Copenhagen-DC-East"
+  },
+  {
+    "device_id": "RTR-HEL-029",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "timestamp": "2024-10-18T11:03:29Z",
+    "duration_minutes": 44,
+    "root_cause": "Increased BGP prefix table size from upstream provider route updates",
+    "resolution": "Optimized routing policy and implemented prefix filtering",
+    "severity": "MAJOR",
+    "affected_site": "Helsinki-DC-North"
+  },
+  {
+    "device_id": "RTR-WAW-041",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "timestamp": "2024-11-02T17:36:12Z",
+    "duration_minutes": 63,
+    "root_cause": "Optical amplifier EDFA pump laser degradation reducing signal power",
+    "resolution": "Replaced EDFA module and performed end-to-end optical power validation",
+    "severity": "MAJOR",
+    "affected_site": "Warsaw-DC-Central"
+  },
+  {
+    "device_id": "RTR-OSL-055",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "timestamp": "2024-11-16T06:22:48Z",
+    "duration_minutes": 3,
+    "root_cause": "Port state change due to failed redundancy test on backup interface",
+    "resolution": "Completed interface maintenance and verified loop prevention active",
+    "severity": "WARNING",
+    "affected_site": "Oslo-DC-North"
+  },
+  {
+    "device_id": "RTR-BER-028",
+    "alarm_type": "FAN_FAILURE",
+    "timestamp": "2024-12-01T23:15:07Z",
+    "duration_minutes": 102,
+    "root_cause": "Fan module FAN-01 reached end-of-life threshold with bearing noise",
+    "resolution": "Preventively replaced all fan modules and tested thermal systems",
+    "severity": "MAJOR",
+    "affected_site": "Berlin-DC-East"
+  },
+  {
+    "device_id": "RTR-AMS-063",
+    "alarm_type": "PACKET_LOSS",
+    "timestamp": "2024-12-15T13:48:19Z",
+    "duration_minutes": 134,
+    "root_cause": "DDoS attack targeting customer network causing link saturation",
+    "resolution": "Engaged security team, implemented anti-DDoS filtering, mitigated attack",
+    "severity": "CRITICAL",
+    "affected_site": "Amsterdam-DC-West"
+  }
+]

@@ -1,0 +1,635 @@
+[
+  {
+    "runbook_id": "RB-001",
+    "alarm_type": "LINK_DOWN",
+    "title": "BGP Session Loss Due to Physical Link Failure",
+    "trigger_conditions": "Interface carrier detect loss combined with BGP neighbor state transition from Established to Down on a core routing interface. The alarm fires when link down persists for more than 10 seconds and BGP session cannot re-establish within 30 seconds.",
+    "diagnostic_steps": [
+      "show interfaces <interface-name> | include (Physical|protocol|down) on Cisco IOS-XR or show interfaces <interface-name> extensive | match (Physical|protocol|down) on Juniper JUNOS to confirm link is operationally down",
+      "show link-management interface brief on Cisco IOS-XR to check optical signal levels (RX/TX power) or request shell execute \"ethtool -m <interface>\" on Linux-based platforms to verify transceiver health",
+      "show bgp ipv4 unicast neighbors <neighbor-ip> | include (Up|Down|State) to confirm BGP session state and retrieve last up/down timestamp",
+      "Check patch panel and physical cabling at both ends of the link; verify SFP/XFP module seating and any visible damage to connectors",
+      "Retrieve interface error counters with show interfaces <interface-name> statistics on Cisco IOS-XR or show interfaces <interface-name> detail | match errors on Juniper JUNOS to identify CRC, collisions, or runts indicating link quality issues"
+    ],
+    "common_causes": [
+      "Loose or disconnected fiber optic or copper patch cable at one or both ends",
+      "Failed or degraded transceiver module (SFP/XFP) with power loss or laser failure",
+      "Optical signal loss due to dirty connector ferrules or fiber damage"
+    ],
+    "escalation_path": "If diagnostic steps confirm physical layer failure, immediately notify Field Operations team and open urgent ticket with hardware vendor. If link remains down for >5 minutes, page on-call Network Manager to authorize reroute traffic. Escalate to Vendor TAC if transceiver diagnostics show marginal power levels requiring replacement.",
+    "estimated_resolution_time": "30-60 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-002",
+    "alarm_type": "LINK_DOWN",
+    "title": "Interface Disabled or Administratively Shut Down",
+    "trigger_conditions": "Interface transitions to administratively down state (line protocol down) without any physical carrier loss event. This typically occurs due to manual shutdown command, configuration change, or device reboot affecting interface state.",
+    "diagnostic_steps": [
+      "show running-config interface <interface-name> on Cisco IOS-XR or show configuration interfaces <interface-name> | display set on Juniper JUNOS to check if shutdown or disable command is present",
+      "show interfaces <interface-name> | include (oper-status|admin-status) on Cisco IOS-XR or show interfaces <interface-name> | match admin-status on Juniper JUNOS to clearly distinguish administrative vs operational state",
+      "Check recent configuration change logs: show configuration rollback changes on Cisco IOS-XR or show system commit log | head 20 on Juniper JUNOS to identify when and by whom the interface was disabled",
+      "Query CMDB or change control system for scheduled maintenance windows or approved configuration changes affecting this interface in the past 30 minutes",
+      "Verify no hardware auto-shutdown triggers are active: show inventory on Cisco IOS-XR or request shell execute \"ethtool <interface> | grep Link\" on Linux to rule out power management or thermal shutdown"
+    ],
+    "common_causes": [
+      "Unscheduled administrative shutdown command executed by engineer or automation script",
+      "Configuration change or device reload that resets interface state to default (shutdown)",
+      "Triggered by device protection mechanism (thermal throttling, power management, or error-disable feature)"
+    ],
+    "escalation_path": "Verify with Change Advisory Board or on-call engineer whether shutdown is intentional. If unscheduled, contact the engineer or team that owns this interface. For unintended shutdowns, issue 'no shutdown' command after confirming safety with stakeholders. If error-disable is active, investigate root cause (BPDU Guard, PortSecurity) before re-enabling.",
+    "estimated_resolution_time": "5-15 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-003",
+    "alarm_type": "LINK_DOWN",
+    "title": "Layer 2 Protocol Mismatch or Negotiation Failure",
+    "trigger_conditions": "Link transitions from up to down state with physical carrier present but protocol negotiation failing (e.g., Ethernet autonegotiation timeout, LACP heartbeat loss). Interface remains in 'up/down' state for extended period indicating data link layer failure rather than physical layer.",
+    "diagnostic_steps": [
+      "show interfaces <interface-name> | include (speed|duplex|negotiation|mtu) on Cisco IOS-XR or show interfaces <interface-name> | match (speed|duplex) on Juniper JUNOS to verify negotiated vs configured speed/duplex settings",
+      "show interfaces <interface-name> | match (errors|CRC|frame|alignment) on Cisco IOS-XR or show interfaces <interface-name> detail | match (errors|CRC) on Juniper JUNOS to identify Layer 2 frame corruption indicating speed/duplex mismatch",
+      "For LACP bundles: show lacp bundle brief on Cisco IOS-XR or show lacp interfaces brief on Juniper JUNOS to identify which member links are down and LACP protocol state on each",
+      "Verify remote end configuration: SSH to peer device and run identical diagnostic commands to confirm both sides are configured identically (speed 10Gbps, duplex full, etc.)",
+      "Check interface MTU mismatch: show interfaces <interface-name> | include mtu on Cisco IOS-XR or show interfaces <interface-name> | match mtu on Juniper JUNOS and compare with peer device; jumbo frames may fail if unsupported on one end"
+    ],
+    "common_causes": [
+      "Speed or duplex mismatch between local and peer interface (e.g., 1Gbps full vs 10Mbps half)",
+      "LACP protocol version mismatch or misconfiguration causing bundle member flap",
+      "MTU size mismatch or VLAN tag configuration causing frames to be dropped at Layer 2"
+    ],
+    "escalation_path": "Coordinate with peer network team to align configuration (preferred: both sides hardcoded to matching speed/duplex rather than autonegotiate). If configuration alignment fails, escalate to Network Architecture team to review design. For LACP issues, verify LACP timer settings match (Fast mode 1 second vs Slow mode 30 seconds) and ensure all ports in bundle have identical configuration.",
+    "estimated_resolution_time": "20-45 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-004",
+    "alarm_type": "HIGH_CPU",
+    "title": "High CPU on Route Processor Due to BGP Route Churn",
+    "trigger_conditions": "CPU utilization on route processor exceeds 85% for more than 5 minutes. BGP flapping or route instability detected in syslog. BGP neighbor state changes observed within the alarm window.",
+    "diagnostic_steps": [
+      "show processes cpu sorted | head -20 (IOS-XR) or show system processes cpu (Juniper) to identify CPU-consuming process",
+      "show bgp summary and show bgp neighbors flap to identify unstable BGP peers and excessive route advertisements",
+      "show route summary and show bgp routes statistics to determine number of active/pending routes and convergence state",
+      "show logging | grep BGP | tail -50 to analyze BGP state change frequency and timing correlation with CPU spike",
+      "show bgp ipv4 unicast statistics or show route protocol bgp extensive to verify if route reflection or route redistribution is causing excessive updates"
+    ],
+    "common_causes": [
+      "BGP peer flapping or session instability due to network connectivity issues or misconfiguration",
+      "Route redistribution loops or excessive route advertisements from upstream providers",
+      "BGP bestpath calculation overhead from large unfiltered route tables or missing route-targets"
+    ],
+    "escalation_path": "Page on-call Network Engineer if CPU remains >80% for >10 minutes. Escalate to Routing Architecture team if BGP flapping persists after peer reset. Contact upstream ISP if external peer is source of route instability.",
+    "estimated_resolution_time": "10-25 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-005",
+    "alarm_type": "HIGH_CPU",
+    "title": "High CPU on Line Card Due to Exception Punting",
+    "trigger_conditions": "CPU utilization on a specific line card exceeds 75% for 3+ minutes. Interface error counters show elevated drops or no-buffer conditions. Syslog contains punt-to-cpu messages for traffic classes.",
+    "diagnostic_steps": [
+      "show platform hardware status or show chassis hardware to identify which line card is affected",
+      "show interfaces statistics extensive | grep -i drops to verify packet drop patterns on affected line card interfaces",
+      "show controllers npu statistics or show interfaces diagnostics optics to check for CRC errors, FCS errors, or optical signal degradation",
+      "show access-lists hardware-count interface <interface> to determine if ACL matching is causing excessive CPU punting",
+      "show buffer status and show queue interface <interface> to verify buffer availability and queue depth indicating congestion"
+    ],
+    "common_causes": [
+      "Line card receiving traffic that requires CPU processing (ARP floods, DHCP storms, multicast replication)",
+      "Hardware error or optical signal issue causing frame retransmission and exception handling",
+      "Misconfigured ACL or QoS policy forcing traffic to CPU instead of hardware forwarding path"
+    ],
+    "escalation_path": "Contact on-call Hardware Support engineer if errors persist after 5 minutes or if line card restart is required. Escalate to Network Operations Manager if line card requires replacement or service outage is needed.",
+    "estimated_resolution_time": "20-40 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-006",
+    "alarm_type": "HIGH_CPU",
+    "title": "High CPU on Control Plane Due to Syslog or SNMP Processing",
+    "trigger_conditions": "CPU utilization exceeds 70% on control plane module for sustained period. High volume of syslog messages or SNMP traps observed in system buffers. Monitoring system reports elevated SNMP query latency or syslog delivery delays.",
+    "diagnostic_steps": [
+      "show processes memory | sort -k5 and show processes cpu | sort -k3 to identify syslog daemon, snmpd, or logging process consuming resources",
+      "show logging history | head -30 and show logging buffer | wc -l to quantify syslog message rate and identify source of logging spikes",
+      "show snmp stats or show snmp group (Juniper) to verify SNMP query volume and identify heavy polling sources",
+      "show logging events filter to check if debug logging is inadvertently enabled; show logging level to verify logging configuration",
+      "netstat -an | grep 514 (syslog) or netstat -an | grep 161 (SNMP) to see number of active syslog/SNMP connections and potential connection leaks"
+    ],
+    "common_causes": [
+      "Debug logging or excessive system logging enabled; syslog destination unreachable causing queue buildup",
+      "SNMP polling interval too aggressive or unfiltered MIB walks from monitoring tool causing excessive queries",
+      "Syslog or SNMP connection leak due to software bug or monitoring system not properly closing sessions"
+    ],
+    "escalation_path": "Immediate action: disable debug logging and verify syslog destination connectivity. Contact on-call NOC manager if CPU does not drop below 60% within 10 minutes after logging reduction. Escalate to monitoring team if SNMP query rate excessive.",
+    "estimated_resolution_time": "5-15 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-007",
+    "alarm_type": "PACKET_LOSS",
+    "title": "Packet Loss on Core BGP Interface Due to Queue Congestion",
+    "trigger_conditions": "Packet loss detected on primary BGP peer interface exceeding 0.5% over 5-minute interval, typically during peak traffic hours. Interface utilization shows sustained levels above 85% with active queue drops logged in syslog.",
+    "diagnostic_steps": [
+      "show interfaces statistics | include drops packets | match <interface_name>",
+      "show qos interface <interface_name> | match -i drop congestion",
+      "ping -c 100 <bgp_peer_ip> and capture loss percentage; compare ICMP vs BGP hello loss rates",
+      "show ip bgp summary and verify no BGP flaps; cross-reference with packet loss spike timestamps",
+      "show hardware rate-limiter config | match interface class-of-service to validate QoS policy assignment"
+    ],
+    "common_causes": [
+      "Interface egress buffer exhaustion due to downstream congestion or microburst traffic",
+      "Misconfigured or missing QoS policy allowing best-effort traffic to consume priority queue bandwidth",
+      "Hardware queue overflow on line card during asymmetric traffic patterns"
+    ],
+    "escalation_path": "If loss persists >2 minutes: Page Tier-2 Network Engineering. If BGP adjacency unstable: Declare SEV-1 and escalate to Network Operations Manager. Contact carrier if edge-facing interface and rule out external ISP congestion.",
+    "estimated_resolution_time": "15-45 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-008",
+    "alarm_type": "PACKET_LOSS",
+    "title": "Intermittent Packet Loss on Access Interface Due to Duplex/Speed Mismatch",
+    "trigger_conditions": "Sporadic packet loss (0.1-2%) on access layer switch interface connecting to customer equipment or server. Loss occurs in bursts lasting 30-60 seconds, often correlating with CRC or alignment errors in interface counters.",
+    "diagnostic_steps": [
+      "show interfaces <interface_name> | include duplex speed mtu MTU",
+      "show interfaces <interface_name> counters detailed | match -i crc alignment runts giants",
+      "show interfaces <interface_name> errors | match -i 'input errors' 'output errors'",
+      "Verify remote end configuration via device telnet/SSH: show interfaces | grep -i duplex speed (or equivalent for non-Cisco)",
+      "Disable and re-enable interface: shutdown / no shutdown; monitor for 2 minutes and recheck error counters"
+    ],
+    "common_causes": [
+      "Duplex mismatch (one end auto-negotiate, other force half-duplex) causing collisions and frame loss",
+      "Speed negotiation failure resulting in unstable link state or frame corruption",
+      "Faulty cable or transceiver causing signal integrity issues and CRC errors"
+    ],
+    "escalation_path": "If error counters indicate CRC >100/min: Replace cable/SFP immediately without waiting for customer approval. If duplex mismatch confirmed with customer: Force both sides to auto-negotiate or manually match settings. Escalate to Vendor TAC only if issue persists after cable replacement.",
+    "estimated_resolution_time": "10-20 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-009",
+    "alarm_type": "PACKET_LOSS",
+    "title": "Packet Loss in MPLS LSP Due to Path Degradation or Link Failure",
+    "trigger_conditions": "Packet loss reported on MPLS Label Switched Path during active traffic steering through backup tunnels. Loss detected via LSP ping probes showing >1% loss rate, and IGP fast reroute convergence logs indicate recent primary link failure or degradation.",
+    "diagnostic_steps": [
+      "show mpls ldp discovery neighbors and verify all label neighbors are UP",
+      "show route summary | match MPLS label route count; correlate with loss alarm timestamp",
+      "ping mpls ipv4 <lsp_name> repeat 100 and capture loss %; compare with show mpls traffic-eng tunnels statistics",
+      "show isis neighbors detail and show ospf neighbor detail; verify link metrics and convergence timers appropriate for backup path",
+      "show interfaces <primary_link> | match status line-protocol; if down, verify FRR backup tunnel is active via show mpls traffic-eng tunnels detail"
+    ],
+    "common_causes": [
+      "Primary LSP path link failure forcing traffic through suboptimal backup tunnel with insufficient bandwidth",
+      "IGP metric misconfiguration causing traffic to prefer path with constrained capacity or higher latency",
+      "MPLS forwarding table corruption or stale entries following rapid link state changes"
+    ],
+    "escalation_path": "If primary link down: Immediately notify Carrier/WAN team and activate bridge circuit if available. If FRR backup tunnel saturated: Escalate to Traffic Engineering team to rebalance LSP tunnel bandwidth allocations. If loss continues after convergence (>30sec): Engage Juniper/Cisco TAC for MPLS table verification.",
+    "estimated_resolution_time": "20-60 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-010",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "title": "BGP Session Down - eBGP Peer Unreachable",
+    "trigger_conditions": "BGP session to external peer has transitioned to Idle or Connect state for more than 60 seconds. Peer IP is reachable via ping but BGP TCP port 179 connectivity is failing. This typically indicates a network path issue or firewall blockage affecting the BGP peer relationship.",
+    "diagnostic_steps": [
+      "show bgp summary | include <peer_ip> (Juniper) or show bgp ipv4 unicast summary (Cisco IOS-XR) to confirm session state",
+      "ping <peer_ip> -c 5 from local device to verify IP layer connectivity",
+      "traceroute <peer_ip> to identify path and potential intermediate device failures",
+      "show tcp brief | match <peer_ip> (Juniper) or show tcp connection brief (IOS-XR) to check TCP port 179 establishment",
+      "show route <peer_ip> to verify routing table and confirm next-hop accessibility"
+    ],
+    "common_causes": [
+      "Firewall or ACL blocking TCP port 179 between peers",
+      "BGP peer IP address unreachable due to routing misconfiguration",
+      "Physical link down on the path to peer"
+    ],
+    "escalation_path": "If ping succeeds but BGP fails to establish: escalate to Network Security team to verify firewall rules allow TCP 179. If ping fails or traceroute shows packet loss: escalate to Infrastructure team for layer 2/3 investigation. Escalate to Peer Operations if external peer is involved and internal checks pass.",
+    "estimated_resolution_time": "20-45 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-011",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "title": "BGP Session Down - iBGP Peer Configuration or Authentication Failure",
+    "trigger_conditions": "BGP session to internal peer remains in Active or Connect state despite multiple reconnection attempts over 90 seconds. Peer is on same AS and internal network. BGP logs may show authentication errors or capability mismatch messages indicating configuration or security token issues.",
+    "diagnostic_steps": [
+      "show bgp neighbor <peer_ip> detail (Juniper) or show bgp ipv4 unicast neighbors <peer_ip> detail (IOS-XR) to check last state and error codes",
+      "show log | match bgp (Juniper) or show logging | include BGP (IOS-XR) to review BGP-related error messages from last 5 minutes",
+      "show configuration groups <group_name> | match bgp (Juniper) to verify BGP neighbor configuration including password and policies",
+      "show bgp neighbor <peer_ip> | include 'authentication|capability|version' to identify specific negotiation failures",
+      "verify shared MD5 password matches on both sides: show bgp neighbor <peer_ip> | match 'password' (configuration verification only)"
+    ],
+    "common_causes": [
+      "BGP MD5 authentication password mismatch between peers",
+      "BGP version or capability negotiation failure (e.g., IPv4 vs IPv6, multiprotocol)",
+      "Local or remote router configuration error in neighbor statement (AS number, peer IP)"
+    ],
+    "escalation_path": "Compare local BGP configuration with peer device configuration via ticket or direct contact. If authentication error: coordinate password synchronization with peer team. If capability mismatch: verify both devices support required address families and adjust configuration. Contact Routing Architecture team if configuration appears correct but mismatch persists.",
+    "estimated_resolution_time": "15-30 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-012",
+    "alarm_type": "BGP_SESSION_DOWN",
+    "title": "BGP Session Down - Peer Restart or Graceful Restart Timeout",
+    "trigger_conditions": "BGP session transitions to Idle state coinciding with peer device restart or maintenance window. Session does not re-establish within graceful restart timer (default 120-300 seconds). Device may show BFD failure or sudden TCP session termination without explicit BGP notification message.",
+    "diagnostic_steps": [
+      "show system uptime (peer device if accessible) to confirm recent restart or check peer NOC notifications for scheduled maintenance",
+      "show bgp neighbor <peer_ip> | include 'last state change|up time' (Juniper) or show bgp ipv4 unicast neighbors <peer_ip> | include 'Last state' (IOS-XR)",
+      "show bgp neighbor <peer_ip> graceful-restart to verify GR capability is enabled and timers are appropriate",
+      "show bfd session | match <peer_ip> to check BFD status if configured; verify BFD is not timing out prematurely",
+      "show bgp rib received <afi-safi> neighbor <peer_ip> to check if stale routes are present (indicates graceful restart in progress)"
+    ],
+    "common_causes": [
+      "Peer device restarted without prior notification to NOC",
+      "BGP graceful restart timer expired before peer came back online",
+      "BFD session timeout before BGP graceful restart mechanism could activate"
+    ],
+    "escalation_path": "Confirm with peer team or on-call engineer whether restart was planned or unplanned. If unplanned: open incident for peer device stability investigation. If planned: verify graceful restart timers and BFD configuration were adjusted appropriately before maintenance. Monitor session re-establishment; escalate if session does not return within 5 minutes after peer is confirmed online.",
+    "estimated_resolution_time": "10-20 minutes (mostly wait time for peer recovery)",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-013",
+    "alarm_type": "INTERFACE_ERROR",
+    "title": "High CRC Error Rate on Ethernet Interface",
+    "trigger_conditions": "Interface CRC error counter exceeds 1000 errors per 5-minute interval or CRC error rate increases by >500% within 10 minutes. Alarm fires on both Cisco IOS-XR and Juniper JUNOS platforms when physical layer integrity is compromised.",
+    "diagnostic_steps": [
+      "Run 'show interfaces <interface-name> statistics' (IOS-XR) or 'show interfaces <interface-name> extensive' (JUNOS) to capture baseline error counters and compare against historical baseline",
+      "Inspect fiber optic connectors on both ends of the link using optical power meter: verify RX power is within vendor specifications (typically -5 to -20 dBm for 10G LR)",
+      "Execute 'show interfaces <interface-name> transceiver detail' (IOS-XR) or 'request shell execute \"ethtool -i <interface>\"' (JUNOS) to verify transceiver health and temperature",
+      "Check for duplex mismatch: confirm 'show run interface <interface-name>' (IOS-XR) matches far-end configuration, verify both sides set to 'full-duplex' and matching speeds",
+      "Validate cable integrity by running BERT test if available on equipment, or review recent cable plant work tickets; if CRC errors persist after optical cleaning, schedule cable replacement"
+    ],
+    "common_causes": [
+      "Dirty or misaligned fiber optic connectors causing signal degradation",
+      "Faulty SFP/XFP transceiver with failing optical receiver",
+      "Duplex mismatch between local and far-end interface configurations",
+      "Damaged or degraded network cable with internal micro-fractures"
+    ],
+    "escalation_path": "If CRC errors exceed 10,000/5min or interface flaps occur: immediately page Level 2 Optical Support. If cable replacement needed, open MEA ticket with Facilities and notify Circuit Provisioning. If transceiver failure confirmed, order RMA replacement and contact vendor support within 1 hour.",
+    "estimated_resolution_time": "30-90 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-014",
+    "alarm_type": "INTERFACE_ERROR",
+    "title": "Interface Down with Input Queue Drops",
+    "trigger_conditions": "Interface transitions from UP to DOWN state while input queue drop counter increments by >100 packets, or interface repeatedly flaps (transitions UP/DOWN) more than 5 times in 2 minutes. This indicates Layer 1 instability or buffer exhaustion.",
+    "diagnostic_steps": [
+      "Immediately execute 'show interfaces <interface-name>' (IOS-XR) or 'show interfaces <interface-name>' (JUNOS) and note last state change timestamp and reason code",
+      "Check interface configuration for mismatched MTU: run 'show run interface <interface-name>' and compare against upstream/downstream neighbor MTU settings; MTU mismatch causes fragmentation and drops",
+      "Verify interface is not rate-limited: check 'show policy-map interface <interface-name>' (IOS-XR) or 'show class-of-service interface <interface-name>' (JUNOS) for ingress policing that may be dropping traffic",
+      "Examine queue statistics with 'show interfaces <interface-name> queuing' (IOS-XR) or 'show interfaces queue' (JUNOS) to identify which queue is dropping; check if input buffer utilization >85%",
+      "Review syslog for link layer negotiation errors: 'show log | include <interface-name>' and look for UDLD failures, spanning-tree port guard blocks, or LACP flapping on port-channel members"
+    ],
+    "common_causes": [
+      "MTU mismatch between connected interfaces causing packet fragmentation",
+      "Input queue buffer exhaustion due to traffic burst exceeding interface capacity",
+      "UDLD (Unidirectional Link Detection) detecting one-way link failure",
+      "Spanning-tree port guard or LACP negotiation failure on aggregated interfaces"
+    ],
+    "escalation_path": "If interface remains DOWN for >5 minutes, contact Network Engineering to verify configuration changes within last 24 hours. If flapping persists, escalate to vendor TAC with interface configuration and syslog snapshot. If MTU mismatch confirmed, coordinate change window with both endpoints and document in CMDB before remediation.",
+    "estimated_resolution_time": "20-45 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-015",
+    "alarm_type": "INTERFACE_ERROR",
+    "title": "Frame Errors and Out-of-Sequence Packets on LAG Member",
+    "trigger_conditions": "One or more physical interfaces within a LAG (Link Aggregation Group) reports frame errors >500/interval or receives out-of-sequence packets detected by LACP protocol. Load-balancing hash collision or member interface degradation causes traffic reordering.",
+    "diagnostic_steps": [
+      "Identify LAG member with errors: run 'show lacp <lag-name> detail' (JUNOS) or 'show bundle brief' (IOS-XR) and compare error counters across all member interfaces",
+      "Isolate problematic member by executing 'show interfaces <member-interface> statistics' and verify which single member exhibits elevated frame error or out-of-order packet counts",
+      "Check LACP protocol health: run 'show lacp interfaces <member-interface> statistics' (JUNOS) or 'show lacp counters <member-interface>' (IOS-XR) to confirm LACP PDU exchange is stable with no timeouts",
+      "Temporarily remove the offending member from LAG using 'deactivate interfaces <member-interface> ether-options ieee-802.3ad' (JUNOS) or 'shutdown' (IOS-XR) and monitor if remaining members stabilize and frame error rate drops",
+      "Once isolated member is removed, verify traffic is load-balancing correctly across remaining members with 'show lacp <lag-name> statistics' and validate no customer impact; schedule member optical inspection and potential replacement"
+    ],
+    "common_causes": [
+      "One LAG member interface experiencing optical signal degradation or transceiver malfunction",
+      "Hash algorithm collision causing traffic concentration on single member despite load-balancing intent",
+      "Software forwarding bug or driver issue on one member causing packet reordering",
+      "Asymmetric fiber plant conditions where one direction of duplex has higher error rate than other"
+    ],
+    "escalation_path": "If LAG is active-active and traffic loss occurs, remove problematic member immediately without waiting for full diagnostics. Engage Network Engineering to review LAG hashing algorithm and member link quality. If >1 member exhibits simultaneous errors, escalate to vendor support (TAC case) for potential fabric or line card issue. Document incident and trend for capacity planning review.",
+    "estimated_resolution_time": "45-120 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-016",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "title": "High Memory Utilization on Cisco IOS-XR Route Processor",
+    "trigger_conditions": "Memory utilization on the active Route Processor exceeds 85% for more than 5 minutes. This typically indicates memory leaks in routing protocols (BGP, OSPF) or excessive routing table growth. If unaddressed, the RP will enter memory pressure mode and may crash.",
+    "diagnostic_steps": [
+      "SSH to router and run 'show memory summary' to confirm current memory state and identify peak usage",
+      "Execute 'show memory location all' to isolate which card/process is consuming memory",
+      "Run 'show processes memory sort descending' to identify top memory-consuming processes",
+      "Check BGP table size with 'show bgp summary | include 'Prefix Received'' and verify RIB size via 'show route summary'",
+      "Review syslog for memory pressure warnings: 'show logging | include 'Memory|memory' and check timestamps for correlation with alarm trigger"
+    ],
+    "common_causes": [
+      "BGP memory leak due to unstable peering or route flapping causing rapid updates",
+      "Excessive routing table growth from leaked routes or misconfigured redistribution",
+      "Memory leak in QoS or ACL processing engines with thousands of policies"
+    ],
+    "escalation_path": "Page on-call Network Architect if memory utilization does not drop below 75% within 30 minutes. If RP enters memory pressure (indicated by 'Memory Warning' syslog), immediately notify NOC Manager and begin graceful reload procedure to avoid unplanned failover.",
+    "estimated_resolution_time": "20-45 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-017",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "title": "High Memory Utilization on Juniper MX Routing Engine",
+    "trigger_conditions": "Routing Engine memory utilization exceeds 80% as reported by 'request shell' and 'top' command. At this threshold, Junos may begin killing processes or experiencing slowdowns in control plane operations. OSPF or ISIS SPF calculations may be delayed, causing forwarding plane impact.",
+    "diagnostic_steps": [
+      "Connect via SSH and execute 'request shell' to enter bash environment",
+      "Run 'top -b -n 1' to identify top memory-consuming processes and total heap usage",
+      "Check Junos daemons memory: 'show system processes extensive | match memory' to isolate rpd (routing protocol daemon) or other services",
+      "Verify SPF/convergence impact: 'show ospf statistics' or 'show isis statistics' for recent SPF runs and CPU time",
+      "Collect 'show log messages | last 100' and 'show system alarms' to identify any memory-related kernel warnings or daemon crashes"
+    ],
+    "common_causes": [
+      "Large IS-IS or OSPF topology causing excessive SPF calculations and memory allocation",
+      "Memory fragmentation from repeated daemon restarts or high churn in dynamic routing",
+      "Third-party software or JFlow/sFlow processing consuming unexpected memory on Routing Engine"
+    ],
+    "escalation_path": "If memory remains above 80% for 10 minutes, escalate to Juniper TAC with 'request support information' output and 'show system core-dumps' output. Contact On-Call Platform Manager if SPF calculation time exceeds 3 seconds or if routing instability is observed.",
+    "estimated_resolution_time": "25-50 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-018",
+    "alarm_type": "MEMORY_THRESHOLD",
+    "title": "Elevated Memory Usage on Network Function Virtualization (NFV) Control Plane VM",
+    "trigger_conditions": "Memory utilization on control plane VM exceeds 78% sustained for 3+ minutes, as measured by hypervisor metrics (vSphere/KVM). This indicates the packet processing or service function chain allocation is consuming more memory than provisioned, risking VM swapping or OOM killer termination of critical processes.",
+    "diagnostic_steps": [
+      "Query hypervisor metrics: 'virsh dominfo <vm_name>' and 'virsh dommemstat <vm_name>' to confirm actual memory committed vs. ballooned",
+      "SSH to VM and run 'free -h' and 'cat /proc/meminfo' to view OS-level memory breakdown including buffer cache and page cache",
+      "Execute 'ps aux --sort=-%mem | head -15' to identify top memory-consuming application processes",
+      "Check if memory fragmentation is present: 'cat /proc/buddyinfo' and review kernel dmesg for OOM killer events via 'dmesg | tail -50'",
+      "Validate packet buffer pool usage (if OpenStack/VNF): check neutron/nova logs for VM resource requests and verify actual vCPU vs. memory ratio against deployed flavor"
+    ],
+    "common_causes": [
+      "VNF application memory leak due to unfreed packet buffers or connection state table growth",
+      "Underprovisioned memory in VM flavor/template leading to swapping when traffic spikes",
+      "Memory leak in virtualization driver or DPDK packet processing with misconfigured hugepage allocation"
+    ],
+    "escalation_path": "If memory exceeds 85%, immediately snapshot VM state and alert VNF owner/vendor. If OOM killer events are logged, trigger VM reboot window via Change Control and notify Infrastructure team. Escalate to Cloud Platform team if hypervisor memory pressure is detected on the host.",
+    "estimated_resolution_time": "30-60 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-019",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "title": "Single PSU Failure in Redundant Power System",
+    "trigger_conditions": "Monitoring system detects loss of input voltage on one of two redundant power supplies while the device remains operational on the secondary PSU. SNMP trap indicates PSU module status change to failed or offline state.",
+    "diagnostic_steps": [
+      "SSH to device and run 'show chassis power' (Juniper) or 'admin show power' (IOS-XR) to verify PSU operational status and confirm single PSU failure",
+      "Check PSU LED indicators physically or via 'show environment power' to determine if fault is electrical input, internal component failure, or fan malfunction",
+      "Verify secondary PSU voltage output: 'show power-supplies' (Juniper) or 'show power' (Cisco) confirming 100% load on remaining PSU",
+      "Review system temperature trend with 'show chassis temperature' to ensure single PSU can maintain thermal envelope during peak load",
+      "Validate no secondary alarms generated: 'show alarms' (Juniper) or 'show system alarms' (Cisco) to identify cascading failures"
+    ],
+    "common_causes": [
+      "Blown internal PSU fuse or capacitor failure due to component degradation or age",
+      "AC input power loss to primary PSU circuit breaker or wall outlet",
+      "Failed PSU fan causing thermal shutdown or protection circuit activation"
+    ],
+    "escalation_path": "If device remains stable on secondary PSU: create low-priority maintenance ticket for PSU replacement during next maintenance window. If load approaching secondary PSU limits (>85%): immediately escalate to Field Service Engineer and schedule same-day replacement. If load shedding required, notify Service Delivery Manager.",
+    "estimated_resolution_time": "30-60 minutes for module swap by Field Service; no emergency escalation required if redundancy maintained",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-020",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "title": "Dual PSU Failure - Device Shutdown Imminent",
+    "trigger_conditions": "Both redundant power supplies report failed or offline status simultaneously, or primary PSU fails while secondary PSU is already out of service. System enters battery backup mode if UPS-connected, or begins controlled shutdown sequence if not.",
+    "diagnostic_steps": [
+      "Immediately verify device is still responding to ping and SSH; if unresponsive, assume power loss and prepare for graceful reboot recovery",
+      "Run 'show chassis alarms' (Juniper) or 'show system critical-alarms' (Cisco) to capture alarm snapshot and identify root cause (input loss vs component failure)",
+      "Check AC mains status: verify circuit breaker position, wall outlet functionality, and PDU status if applicable using 'show environment' commands",
+      "If device has UPS connection, verify battery status with 'show ups' or check UPS web interface for remaining backup time and automatic shutdown configuration",
+      "Review system logs with 'show log messages' (Juniper) or 'show logging' (Cisco) for sequence of PSU events and any preceding input power fluctuations or warnings"
+    ],
+    "common_causes": [
+      "Complete AC mains power loss to device rack or PDU due to breaker trip, utility outage, or cable disconnection",
+      "Simultaneous failure of both PSU internal components indicating manufacturing defect batch or power surge event",
+      "Misconfiguration or depletion of UPS battery capacity if secondary PSU failure occurred during UPS-only operation"
+    ],
+    "escalation_path": "IMMEDIATE escalation to NOC Manager and Customer Service. Contact Field Service Engineer for emergency dispatch. Notify customer of potential service interruption. If AC mains loss confirmed, contact facilities to restore power. If component failure, initiate emergency PSU replacement (ETA 1-2 hours). Activate customer communication plan for SLA impact notification.",
+    "estimated_resolution_time": "15-45 minutes for power restoration; 1-2 hours for component replacement depending on dispatch availability",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-021",
+    "alarm_type": "POWER_SUPPLY_FAIL",
+    "title": "PSU Degraded Output Voltage - Intermittent Shutdown Risk",
+    "trigger_conditions": "PSU reports operational status but output voltage measured below nominal range (typically <90% of rated voltage) or voltage ripple exceeds threshold. System may experience random resets or module restarts due to insufficient power delivery under load spikes.",
+    "diagnostic_steps": [
+      "Obtain current voltage readings using 'show power supply' (Juniper) or 'admin show environment power' (IOS-XR) to confirm out-of-specification output on target PSU",
+      "Monitor voltage stability over 5-minute interval using continuous 'show power-supplies' queries to identify oscillating voltage conditions indicating aging PSU",
+      "Cross-reference voltage degradation with system load trend using 'show system processes cpu' and 'show interfaces stats' to determine if issue manifests during peak utilization",
+      "Check PSU temperature telemetry with 'show environment temperature' - elevated temps above 70C indicate internal component stress reducing voltage regulation capability",
+      "Validate secondary PSU voltage output and confirm it remains within specification; confirm no load-sharing or output dropout on primary PSU using oscilloscope if available"
+    ],
+    "common_causes": [
+      "Aging electrolytic capacitors in PSU causing voltage droop under AC ripple filtering, typical after 5+ years of operation",
+      "Inadequate input AC line voltage or frequency outside utility specification causing reduced PSU efficiency and output regulation failure",
+      "Partial internal component failure (regulator IC, transformer, or rectifier diode) limiting available output current and causing voltage sag under peak load"
+    ],
+    "escalation_path": "If voltage remains >95% of nominal and system stable: schedule preventive PSU replacement within 5 business days. If voltage <90% or triggering system resets: expedite Field Service Engineer dispatch same-day for replacement. If affecting production traffic: activate load migration to peer device and notify Service Delivery; prioritize replacement as urgent. Document trend data for RMA analysis.",
+    "estimated_resolution_time": "4-8 hours with proactive scheduling; 1-2 hours if reactive emergency dispatch required",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-022",
+    "alarm_type": "FAN_FAILURE",
+    "title": "Single Fan Module Failure in Chassis - Cisco ASR9K",
+    "trigger_conditions": "SNMP trap received indicating entPhysicalContainedIn fan module has failed status. Device temperature trending upward but within operational limits. Redundant fan module operational, airflow maintained.",
+    "diagnostic_steps": [
+      "ssh to device and execute: admin show environment fan detail | include Fan",
+      "Verify fan RPM values: admin show environment fan | grep -E 'Fan|RPM|Status'",
+      "Check chassis temperature: admin show environment temperature | head -20",
+      "Confirm redundancy status: admin show redundancy summary | include card",
+      "Document serial number and location: admin show inventory chassis | grep -A5 Fan"
+    ],
+    "common_causes": [
+      "Fan motor bearing degradation or mechanical failure",
+      "Fan power supply module malfunction or loose connector",
+      "Dust accumulation blocking fan intake reducing airflow detection"
+    ],
+    "escalation_path": "If temperature exceeds 65°C or second fan fails, immediately notify Hardware Support L3 and open P1 case. If single fan failure persists beyond 4 hours, schedule maintenance window with vendor within 24 hours. Keep on-call engineering informed of thermal trending.",
+    "estimated_resolution_time": "2-4 hours for parts procurement and hot-swap replacement",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-023",
+    "alarm_type": "FAN_FAILURE",
+    "title": "Redundant Fan Tray Failure - Juniper MX960",
+    "trigger_conditions": "Both fan trays report degraded health; primary fan tray has lost 2+ fans, secondary fan tray operational at reduced capacity. System temperature rising at 2-3°C per minute. Air intake temperature reading >35°C.",
+    "diagnostic_steps": [
+      "request shell \"sudo sysctl hw.product.temperature_monitor\"",
+      "show chassis fan | match 'Fan|Speed|Status'",
+      "request shell \"sudo dmidecode --type=chassis | grep Status\"",
+      "show chassis environment | match -i 'temp\\|fan\\|cooling'",
+      "request shell \"ls -la /sys/class/hwmon/*/temp* | head -10\" to verify thermal sensor connectivity"
+    ],
+    "common_causes": [
+      "Multiple fan unit power failure in single tray due to PSU degradation",
+      "Fan controller module firmware crash or thermal management subsystem failure",
+      "Clogged air filter or intake obstruction reducing effective cooling"
+    ],
+    "escalation_path": "IMMEDIATE escalation to Juniper TAC with case priority P1 - thermal shutdown risk. Simultaneously contact NOC manager to prepare for potential emergency maintenance. If chassis temperature exceeds 50°C, initiate controlled shutdown procedure within 15 minutes. Notify all dependent services of potential outage window.",
+    "estimated_resolution_time": "30 minutes to 2 hours including thermal stabilization verification",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-024",
+    "alarm_type": "FAN_FAILURE",
+    "title": "Fan Speed Control Module Failure - Temperature Sensor Mismatch",
+    "trigger_conditions": "Fan speed controller reports inability to regulate RPM despite command execution. Temperature sensors show conflicting readings (variance >10°C between adjacent sensors). Fans running at maximum speed continuously, audible noise increase in data center.",
+    "diagnostic_steps": [
+      "telnet to device and run: show diagnostics environmental sensors | include Temp",
+      "Display current fan control mode: show environment fan | match 'Mode|Target|Actual'",
+      "Retrieve sensor calibration data: show diagnostics environmental calibration",
+      "Compare chassis inlet vs outlet thermal readings: show environment temperature | grep -E 'Inlet|Outlet|Ambient'",
+      "Extract fan controller logs: request system log show /var/log/fan_control.log | last 100"
+    ],
+    "common_causes": [
+      "Temperature sensor failed or disconnected from controller causing false high-temp reading",
+      "Fan speed controller PID loop algorithm malfunction leading to continuous maximum fan output",
+      "Thermal management firmware bug or corrupted config in persistent storage"
+    ],
+    "escalation_path": "Page on-call hardware engineer if manual fan speed reduction is unsuccessful. Engage vendor support for firmware validation and potential rollback. If fans cannot be reduced below critical noise levels, notify operations for planned maintenance scheduling within 48 hours. Document all temperature sensor readings for RMA evaluation.",
+    "estimated_resolution_time": "45 minutes to 3 hours depending on firmware intervention requirements",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-025",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "title": "High Optical Power Loss on 100G DWDM Channel",
+    "trigger_conditions": "Received Optical Power (ROP) drops below -20 dBm on 100G coherent transponder or DWDM mux/demux port. Alarm typically fires when signal degrades 3-5 dB from baseline within 5-minute window. Cross-check with corresponding TX power to rule out transmitter fault.",
+    "diagnostic_steps": [
+      "show interfaces <interface> statistics | include 'Optical Power|Signal to Noise'",
+      "show hw-module port <slot>/<port> ots | include 'RX Power|TX Power|OSNR'",
+      "measure optical spectrum analyzer readings at DWDM interface; compare against baseline OSA trace from NOC archive",
+      "check fiber continuity and attenuation using OTDR on suspect span; confirm no breaks or excessive loss",
+      "verify amplifier pump currents and gain settings: show hw-module port <slot> ots amp | include 'Pump Current|Gain|Noise Figure'"
+    ],
+    "common_causes": [
+      "Dirty or misaligned fiber connectors at transmit or receive end",
+      "Fiber cut, microbend, or macro-bend loss in cable run",
+      "DWDM amplifier (EDFA/RAMAN) pump laser degradation or failure"
+    ],
+    "escalation_path": "If ROP < -21 dBm and stable: Page on-call Optical Engineering. If signal unrecoverable after connector cleaning, escalate to Field Service for fiber testing and potential span replacement. Notify customer if SLA impact detected.",
+    "estimated_resolution_time": "30-90 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-026",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "title": "Coherent Receiver Q-factor Degradation Below Threshold",
+    "trigger_conditions": "Coherent transponder reports Q-factor drop below 10.5 dB (typically 2-3 dB degradation from baseline of 13+ dB) or BER shows rising trend toward 1e-5. Alarm may precede actual FAS (Frame Alignment Signal) loss by 10-20 minutes.",
+    "diagnostic_steps": [
+      "show interfaces <coherent_port> detail | grep -A 20 'Coherent Receiver'",
+      "display interface extensive <coherent_port> | match 'Q-factor|BER|Modulation Error Ratio'",
+      "retrieve real-time eye diagram via management interface: request monitoring optical-interface <interface> eye-diagram capture",
+      "validate laser frequency lock: show hw-module port <slot>/<port> laser-frequency-offset | grep 'offset\\|lock-status'",
+      "check DSP (Digital Signal Processor) temperature and clock sync: show hw-module port <slot>/<port> dsp-status | include 'Temperature|Clock Synchronization|PLL Lock'"
+    ],
+    "common_causes": [
+      "Polarization Mode Dispersion (PMD) accumulation on long-haul spans without PMD compensation",
+      "Laser frequency drift or thermal tuning misalignment between TX and RX",
+      "Excessive Chromatic Dispersion (CD) in uncompensated fiber segment"
+    ],
+    "escalation_path": "Alert Optical Design team immediately if Q-factor < 10 dB; this indicates imminent link failure. If DSP temperature > 85°C, initiate fan/cooling inspection. Escalate to Vendor TAC if laser frequency offset > ±5 GHz and unable to resync.",
+    "estimated_resolution_time": "20-60 minutes",
+    "severity_typical": "CRITICAL"
+  },
+  {
+    "runbook_id": "RB-027",
+    "alarm_type": "OPTICAL_DEGRADATION",
+    "title": "Gradual EDFA Amplifier Gain Flattening and ASE Noise Rise",
+    "trigger_conditions": "Optical amplifier output power decreases 2-4 dB over hours/days despite stable input power; simultaneous rise in Amplified Spontaneous Emission (ASE) noise floor detected. Gain flattening filter may also show signs of wavelength-dependent attenuation drift.",
+    "diagnostic_steps": [
+      "show hw-module port <amp_slot> ots amp detailed | grep -E 'Output Power|Gain|Noise Figure|Pump Current'",
+      "compare current OSA spectrum trace to historical baseline at same time-of-day; flag any gain tilt > 2 dB across C-band",
+      "verify pump laser power decay: measure pump wavelength output power with optical power meter at amp input; compare to commissioning baseline",
+      "check Raman amplifier settings if present: show hw-module port <slot> ots amp raman-config | include 'Pump Power|Bandwidth'",
+      "inspect gain flattening filter for contamination: show hw-module port <slot> fiber-optic-module inventory | include 'GFF|Filter Age'"
+    ],
+    "common_causes": [
+      "EDFA pump laser aging or diode current degradation after 5+ years operation",
+      "Gain flattening filter (GFF) contamination, delamination, or coating degradation",
+      "Inadequate amplifier cooling or thermal throttling reducing pump efficiency"
+    ],
+    "escalation_path": "If gain loss > 3 dB: initiate amplifier replacement RFQ with Vendor; typical lead time 2-4 weeks. Contact Vendor TAC for pump current trend analysis if available via remote monitoring. Schedule maintenance window to swap amplifier module before link margin depletes below 2 dB.",
+    "estimated_resolution_time": "4-6 hours (diagnosis); 3-7 days (replacement)",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-028",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "title": "Root Bridge Election Change - Unexpected Topology Shift",
+    "trigger_conditions": "Alarm fires when a new root bridge is elected in the spanning tree topology, indicating a primary switch failure or priority misconfiguration. This may cause temporary packet loss and MAC address table flushes across the network.",
+    "diagnostic_steps": [
+      "show spanning-tree root (IOS-XR) or show spanning-tree (Juniper) to identify current root bridge and priority",
+      "show spanning-tree vlan <vlan-id> detail to verify bridge priorities and compare against baseline configuration",
+      "show spanning-tree changes | include time-range to correlate timing with network events or device restarts",
+      "ping -c 5 <gateway-ip> and monitor packet loss to determine if forwarding plane is stable post-transition",
+      "check device logs: show log | grep -i spanning or request system log file messages | match spanning for errors during transition window"
+    ],
+    "common_causes": [
+      "Primary root bridge experienced power loss, reboot, or line card failure",
+      "Spanning tree priority misconfiguration allowing lower-priority switch to become root",
+      "Bridge priority values not properly configured per network design standards"
+    ],
+    "escalation_path": "If root bridge change was unplanned: page Network Engineering immediately. If stable after 5 minutes, document change and notify team lead within 15 minutes. Escalate to L3 if packet loss exceeds 0.5% or persists beyond 2 minutes.",
+    "estimated_resolution_time": "5-15 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-029",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "title": "Port Role Change - Interface Transitioned Between Blocked and Forwarding States",
+    "trigger_conditions": "Alarm triggers when an interface changes spanning tree role (root, designated, blocked) or state (forwarding, learning, blocking). This typically occurs due to topology changes, link failures, or port priority adjustments affecting data plane behavior.",
+    "diagnostic_steps": [
+      "show spanning-tree interface <interface> detail to view current port role, state, and path cost metrics",
+      "show spanning-tree interface <interface> statistics | include transitions to count state transitions and identify flapping",
+      "check link status: show interface <interface> to confirm physical link is stable with no errors or resets",
+      "show spanning-tree mst-instances or show spanning-tree vlans <vlan-id> to verify BPDU exchange and port priorities are correct",
+      "review interface configuration: show run interface <interface> and compare against change management records for recent modifications"
+    ],
+    "common_causes": [
+      "Interface flapping due to SFP transceiver issues, bad cable, or optical signal degradation",
+      "Port priority or path cost manually modified without topology verification",
+      "Spanning tree re-convergence following upstream link restoration or device recovery"
+    ],
+    "escalation_path": "Monitor interface stability for 2 minutes. If flapping continues, isolate interface and check physical layer (replace cable/transceiver). Contact L2 network team if role change affects production VLANs. Escalate to vendor support if interface remains in blocking state unexpectedly.",
+    "estimated_resolution_time": "10-25 minutes",
+    "severity_typical": "MAJOR"
+  },
+  {
+    "runbook_id": "RB-030",
+    "alarm_type": "SPANNING_TREE_CHANGE",
+    "title": "Topology Change Notification (TCN) Storm - Multiple Rapid STP Changes Detected",
+    "trigger_conditions": "Alarm indicates excessive topology change notifications within a short time window, suggesting network instability, loop formation attempts, or BPDU floods. Multiple ports changing state rapidly can indicate a looped topology or cascade of link failures.",
+    "diagnostic_steps": [
+      "show spanning-tree topology-change | include count,time to quantify TCN frequency and identify if threshold exceeded (>3 per minute is abnormal)",
+      "show spanning-tree bridge to review max age and forward delay timers; confirm they match standard deployment (default 20/15 seconds)",
+      "check for spanning-tree portfast misconfiguration: show spanning-tree interface | grep portfast to ensure it's only enabled on access ports",
+      "verify no network loops exist: trace-route all connected neighbors and check for multiple paths to same destination via show arp and MAC table",
+      "examine syslog: show log | grep -i topology or request system log | match topology to identify which interfaces triggered TCN and when"
+    ],
+    "common_causes": [
+      "Portfast enabled on trunk ports or ports connected to other switches, causing rapid STP state changes",
+      "Network loop created by misconfigured VLANs or accidental cross-connections in switch fabric",
+      "BPDUGuard or similar STP protection features blocking legitimate BPDUs during convergence events"
+    ],
+    "escalation_path": "Immediately verify network topology diagram matches physical deployment. If loop suspected, isolate problematic links. Page Network Engineering if TCN rate exceeds 10 per minute. Engage vendor TAC if issue persists after topology verification and loop elimination.",
+    "estimated_resolution_time": "20-45 minutes",
+    "severity_typical": "CRITICAL"
+  }
+]
